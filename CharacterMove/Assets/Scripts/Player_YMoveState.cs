@@ -17,13 +17,19 @@ public class Player_YMoveState : PlayerState
 
     public override void Update()
     {
-        Vector2 inputDir = player.moveInput.normalized;
 
         base.Update();
 
         if (player.moveInput.y == 0)
             stateMachin.ChangeState(player.idleState);
 
-        player.SetVelocity(rb.velocity.x, inputDir.y * player.moveSpeed);
+        Vector2 input = player.moveInput;
+
+        if (player.canMove)
+        {
+            player.canMove = false;
+            player.StartCoroutine(player.MovePlayer(0, input.y));
+        }
+
     }
 }

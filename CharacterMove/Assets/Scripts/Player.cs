@@ -14,6 +14,12 @@ public class Player : Entity
     [Header("움직임 설정")]
     public float moveSpeed;
     public Vector2 moveInput { get; private set; }
+    public float walkCount;
+    private float currentWalkCount;
+    public bool canMove;
+
+
+
 
     protected override void Awake()
     {
@@ -55,8 +61,13 @@ public class Player : Entity
 
         input.Player.Movement.performed += ctx =>
         {
-            var raw = ctx.ReadValue<Vector2>();
-            moveInput = Mathf.Abs(raw.x) > 0.1f ? new Vector2(raw.x, 0) : new Vector2(0, raw.y);
+            Vector2 raw = ctx.ReadValue<Vector2>();
+
+            // 대각선 입력일 경우 x 또는 y 중 절댓값이 더 큰 방향만 살림
+            if (Mathf.Abs(raw.x) > Mathf.Abs(raw.y))
+                moveInput = new Vector2(Mathf.Sign(raw.x), 0); // 수평 우선
+            else
+                moveInput = new Vector2(0, Mathf.Sign(raw.y)); // 수직 우선
         };
 
         input.Player.Movement.canceled += ctx => moveInput = Vector2.zero;
@@ -66,4 +77,25 @@ public class Player : Entity
     {
         input.Disable();
     }
+    public IEnumerator MovePlayer(float x, float y)
+    {
+        canMove = false; 
+
+        float elapsed = 0f;
+        float duration = 0.2f;
+
+
+        while (elapsed < duration)
+        {
+
+            SetTransform(x, y);
+
+            elapsed += Time.deltaTime;
+            yield return new WaitForSeconds(0.01f);
+        }
+
+        canMove = true;
+    }
+
 }
+

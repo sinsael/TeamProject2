@@ -41,17 +41,19 @@ public class Entity : MonoBehaviour
         stateMachin.UpdateActiveState();
     }
 
-    public void SetVelocity(float xVelocity, float yVelocity)
+    public void SetTransform(float x, float y)
     {
-        rb.velocity = new Vector2(xVelocity, yVelocity);
-        XHandleFlip(xVelocity);
+        Vector3 direction = new Vector3(x, y, 0);
+        transform.position += direction;
+
+        XHandleFlip(x);
     }
 
-    public void XHandleFlip(float xVelocity)
+    public void XHandleFlip(float x)
     {
-        if (xVelocity > 0 && facingRight == false)
+        if (x > 0 && facingRight == false)
             xFlip();
-        else if (xVelocity < 0 && facingRight)
+        else if (x < 0 && facingRight)
             xFlip();
     }
 

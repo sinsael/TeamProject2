@@ -17,14 +17,22 @@ public class Player_XMoveState : PlayerState
 
     public override void Update()
     {
-        Vector2 inputDir = player.moveInput.normalized;
-        
+
         base.Update();
 
 
         if (player.moveInput.x == 0)
             stateMachin.ChangeState(player.idleState);
 
-        player.SetVelocity(inputDir.x * player.moveSpeed, rb.velocity.y);
+        Vector2 input = player.moveInput;
+
+        if (player.canMove)
+        {
+            player.canMove = false;
+            player.StartCoroutine(player.MovePlayer(input.x, 0));
+        }
+
     }
+
+
 }
