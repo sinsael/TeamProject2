@@ -20,6 +20,10 @@ public class Entity : MonoBehaviour
     [SerializeField] private Transform XwallCheck;
     [SerializeField] private Transform YwallCheck;
     public bool wallDetected { get; private set; }
+    [Space]
+    [Header("움직임 설정")]
+    public float moveTime = 0.5f;
+    public bool IsMove { get; private set; }
 
     protected virtual void Awake()
     {
@@ -41,14 +45,35 @@ public class Entity : MonoBehaviour
         stateMachin.UpdateActiveState();
     }
 
-    public void SetTransform(float x, float y)
+    public virtual void SetTransform(float x, float y)
     {
-        Vector3 direction = new Vector3(x, y, 0);
-        transform.position += direction;
-
-        XHandleFlip(x);
+        if (IsMove) return; // 이동 중이면 무시
+        StartCoroutine(MoveBy(new Vector2(x, y)));
     }
 
+    public virtual IEnumerator MoveBy(Vector2 direction)
+    {
+        Vector3 start = transform.position;
+        Vector3 end = start + (Vector3)direction;
+
+        float elapsed = 0f;
+        IsMove = true;
+
+        // 이동 방향에 따라 좌우 반전 한번 처리 (필요하면 매 프레임으로 조정 가능)
+        XHandleFlip(direction.x);
+
+        while (elapsed < moveTime)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / moveTime);
+            transform.position = Vector3.Lerp(start, end, t);
+            yield return null;
+        }
+
+        transform.position = end;
+
+        IsMove = false;
+    }
     public void XHandleFlip(float x)
     {
         if (x > 0 && facingRight == false)

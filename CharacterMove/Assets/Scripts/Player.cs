@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 
 public class Player : Entity
@@ -10,13 +11,7 @@ public class Player : Entity
     public Player_IdleState idleState { get; private set; }
     public Player_XMoveState xMoveState { get; private set; }
     public Player_YMoveState yMoveState { get; private set; }
-
-    [Header("움직임 설정")]
-    public float moveSpeed;
     public Vector2 moveInput { get; private set; }
-    public float walkCount;
-    private float currentWalkCount;
-    public bool canMove;
 
 
 
@@ -77,25 +72,15 @@ public class Player : Entity
     {
         input.Disable();
     }
-    public IEnumerator MovePlayer(float x, float y)
+
+    public override void SetTransform(float x, float y)
     {
-        canMove = false; 
-
-        float elapsed = 0f;
-        float duration = 0.2f;
-
-
-        while (elapsed < duration)
-        {
-
-            SetTransform(x, y);
-
-            elapsed += Time.deltaTime;
-            yield return new WaitForSeconds(0.01f);
-        }
-
-        canMove = true;
+        base.SetTransform(x, y);
     }
+
+
+
+
 
 }
 

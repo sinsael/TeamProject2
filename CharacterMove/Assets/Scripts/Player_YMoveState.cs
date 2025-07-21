@@ -23,12 +23,11 @@ public class Player_YMoveState : PlayerState
         if (player.moveInput.y == 0)
             stateMachin.ChangeState(player.idleState);
 
-        Vector2 input = player.moveInput;
 
-        if (player.canMove)
+
+        if (!player.IsMove)
         {
-            player.canMove = false;
-            player.StartCoroutine(player.MovePlayer(0, input.y));
+            player.SetTransform(0, Mathf.Sign(player.moveInput.y));
         }
 
     }

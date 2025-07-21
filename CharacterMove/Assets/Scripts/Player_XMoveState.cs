@@ -24,12 +24,12 @@ public class Player_XMoveState : PlayerState
         if (player.moveInput.x == 0)
             stateMachin.ChangeState(player.idleState);
 
-        Vector2 input = player.moveInput;
 
-        if (player.canMove)
+        if ( !player.IsMove)
         {
-            player.canMove = false;
-            player.StartCoroutine(player.MovePlayer(input.x, 0));
+           
+            player.SetTransform(Mathf.Sign(player.moveInput.x), 0);
+
         }
 
     }
