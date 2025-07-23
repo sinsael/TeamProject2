@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1316
     height: 973
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Project
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 115
+  controlID: 72
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -1424,7 +1424,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -1432,15 +1432,15 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 83
   m_LastFolders:
-  - Assets/Scripts
+  - Assets
   m_LastFoldersGridSize: 83
   m_LastProjectPath: D:\git\TeamProject2\CharacterMove
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: c4640000
-    m_LastClickedID: 25796
+    m_SelectedIDs: ac640000
+    m_LastClickedID: 25772
     m_ExpandedIDs: 00000000ac640000
     m_RenameOverlay:
       m_UserAcceptedRename: 0

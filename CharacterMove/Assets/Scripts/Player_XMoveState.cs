@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player_XMoveState : PlayerState
 {
+
     public Player_XMoveState(Player player, StateMachine stateMachine, string animBoolName) : base(player, stateMachine, animBoolName)
     {
     }
@@ -17,19 +18,17 @@ public class Player_XMoveState : PlayerState
 
     public override void Update()
     {
-
         base.Update();
 
-
         if (player.moveInput.x == 0)
-            stateMachin.ChangeState(player.idleState);
-
-
-        if ( !player.IsMove)
         {
-           
-            player.SetTransform(Mathf.Sign(player.moveInput.x), 0);
+            stateMachin.ChangeState(player.idleState);
+            return;
+        }
 
+        if (!player.IsMove)
+        {
+            player.MoveBy(Mathf.Sign(player.moveInput.x), 0);
         }
 
     }

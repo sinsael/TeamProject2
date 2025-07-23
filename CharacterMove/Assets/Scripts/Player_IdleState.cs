@@ -20,9 +20,9 @@ public class Player_IdleState : PlayerState
     {
         base.Update();
 
-        if (player.moveInput.x != 0)
+        if (player.moveInput.x != 0 && !player.wallDetected)
             stateMachin.ChangeState(player.xMoveState);
-        else if (player.moveInput.y != 0)
+        else if (player.moveInput.y != 0 && !player.wallDetected)
             stateMachin.ChangeState(player.yMoveState);
     }
 }

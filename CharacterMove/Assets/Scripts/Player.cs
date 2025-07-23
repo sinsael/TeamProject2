@@ -16,6 +16,7 @@ public class Player : Entity
 
 
 
+
     protected override void Awake()
     {
         base.Awake();
@@ -41,6 +42,8 @@ public class Player : Entity
             return moveInput.x != 0 ? Mathf.Sign(moveInput.x) : 0f;
         }
     }
+
+
 
     protected override float YGizmoDirection
     {
@@ -73,9 +76,12 @@ public class Player : Entity
         input.Disable();
     }
 
-    public override void SetTransform(float x, float y)
+    public override void MoveBy(float x, float y)
     {
-        base.SetTransform(x, y);
+        if (!wallDetected)
+        {
+            base.MoveBy(x, y);
+        }
     }
 
 

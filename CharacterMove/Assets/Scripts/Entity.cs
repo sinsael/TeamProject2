@@ -1,5 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
+using Unity.Burst.Intrinsics;
+using UnityEditor.Experimental.GraphView;
+using UnityEditor.ProjectWindowCallback;
 using UnityEditor.Tilemaps;
 using UnityEngine;
 
@@ -13,6 +17,7 @@ public class Entity : MonoBehaviour
     private bool facingUp = true;
     public int facingDir { get; private set; } = 1;
 
+
     [Header("충돌 설정")]
     [SerializeField] protected LayerMask WhatIsWall;
     [SerializeField] private float XwallCheckDistance;
@@ -22,6 +27,7 @@ public class Entity : MonoBehaviour
     public bool wallDetected { get; private set; }
     [Space]
     [Header("움직임 설정")]
+    [Range(0, 1)]
     public float moveTime = 0.5f;
     public bool IsMove { get; private set; }
 
@@ -45,35 +51,30 @@ public class Entity : MonoBehaviour
         stateMachin.UpdateActiveState();
     }
 
-    public virtual void SetTransform(float x, float y)
+    public virtual void MoveBy(float x, float y)
     {
         if (IsMove) return; // 이동 중이면 무시
-        StartCoroutine(MoveBy(new Vector2(x, y)));
+        Vector2 direction = new Vector2(x, y);
+
+        if (direction == Vector2.zero) return;
+
+        SetTransformDo(direction);
     }
 
-    public virtual IEnumerator MoveBy(Vector2 direction)
+    public virtual void SetTransformDo(Vector2 direction)
     {
-        Vector3 start = transform.position;
-        Vector3 end = start + (Vector3)direction;
-
-        float elapsed = 0f;
         IsMove = true;
 
-        // 이동 방향에 따라 좌우 반전 한번 처리 (필요하면 매 프레임으로 조정 가능)
         XHandleFlip(direction.x);
 
-        while (elapsed < moveTime)
+        transform.DOMove(transform.position + (Vector3)direction, moveTime)
+        .SetEase(Ease.Linear)
+        .OnComplete(() =>
         {
-            elapsed += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsed / moveTime);
-            transform.position = Vector3.Lerp(start, end, t);
-            yield return null;
-        }
-
-        transform.position = end;
-
-        IsMove = false;
+            IsMove = false;
+        });
     }
+
     public void XHandleFlip(float x)
     {
         if (x > 0 && facingRight == false)
@@ -84,9 +85,18 @@ public class Entity : MonoBehaviour
 
     public void xFlip()
     {
-        transform.Rotate(0, 180, 0);
         facingRight = !facingRight;
-        facingDir = facingDir * -1;
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
+    }
+
+    public void ResetXFlip()
+    {
+        if (!facingRight)
+        {
+            xFlip(); // 왼쪽이면 오른쪽으로 되돌림
+        }
     }
 
     private void HandleCollisionDetecion()
@@ -95,9 +105,9 @@ public class Entity : MonoBehaviour
         bool Ywall = Physics2D.Raycast(YwallCheck.position, Vector2.up * YGizmoDirection, YwallCheckDistance, WhatIsWall);
 
         if (xWall || Ywall)
-        {
-            Debug.Log("벽 충돌 감지");
-        }
+            wallDetected = true;
+        else
+            wallDetected = false;
     }
 
     protected virtual void OnDrawGizmos()
