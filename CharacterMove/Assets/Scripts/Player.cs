@@ -43,13 +43,11 @@ public class Player : Entity
         }
     }
 
-
-
     protected override float YGizmoDirection
     {
         get
         {
-            return moveInput.y != 0 ? Mathf.Sign(-moveInput.y) : 0f;
+            return moveInput.y != 0 ? Mathf.Sign(moveInput.y) : 0f;
         }
     }
 
