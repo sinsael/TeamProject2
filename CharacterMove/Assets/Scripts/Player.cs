@@ -17,8 +17,6 @@ public class NPCDetected
 
     public void UpdateNpcDetected(float xdir, float ydir)
     {
-        _npcDetected = false;
-
         _npcDetected |= Physics2D.Raycast(XNpcCheck.position, Vector2.right * xdir, WhatIsNpc);
         _npcDetected |= Physics2D.Raycast(YNpcCheck.position, Vector2.up * ydir, WhatIsNpc);
     }
