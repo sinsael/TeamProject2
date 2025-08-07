@@ -10,7 +10,7 @@ public abstract class PlayerState : EntityState
     {
         this.player = player;
 
-        //anim = player.anim;
+        anim = player.anim;
         rb = player.rb;
         playerInput = player.input;
     }

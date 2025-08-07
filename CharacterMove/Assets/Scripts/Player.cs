@@ -1,7 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
+
+
+
+[Serializable]
+public class NPCDetected
+{
+    public LayerMask WhatIsNpc;
+    public float XNpcCheckDistance;
+    public float YNpcCheckDistance;
+    public Transform XNpcCheck;
+    public Transform YNpcCheck;
+    [SerializeField] bool _npcDetected;
+    public bool npcDetected => _npcDetected;
+
+    public void UpdateNpcDetected(float xdir, float ydir)
+    {
+        _npcDetected = false;
+
+        _npcDetected |= Physics2D.Raycast(XNpcCheck.position, Vector2.right * xdir, WhatIsNpc);
+        _npcDetected |= Physics2D.Raycast(YNpcCheck.position, Vector2.up * ydir, WhatIsNpc);
+    }
+
+}
 
 
 public class Player : Entity
@@ -15,6 +37,9 @@ public class Player : Entity
 
 
 
+    [Header("NPC 감지")]
+    public NPCDetected npc;
+
 
 
     protected override void Awake()
@@ -23,9 +48,9 @@ public class Player : Entity
 
         input = new PlayerInputSet();
 
-        idleState = new Player_IdleState(this, stateMachin, "idle");
-        xMoveState = new Player_XMoveState(this, stateMachin, "xMove");
-        yMoveState = new Player_YMoveState(this, stateMachin, "yMove");
+        idleState = new Player_IdleState(this, stateMachin, "Idle");
+        xMoveState = new Player_XMoveState(this, stateMachin, "XMove");
+        yMoveState = new Player_YMoveState(this, stateMachin, "YMove");
 
     }
 
@@ -33,6 +58,14 @@ public class Player : Entity
     {
         base.Start();
         stateMachin.Initialize(idleState);
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        npc.UpdateNpcDetected(moveInput.x, moveInput.y);
+        yFlip(moveInput.y, moveInput.y);
     }
 
     protected override float XGizmoDirection
@@ -49,6 +82,17 @@ public class Player : Entity
         {
             return moveInput.y != 0 ? Mathf.Sign(moveInput.y) : 0f;
         }
+    }
+
+    protected override void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(npc.XNpcCheck.position, npc.XNpcCheck.position + new Vector3(facingRight ? npc.XNpcCheckDistance : -npc.XNpcCheckDistance, 0));
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(npc.YNpcCheck.position, npc.YNpcCheck.position + new Vector3(0, facingUp ? npc.YNpcCheckDistance : -npc.YNpcCheckDistance));
     }
 
     void OnEnable()
@@ -76,10 +120,9 @@ public class Player : Entity
 
     public override void MoveBy(float x, float y)
     {
-        if (!wallDetected)
-        {
-            base.MoveBy(x, y);
-        }
+        if (Wall.wallDetected) return;
+
+        base.MoveBy(x, y);
     }
 
 

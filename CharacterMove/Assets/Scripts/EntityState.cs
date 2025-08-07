@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class EntityState
@@ -9,7 +6,7 @@ public abstract class EntityState
     protected StateMachine stateMachin;
     protected string animBoolName;
 
-    // protected Animator anim;
+    protected Animator anim;
     protected Rigidbody2D rb;
 
 
@@ -21,7 +18,7 @@ public abstract class EntityState
 
     public virtual void Enter()
     {
-       // anim.SetBool(animBoolName, true);
+       anim.SetBool(animBoolName, true);
     }
 
     public virtual void Update()
@@ -31,7 +28,7 @@ public abstract class EntityState
 
     public virtual void Exit()
     {
-       // anim.SetBool(animBoolName, false);
+       anim.SetBool(animBoolName, false);
     }
 
 }

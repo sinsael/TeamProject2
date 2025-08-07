@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player_YMoveState : PlayerState
 {
-
     public Player_YMoveState(Player player, StateMachine stateMachine, string animBoolName) : base(player, stateMachine, animBoolName)
     {
+
     }
 
     public override void Enter()
@@ -15,13 +13,18 @@ public class Player_YMoveState : PlayerState
         Debug.Log("y움직임");
 
         player.ResetXFlip();
+
+
     }
 
     public override void Update()
     {
         base.Update();
 
-        if (player.moveInput.y == 0 || player.wallDetected)
+        if (player.moveInput.y != 0)
+            anim.SetFloat("YVelocity", player.moveInput.y);
+
+        if (!player.IsMove && player.moveInput.y == 0 || player.Wall.wallDetected)
         {
             stateMachin.ChangeState(player.idleState);
             return;

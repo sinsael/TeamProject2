@@ -1,31 +1,54 @@
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
-using Unity.Burst.Intrinsics;
-using UnityEditor.Experimental.GraphView;
-using UnityEditor.ProjectWindowCallback;
-using UnityEditor.Tilemaps;
+using System;
 using UnityEngine;
+
+[Serializable]
+public class WallDetected
+{
+    public LayerMask[] WhatIsWall;   // 배열 대신 단일 LayerMask 사용 권장
+    public float XwallCheckDistance;
+    public float YwallCheckDistance;
+    public Transform XwallCheck;
+    public Transform YwallCheck;
+    [SerializeField] private bool _wallDetected;
+    public bool wallDetected => _wallDetected;
+
+    public void UpdateWallDetected(float xDir, float yDir)
+    {
+        bool xWall = false;
+        bool yWall = false;
+
+        foreach (var wallMask in WhatIsWall)
+        {
+
+            int layerMask = wallMask.value;
+
+            xWall |= Physics2D.Raycast(XwallCheck.position, Vector2.right * xDir, XwallCheckDistance, layerMask);
+            yWall |= Physics2D.Raycast(YwallCheck.position, Vector2.up * yDir, YwallCheckDistance, layerMask);
+
+            if (xWall || yWall) break;
+        }
+
+        _wallDetected = xWall || yWall;
+
+    }
+}
+
 
 public class Entity : MonoBehaviour
 {
-    // public Animator anim { get; private set; }
+    public Animator anim { get; private set; }
     public Rigidbody2D rb { get; private set; }
     protected StateMachine stateMachin;
 
-    private bool facingRight = true;
-    private bool facingUp = true;
+    [Header("벽 감지")]
+    public WallDetected Wall;
+
+    public bool facingRight { get; set; } = true;
+    public bool facingUp { get; set; } = true;
+
     public int facingDir { get; private set; } = 1;
 
-
-    [Header("충돌 설정")]
-    [SerializeField] protected LayerMask WhatIsWall;
-    [SerializeField] private float XwallCheckDistance;
-    [SerializeField] private float YwallCheckDistance;
-    [SerializeField] private Transform XwallCheck;
-    [SerializeField] private Transform YwallCheck;
-    public bool wallDetected { get; private set; }
-    [Space]
     [Header("움직임 설정")]
     [Range(0, 1)]
     public float moveTime = 0.5f;
@@ -33,7 +56,7 @@ public class Entity : MonoBehaviour
 
     protected virtual void Awake()
     {
-        //  anim = GetComponentInChildren<Animator>();
+        anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
 
         stateMachin = new StateMachine();
@@ -47,7 +70,7 @@ public class Entity : MonoBehaviour
 
     protected virtual void Update()
     {
-        HandleCollisionDetecion();
+        Wall.UpdateWallDetected(XGizmoDirection, YGizmoDirection);
         stateMachin.UpdateActiveState();
     }
 
@@ -91,6 +114,12 @@ public class Entity : MonoBehaviour
         transform.localScale = scale;
     }
 
+    protected virtual void yFlip(float a, float b)
+    {
+        if (a > 0) facingUp = true;
+        else if (b < 0) facingUp = false;
+    }
+
     public void ResetXFlip()
     {
         if (!facingRight)
@@ -99,28 +128,12 @@ public class Entity : MonoBehaviour
         }
     }
 
-    private void HandleCollisionDetecion()
-    {
-        bool xWall = Physics2D.Raycast(XwallCheck.position, Vector2.right * XGizmoDirection, XwallCheckDistance, WhatIsWall);
-        bool Ywall = Physics2D.Raycast(YwallCheck.position, Vector2.up * YGizmoDirection, YwallCheckDistance, WhatIsWall);
-
-        if (xWall || Ywall)
-            wallDetected = true;
-        else
-            wallDetected = false;
-    }
-
     protected virtual void OnDrawGizmos()
     {
         if (XGizmoDirection != 0)
-        {
-            Gizmos.DrawLine(XwallCheck.position, XwallCheck.position + new Vector3(XwallCheckDistance * XGizmoDirection, 0));
-        }
+            Gizmos.DrawLine(Wall.XwallCheck.position, Wall.XwallCheck.position + new Vector3(Wall.XwallCheckDistance * XGizmoDirection, 0));
         if (YGizmoDirection != 0)
-        {
-            Gizmos.DrawLine(YwallCheck.position,
-                YwallCheck.position + new Vector3(0, YwallCheckDistance * YGizmoDirection));
-        }
+            Gizmos.DrawLine(Wall.YwallCheck.position, Wall.YwallCheck.position + new Vector3(0, Wall.YwallCheckDistance * YGizmoDirection));
     }
     protected virtual float XGizmoDirection
     {

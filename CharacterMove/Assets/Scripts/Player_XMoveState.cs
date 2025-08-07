@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player_XMoveState : PlayerState
@@ -20,7 +18,7 @@ public class Player_XMoveState : PlayerState
     {
         base.Update();
 
-        if (player.moveInput.x == 0)
+        if (player.moveInput.x == 0 && !player.IsMove || player.Wall.wallDetected)
         {
             stateMachin.ChangeState(player.idleState);
             return;
