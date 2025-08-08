@@ -6,7 +6,6 @@ public class Player_XMoveState : PlayerState
     public Player_XMoveState(Player player, StateMachine stateMachine, string animBoolName) : base(player, stateMachine, animBoolName)
     {
     }
-
     public override void Enter()
     {
         base.Enter();
@@ -14,22 +13,30 @@ public class Player_XMoveState : PlayerState
         Debug.Log("x움직임");
     }
 
+
+
     public override void Update()
     {
         base.Update();
 
-        if (player.moveInput.x == 0 && !player.IsMove || player.Wall.wallDetected)
+        if (player.inputSystem.moveInput.x == 0)
         {
-            stateMachin.ChangeState(player.idleState);
+            stateMachine.ChangeState(player.idleState);
             return;
         }
 
+        
         if (!player.IsMove)
         {
-            player.MoveBy(Mathf.Sign(player.moveInput.x), 0);
+           if (player.Wall.wallDetected)
+            {
+                stateMachine.ChangeState(player.idleState);
+                return;
+            }
+
+            player.MoveBy(Mathf.Sign(player.inputSystem.moveInput.x), 0);
         }
 
     }
-
 
 }

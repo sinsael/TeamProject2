@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class EntityState
 {
     
-    protected StateMachine stateMachin;
+    protected StateMachine stateMachine;
     protected string animBoolName;
 
     protected Animator anim;
@@ -12,7 +12,7 @@ public abstract class EntityState
 
     public EntityState(StateMachine stateMachin, string animBoolName)
     {
-        this.stateMachin = stateMachin;
+        this.stateMachine = stateMachin;
         this.animBoolName = animBoolName;
     }
 

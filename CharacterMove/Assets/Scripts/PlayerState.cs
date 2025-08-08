@@ -12,7 +12,7 @@ public abstract class PlayerState : EntityState
 
         anim = player.anim;
         rb = player.rb;
-        playerInput = player.input;
+        playerInput = player.inputSystem.input;
     }
 }
     

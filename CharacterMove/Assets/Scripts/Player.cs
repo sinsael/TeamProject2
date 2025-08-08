@@ -1,57 +1,100 @@
 using System;
-using Unity.VisualScripting;
+using System.Collections.Generic;
+using System.IO.Pipes;
+using System.Linq;
+using System.Xml.Linq;
 using UnityEngine;
 
 
 
 [Serializable]
-public class NPCDetected
+public class ObjectDetected
 {
-    public LayerMask WhatIsNpc;
-    public float XNpcCheckDistance;
-    public float YNpcCheckDistance;
-    public Transform XNpcCheck;
-    public Transform YNpcCheck;
-    [SerializeField] bool _npcDetected;
-    public bool npcDetected => _npcDetected;
-
-    public void UpdateNpcDetected(float xdir, float ydir)
+    public LayerMask WhatIsObj;
+    public float XObjCheckDistance;
+    public float YObjCheckDistance;
+    public Transform XObjCheck;
+    public Transform YObjCheck;
+    public Collider2D detected;
+    public Collider2D UpdateObjDetected(float xdir, float ydir)
     {
-        _npcDetected |= Physics2D.Raycast(XNpcCheck.position, Vector2.right * xdir, WhatIsNpc);
-        _npcDetected |= Physics2D.Raycast(YNpcCheck.position, Vector2.up * ydir, WhatIsNpc);
+        RaycastHit2D xHit = new RaycastHit2D();
+        RaycastHit2D yHit = new RaycastHit2D();
+
+        bool xHitDetected = false;
+        bool yHitDetected = false;
+
+        if (xdir != 0)
+        {
+            xHit = Physics2D.Raycast(XObjCheck.position, Vector2.right * Mathf.Sign(xdir), XObjCheckDistance, WhatIsObj);
+            xHitDetected = xHit.collider != null;
+        }
+
+        if (ydir != 0)
+        {
+            yHit = Physics2D.Raycast(YObjCheck.position, Vector2.up * Mathf.Sign(ydir), YObjCheckDistance, WhatIsObj);
+            yHitDetected = yHit.collider != null;
+        }
+
+        if (xdir == 0)
+        {
+            xHit = Physics2D.Raycast(XObjCheck.position, Vector2.right, XObjCheckDistance, WhatIsObj);
+            xHitDetected = xHit.collider != null;
+        }
+
+        if (ydir == 0)
+        {
+            yHit = Physics2D.Raycast(YObjCheck.position, Vector2.up, YObjCheckDistance, WhatIsObj);
+            yHitDetected = yHit.collider != null;
+        }
+
+        if (xHitDetected && yHitDetected)
+        {
+            detected = xHit.distance <= yHit.distance ? xHit.collider : yHit.collider;
+        }
+        else if (xHitDetected)
+        {
+            detected = xHit.collider;
+        }
+        else if (yHitDetected)
+        {
+            detected = yHit.collider;
+        }
+        else
+        {
+            detected = null;
+        }
+
+        return detected;
     }
+
 
 }
 
 
 public class Player : Entity
 {
-    public PlayerInputSet input { get; private set; }
+    public PlayerInputHandler inputSystem { get; private set; }
 
     public Player_IdleState idleState { get; private set; }
     public Player_XMoveState xMoveState { get; private set; }
     public Player_YMoveState yMoveState { get; private set; }
-    public Vector2 moveInput { get; private set; }
 
 
 
     [Header("NPC 감지")]
-    public NPCDetected npc;
-
-
+    public ObjectDetected obj;
 
     protected override void Awake()
     {
         base.Awake();
 
-        input = new PlayerInputSet();
+        inputSystem = GetComponent<PlayerInputHandler>();
 
         idleState = new Player_IdleState(this, stateMachin, "Idle");
         xMoveState = new Player_XMoveState(this, stateMachin, "XMove");
         yMoveState = new Player_YMoveState(this, stateMachin, "YMove");
-
     }
-
     protected override void Start()
     {
         base.Start();
@@ -62,15 +105,33 @@ public class Player : Entity
     {
         base.Update();
 
-        npc.UpdateNpcDetected(moveInput.x, moveInput.y);
-        yFlip(moveInput.y, moveInput.y);
+
+        if (inputSystem.moveInput != Vector2.zero)
+        {
+            GizmosDirection();
+            yFlip(inputSystem.moveInput.y, inputSystem.moveInput.y);
+            XHandleFlip(inputSystem.moveInput.x);
+            return;
+        }
+        Intertable();
+    }
+
+    void Intertable()
+    {
+        if (inputSystem.InteractableInput())
+        {
+            Debug.Log(obj.UpdateObjDetected(inputSystem.moveInput.x, inputSystem.moveInput.y));
+        }
     }
 
     protected override float XGizmoDirection
     {
         get
         {
-            return moveInput.x != 0 ? Mathf.Sign(moveInput.x) : 0f;
+            if (inputSystem == null || inputSystem.moveInput == null)
+                return 0f;
+
+            return inputSystem.moveInput.x != 0 ? Mathf.Sign(inputSystem.moveInput.x) : 0f;
         }
     }
 
@@ -78,42 +139,27 @@ public class Player : Entity
     {
         get
         {
-            return moveInput.y != 0 ? Mathf.Sign(moveInput.y) : 0f;
+            if (inputSystem == null || inputSystem.moveInput == null)
+                return 0f;
+
+            return inputSystem.moveInput.y != 0 ? Mathf.Sign(inputSystem.moveInput.y) : 0f;
         }
     }
-
     protected override void OnDrawGizmos()
     {
         base.OnDrawGizmos();
 
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(npc.XNpcCheck.position, npc.XNpcCheck.position + new Vector3(facingRight ? npc.XNpcCheckDistance : -npc.XNpcCheckDistance, 0));
-
-        Gizmos.color = Color.blue;
-        Gizmos.DrawLine(npc.YNpcCheck.position, npc.YNpcCheck.position + new Vector3(0, facingUp ? npc.YNpcCheckDistance : -npc.YNpcCheckDistance));
-    }
-
-    void OnEnable()
-    {
-        input.Enable();
-
-        input.Player.Movement.performed += ctx =>
+        if (isFacingVertical)
         {
-            Vector2 raw = ctx.ReadValue<Vector2>();
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(obj.YObjCheck.position, obj.YObjCheck.position + new Vector3(0, facingUp ? obj.YObjCheckDistance : -obj.YObjCheckDistance));
+        }
+        else
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(obj.XObjCheck.position, obj.XObjCheck.position + new Vector3(facingRight ? obj.XObjCheckDistance : -obj.XObjCheckDistance, 0));
+        }
 
-            // 대각선 입력일 경우 x 또는 y 중 절댓값이 더 큰 방향만 살림
-            if (Mathf.Abs(raw.x) > Mathf.Abs(raw.y))
-                moveInput = new Vector2(Mathf.Sign(raw.x), 0); // 수평 우선
-            else
-                moveInput = new Vector2(0, Mathf.Sign(raw.y)); // 수직 우선
-        };
-
-        input.Player.Movement.canceled += ctx => moveInput = Vector2.zero;
-    }
-
-    void OnDisable()
-    {
-        input.Disable();
     }
 
     public override void MoveBy(float x, float y)
@@ -122,10 +168,5 @@ public class Player : Entity
 
         base.MoveBy(x, y);
     }
-
-
-
-
-
 }
 

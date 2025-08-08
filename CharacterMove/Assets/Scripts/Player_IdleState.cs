@@ -21,17 +21,20 @@ public class Player_IdleState : PlayerState
 
 
 
-        if (player.moveInput.y != 0)
-            LastYinput = player.moveInput.y;
-
-        if (player.moveInput.x != 0)
+        if (player.inputSystem.moveInput.x != 0)
+        {
             LastYinput = 0;
+        }
+        else if (player.inputSystem.moveInput.y != 0)
+        {
+            LastYinput = player.inputSystem.moveInput.y;
+        }
 
         anim.SetFloat("YVelocity", LastYinput);
 
-        if (player.moveInput.x != 0 && !player.Wall.wallDetected)
-            stateMachin.ChangeState(player.xMoveState);
-        else if (player.moveInput.y != 0 && !player.Wall.wallDetected)
-            stateMachin.ChangeState(player.yMoveState);
+        if (player.inputSystem.moveInput.x != 0 && !player.Wall.wallDetected)
+            stateMachine.ChangeState(player.xMoveState);
+        else if (player.inputSystem.moveInput.y != 0 && !player.Wall.wallDetected)
+            stateMachine.ChangeState(player.yMoveState);
     }
 }

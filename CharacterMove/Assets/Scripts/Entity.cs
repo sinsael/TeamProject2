@@ -5,7 +5,7 @@ using UnityEngine;
 [Serializable]
 public class WallDetected
 {
-    public LayerMask[] WhatIsWall;   // 배열 대신 단일 LayerMask 사용 권장
+    public LayerMask WhatIsWall;
     public float XwallCheckDistance;
     public float YwallCheckDistance;
     public Transform XwallCheck;
@@ -14,23 +14,11 @@ public class WallDetected
     public bool wallDetected => _wallDetected;
 
     public void UpdateWallDetected(float xDir, float yDir)
-    {
-        bool xWall = false;
-        bool yWall = false;
-
-        foreach (var wallMask in WhatIsWall)
-        {
-
-            int layerMask = wallMask.value;
-
-            xWall |= Physics2D.Raycast(XwallCheck.position, Vector2.right * xDir, XwallCheckDistance, layerMask);
-            yWall |= Physics2D.Raycast(YwallCheck.position, Vector2.up * yDir, YwallCheckDistance, layerMask);
-
-            if (xWall || yWall) break;
-        }
+    {   
+        bool xWall = Physics2D.Raycast(XwallCheck.position, Vector2.right * xDir, XwallCheckDistance, WhatIsWall);
+        bool yWall = Physics2D.Raycast(YwallCheck.position, Vector2.up * yDir, YwallCheckDistance, WhatIsWall);
 
         _wallDetected = xWall || yWall;
-
     }
 }
 
@@ -46,6 +34,8 @@ public class Entity : MonoBehaviour
 
     public bool facingRight { get; set; } = true;
     public bool facingUp { get; set; } = true;
+    public bool isFacingVertical { get; private set; }
+
 
     public int facingDir { get; private set; } = 1;
 
@@ -120,19 +110,21 @@ public class Entity : MonoBehaviour
         else if (b < 0) facingUp = false;
     }
 
-    public void ResetXFlip()
+    protected virtual void GizmosDirection()
     {
-        if (!facingRight)
-        {
-            xFlip(); // 왼쪽이면 오른쪽으로 되돌림
-        }
+        if (XGizmoDirection != 0)
+            isFacingVertical = false;
+        else if (YGizmoDirection != 0)
+            isFacingVertical = true;
     }
 
     protected virtual void OnDrawGizmos()
     {
-        if (XGizmoDirection != 0)
+
+        if (XGizmoDirection != 0 && !isFacingVertical)
             Gizmos.DrawLine(Wall.XwallCheck.position, Wall.XwallCheck.position + new Vector3(Wall.XwallCheckDistance * XGizmoDirection, 0));
-        if (YGizmoDirection != 0)
+        
+        if (YGizmoDirection != 0 && isFacingVertical)
             Gizmos.DrawLine(Wall.YwallCheck.position, Wall.YwallCheck.position + new Vector3(0, Wall.YwallCheckDistance * YGizmoDirection));
     }
     protected virtual float XGizmoDirection
