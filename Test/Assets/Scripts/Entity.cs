@@ -5,13 +5,13 @@ using UnityEngine;
 [Serializable]
 public class WallDetected
 {
-    public LayerMask WhatIsWall;
     public float XwallCheckDistance;
     public float YwallCheckDistance;
     public Transform XwallCheck;
     public Transform YwallCheck;
     [SerializeField] private bool _wallDetected;
     public bool wallDetected => _wallDetected;
+    public LayerMask WhatIsWall;
 
     public void UpdateWallDetected(float xDir, float yDir)
     {   
@@ -25,9 +25,10 @@ public class WallDetected
 
 public class Entity : MonoBehaviour
 {
+    protected StateMachine stateMachin;
+
     public Animator anim { get; private set; }
     public Rigidbody2D rb { get; private set; }
-    protected StateMachine stateMachin;
 
     [Header("벽 감지")]
     public WallDetected Wall;

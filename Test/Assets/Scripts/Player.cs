@@ -1,73 +1,35 @@
 using System;
-using System.Collections.Generic;
-using System.IO.Pipes;
-using System.Linq;
-using System.Xml.Linq;
 using UnityEngine;
-
-
 
 [Serializable]
 public class ObjectDetected
 {
-    public LayerMask WhatIsObj;
     public float XObjCheckDistance;
     public float YObjCheckDistance;
     public Transform XObjCheck;
     public Transform YObjCheck;
-    public Collider2D detected;
-    public Collider2D UpdateObjDetected(float xdir, float ydir)
+
+    public LayerMask WhatIsObj;
+
+    public Collider2D UpdateObjDetected(bool xdir, bool ydir, bool Dir)
     {
-        RaycastHit2D xHit = new RaycastHit2D();
-        RaycastHit2D yHit = new RaycastHit2D();
+        RaycastHit2D hit;
 
-        bool xHitDetected = false;
-        bool yHitDetected = false;
+        if (Dir)
+        {
+            Vector2 Xdir = xdir ? Vector2.up : Vector2.down;
 
-        if (xdir != 0)
-        {
-            xHit = Physics2D.Raycast(XObjCheck.position, Vector2.right * Mathf.Sign(xdir), XObjCheckDistance, WhatIsObj);
-            xHitDetected = xHit.collider != null;
-        }
-
-        if (ydir != 0)
-        {
-            yHit = Physics2D.Raycast(YObjCheck.position, Vector2.up * Mathf.Sign(ydir), YObjCheckDistance, WhatIsObj);
-            yHitDetected = yHit.collider != null;
-        }
-
-        if (xdir == 0)
-        {
-            xHit = Physics2D.Raycast(XObjCheck.position, Vector2.right, XObjCheckDistance, WhatIsObj);
-            xHitDetected = xHit.collider != null;
-        }
-
-        if (ydir == 0)
-        {
-            yHit = Physics2D.Raycast(YObjCheck.position, Vector2.up, YObjCheckDistance, WhatIsObj);
-            yHitDetected = yHit.collider != null;
-        }
-
-        if (xHitDetected && yHitDetected)
-        {
-            detected = xHit.distance <= yHit.distance ? xHit.collider : yHit.collider;
-        }
-        else if (xHitDetected)
-        {
-            detected = xHit.collider;
-        }
-        else if (yHitDetected)
-        {
-            detected = yHit.collider;
+            
+            hit = Physics2D.Raycast(YObjCheck.position, Xdir, YObjCheckDistance, WhatIsObj);
         }
         else
         {
-            detected = null;
+            Vector2 Ydir = ydir ? Vector2.left : Vector2.right;
+            hit = Physics2D.Raycast(XObjCheck.position, Ydir, XObjCheckDistance, WhatIsObj);
         }
 
-        return detected;
+        return hit.collider;
     }
-
 
 }
 
@@ -81,8 +43,7 @@ public class Player : Entity
     public Player_YMoveState yMoveState { get; private set; }
 
 
-
-    [Header("NPC 감지")]
+    [Header("상호작용 오브젝트 감지")]
     public ObjectDetected obj;
 
     protected override void Awake()
@@ -113,14 +74,17 @@ public class Player : Entity
             XHandleFlip(inputSystem.moveInput.x);
             return;
         }
-        Intertable();
+        else
+        {
+            Intertable();
+        }
     }
 
     void Intertable()
     {
         if (inputSystem.InteractableInput())
         {
-            Debug.Log(obj.UpdateObjDetected(inputSystem.moveInput.x, inputSystem.moveInput.y));
+            Debug.Log(obj.UpdateObjDetected(facingRight,facingUp,isFacingVertical));
         }
     }
 
