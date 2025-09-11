@@ -37,18 +37,18 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Vertical"",
-                    ""type"": ""Value"",
-                    ""id"": ""fd8113a3-e78d-4b17-a834-8d94aff74e0c"",
-                    ""expectedControlType"": ""Axis"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
                     ""name"": ""Interactable"",
                     ""type"": ""Button"",
                     ""id"": ""2e621698-ad0c-4853-8894-be174a2c8fd3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Jumpt"",
+                    ""type"": ""Button"",
+                    ""id"": ""ae30dcdd-2cb3-4293-9100-1cb514806937"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -90,46 +90,24 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""1D Axis"",
-                    ""id"": ""7cb98601-edae-45b5-adee-af9b31455b34"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Vertical"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""cc367800-b7ef-43c9-9445-a495bdd5ecdb"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Vertical"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""9dbb9b12-aa57-45b0-ac31-a7e4a921b9e0"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Vertical"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": """",
                     ""id"": ""2b1c4832-d277-4c58-92ea-5a21f9908bd3"",
-                    ""path"": ""<Keyboard>/y"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interactable"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a55f39fd-8b5c-4df6-afc4-225e97019c3d"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jumpt"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -141,8 +119,8 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Horizontal = m_Player.FindAction("Horizontal", throwIfNotFound: true);
-        m_Player_Vertical = m_Player.FindAction("Vertical", throwIfNotFound: true);
         m_Player_Interactable = m_Player.FindAction("Interactable", throwIfNotFound: true);
+        m_Player_Jumpt = m_Player.FindAction("Jumpt", throwIfNotFound: true);
     }
 
     ~@PlayerInputSet()
@@ -210,15 +188,15 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Horizontal;
-    private readonly InputAction m_Player_Vertical;
     private readonly InputAction m_Player_Interactable;
+    private readonly InputAction m_Player_Jumpt;
     public struct PlayerActions
     {
         private @PlayerInputSet m_Wrapper;
         public PlayerActions(@PlayerInputSet wrapper) { m_Wrapper = wrapper; }
         public InputAction @Horizontal => m_Wrapper.m_Player_Horizontal;
-        public InputAction @Vertical => m_Wrapper.m_Player_Vertical;
         public InputAction @Interactable => m_Wrapper.m_Player_Interactable;
+        public InputAction @Jumpt => m_Wrapper.m_Player_Jumpt;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -231,12 +209,12 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
             @Horizontal.started += instance.OnHorizontal;
             @Horizontal.performed += instance.OnHorizontal;
             @Horizontal.canceled += instance.OnHorizontal;
-            @Vertical.started += instance.OnVertical;
-            @Vertical.performed += instance.OnVertical;
-            @Vertical.canceled += instance.OnVertical;
             @Interactable.started += instance.OnInteractable;
             @Interactable.performed += instance.OnInteractable;
             @Interactable.canceled += instance.OnInteractable;
+            @Jumpt.started += instance.OnJumpt;
+            @Jumpt.performed += instance.OnJumpt;
+            @Jumpt.canceled += instance.OnJumpt;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -244,12 +222,12 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
             @Horizontal.started -= instance.OnHorizontal;
             @Horizontal.performed -= instance.OnHorizontal;
             @Horizontal.canceled -= instance.OnHorizontal;
-            @Vertical.started -= instance.OnVertical;
-            @Vertical.performed -= instance.OnVertical;
-            @Vertical.canceled -= instance.OnVertical;
             @Interactable.started -= instance.OnInteractable;
             @Interactable.performed -= instance.OnInteractable;
             @Interactable.canceled -= instance.OnInteractable;
+            @Jumpt.started -= instance.OnJumpt;
+            @Jumpt.performed -= instance.OnJumpt;
+            @Jumpt.canceled -= instance.OnJumpt;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -270,7 +248,7 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnHorizontal(InputAction.CallbackContext context);
-        void OnVertical(InputAction.CallbackContext context);
         void OnInteractable(InputAction.CallbackContext context);
+        void OnJumpt(InputAction.CallbackContext context);
     }
 }

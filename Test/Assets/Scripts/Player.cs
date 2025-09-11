@@ -17,15 +17,15 @@ public class ObjectDetected
 
         if (Dir)
         {
-            Vector2 Xdir = xdir ? Vector2.up : Vector2.down;
+            Vector2 Ydir = ydir ? Vector2.up : Vector2.down;
 
-            
-            hit = Physics2D.Raycast(YObjCheck.position, Xdir, YObjCheckDistance, WhatIsObj);
+
+            hit = Physics2D.Raycast(YObjCheck.position, Ydir, YObjCheckDistance, WhatIsObj);
         }
         else
         {
-            Vector2 Ydir = ydir ? Vector2.left : Vector2.right;
-            hit = Physics2D.Raycast(XObjCheck.position, Ydir, XObjCheckDistance, WhatIsObj);
+            Vector2 Xdir = xdir ? Vector2.right : Vector2.left;
+            hit = Physics2D.Raycast(XObjCheck.position, Xdir, XObjCheckDistance, WhatIsObj);
         }
 
         return hit.collider;
@@ -40,7 +40,6 @@ public class Player : Entity
 
     public Player_IdleState idleState { get; private set; }
     public Player_XMoveState xMoveState { get; private set; }
-    public Player_YMoveState yMoveState { get; private set; }
 
 
     [Header("상호작용 오브젝트 감지")]
@@ -52,39 +51,37 @@ public class Player : Entity
 
         inputSystem = GetComponent<PlayerInputHandler>();
 
-        idleState = new Player_IdleState(this, stateMachin, "Idle");
-        xMoveState = new Player_XMoveState(this, stateMachin, "XMove");
-        yMoveState = new Player_YMoveState(this, stateMachin, "YMove");
+        idleState = new Player_IdleState(this, stateMachine, "Idle");
+        xMoveState = new Player_XMoveState(this, stateMachine, "XMove");
     }
     protected override void Start()
     {
         base.Start();
-        stateMachin.Initialize(idleState);
+        stateMachine.Initialize(idleState);
     }
 
     protected override void Update()
     {
         base.Update();
 
+        obj.UpdateObjDetected(facingRight, facingUp, isFacingVertical);
+
+        direction = new Vector2(inputSystem.moveInput.x, 0);
 
         if (inputSystem.moveInput != Vector2.zero)
         {
             GizmosDirection();
-            yFlip(inputSystem.moveInput.y, inputSystem.moveInput.y);
             XHandleFlip(inputSystem.moveInput.x);
-            return;
         }
-        else
-        {
-            Intertable();
-        }
+
+        Intertable();
     }
 
     void Intertable()
     {
         if (inputSystem.InteractableInput())
         {
-            Debug.Log(obj.UpdateObjDetected(facingRight,facingUp,isFacingVertical));
+            Debug.Log(obj.UpdateObjDetected(facingRight, facingUp, isFacingVertical));
         }
     }
 

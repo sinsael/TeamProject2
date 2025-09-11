@@ -25,7 +25,7 @@ public class WallDetected
 
 public class Entity : MonoBehaviour
 {
-    protected StateMachine stateMachin;
+    protected StateMachine stateMachine;
 
     public Animator anim { get; private set; }
     public Rigidbody2D rb { get; private set; }
@@ -40,9 +40,9 @@ public class Entity : MonoBehaviour
 
     public int facingDir { get; private set; } = 1;
 
-    [Header("움직임 설정")]
-    [Range(0, 1)]
-    public float moveTime = 0.5f;
+
+    public Vector2 direction { get; set; }
+    public float speed;
     public bool IsMove { get; private set; }
 
     protected virtual void Awake()
@@ -50,7 +50,7 @@ public class Entity : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
 
-        stateMachin = new StateMachine();
+        stateMachine = new StateMachine();
     }
 
     protected virtual void Start()
@@ -62,17 +62,14 @@ public class Entity : MonoBehaviour
     protected virtual void Update()
     {
         Wall.UpdateWallDetected(XGizmoDirection, YGizmoDirection);
-        stateMachin.UpdateActiveState();
+        stateMachine.UpdateActiveState();
     }
 
     public virtual void MoveBy(float x, float y)
     {
-        if (IsMove) return; // 이동 중이면 무시
-        Vector2 direction = new Vector2(x, y);
-
         if (direction == Vector2.zero) return;
 
-        SetTransformDo(direction);
+        SetTransformDo(speed * direction);
     }
 
     public virtual void SetTransformDo(Vector2 direction)
@@ -81,7 +78,7 @@ public class Entity : MonoBehaviour
 
         XHandleFlip(direction.x);
 
-        transform.DOMove(transform.position + (Vector3)direction, moveTime)
+        transform.DOMove(transform.position + (Vector3)direction, 0.1f)
         .SetEase(Ease.Linear)
         .OnComplete(() =>
         {
@@ -105,11 +102,6 @@ public class Entity : MonoBehaviour
         transform.localScale = scale;
     }
 
-    protected virtual void yFlip(float a, float b)
-    {
-        if (a > 0) facingUp = true;
-        else if (b < 0) facingUp = false;
-    }
 
     protected virtual void GizmosDirection()
     {
@@ -142,6 +134,5 @@ public class Entity : MonoBehaviour
             return facingUp ? 1f : -1f;
         }
     }
-
 }
 

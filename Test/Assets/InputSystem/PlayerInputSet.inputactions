@@ -15,18 +15,18 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Vertical",
-                    "type": "Value",
-                    "id": "fd8113a3-e78d-4b17-a834-8d94aff74e0c",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Interactable",
                     "type": "Button",
                     "id": "2e621698-ad0c-4853-8894-be174a2c8fd3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Jumpt",
+                    "type": "Button",
+                    "id": "ae30dcdd-2cb3-4293-9100-1cb514806937",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -68,46 +68,24 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "1D Axis",
-                    "id": "7cb98601-edae-45b5-adee-af9b31455b34",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Vertical",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "cc367800-b7ef-43c9-9445-a495bdd5ecdb",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Vertical",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "9dbb9b12-aa57-45b0-ac31-a7e4a921b9e0",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Vertical",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "",
                     "id": "2b1c4832-d277-4c58-92ea-5a21f9908bd3",
-                    "path": "<Keyboard>/y",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Interactable",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a55f39fd-8b5c-4df6-afc4-225e97019c3d",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jumpt",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

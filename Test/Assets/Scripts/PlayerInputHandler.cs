@@ -6,17 +6,16 @@ public class PlayerInputHandler : MonoBehaviour
     public PlayerInputSet input { get; private set; }
 
     public Vector2 moveInput { get; private set; }
-    private Vector2 _rawInput; // ÀÔ·ÂÀ» ÀÓ½Ã·Î ¹ÞÀ» º¯¼ö
+    private Vector2 _rawInput; // ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½Ó½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     private float lastHorizontalPressTime;
-    private float lastVerticalPressTime;
+
 
     private void Awake()
     {
         input = new PlayerInputSet();
 
         lastHorizontalPressTime = -1f;
-        lastVerticalPressTime = -1f;
     }
     private void Update()
     {
@@ -37,19 +36,9 @@ public class PlayerInputHandler : MonoBehaviour
     {
         float threshold = 0.1f;
         float rawX = Mathf.Abs(_rawInput.x) < threshold ? 0 : Mathf.Sign(_rawInput.x);
-        float rawY = Mathf.Abs(_rawInput.y) < threshold ? 0 : Mathf.Sign(_rawInput.y);
 
-        if (rawX != 0 && rawY != 0)
-        {
-            if (lastHorizontalPressTime > lastVerticalPressTime)
-                moveInput = new Vector2(rawX, 0);
-            else
-                moveInput = new Vector2(0, rawY);
-        }
-        else
-        {
-            moveInput = new Vector2(rawX, rawY);
-        }
+        moveInput = new Vector2(rawX, 0);
+
     }
 
     private void MovementInput()
@@ -60,13 +49,6 @@ public class PlayerInputHandler : MonoBehaviour
             lastHorizontalPressTime = Time.time;
         };
         input.Player.Horizontal.canceled += ctx => _rawInput.x = 0;
-
-        input.Player.Vertical.performed += ctx =>
-        {
-            _rawInput.y = ctx.ReadValue<float>();
-            lastVerticalPressTime = Time.time;
-        };
-        input.Player.Vertical.canceled += ctx => _rawInput.y = 0;
     }
 
     public bool InteractableInput() => input.Player.Interactable.WasPressedThisFrame();
