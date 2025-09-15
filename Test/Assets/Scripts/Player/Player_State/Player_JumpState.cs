@@ -10,7 +10,7 @@ public class Player_JumpState : Player_AiredState
     {
         base.Enter();
 
-        if(player.groundDetected)
+        if(player.ground.groundDetected)
             player.SetVelocity(player.rb.velocity.x, player.jumpForce);
     }
 

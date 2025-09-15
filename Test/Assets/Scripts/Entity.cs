@@ -19,6 +19,21 @@ public class WallDetected
     }
 }
 
+[Serializable]
+public class GroundDetected
+{
+    public float groundCheckDistance;
+    public Transform groundCheck;
+    public bool groundDetected { get; private set; }
+    public LayerMask WhatIsGround;
+
+    public void HandleCollisionDetection()
+    {
+        groundDetected = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, WhatIsGround);
+    }
+
+}
+
 public class Entity : MonoBehaviour
 {
     protected StateMachine stateMachine;
@@ -30,10 +45,7 @@ public class Entity : MonoBehaviour
     public WallDetected Wall;
 
     [Header("땅 감지")]
-    public float groundCheckDistance;
-    public Transform groundCheck;
-    public bool groundDetected { get; private set; }
-    public LayerMask WhatIsGround;
+    public GroundDetected ground;
 
     public bool facingRight { get; set; } = true;
     public bool isFacingVertical { get; private set; }
@@ -64,7 +76,7 @@ public class Entity : MonoBehaviour
     protected virtual void Update()
     {
         Wall.UpdateWallDetected(XGizmoDirection);
-        HandleCollisionDetection();
+        ground.HandleCollisionDetection();
         stateMachine.UpdateActiveState();
     }
 
@@ -93,17 +105,14 @@ public class Entity : MonoBehaviour
         transform.localScale = scale;
     }
 
-    private void HandleCollisionDetection()
-    {
-        groundDetected = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, WhatIsGround);
-    }
+
 
     protected virtual void OnDrawGizmos()
     {
 
         Gizmos.DrawLine(Wall.XwallCheck.position, Wall.XwallCheck.position + new Vector3(Wall.XwallCheckDistance * XGizmoDirection, 0));
     
-        Gizmos.DrawLine(transform.position, transform.position + new Vector3(0,-groundCheckDistance));
+        Gizmos.DrawLine(transform.position, transform.position + new Vector3(0,-ground.groundCheckDistance));
     }
     protected virtual float XGizmoDirection
     {
