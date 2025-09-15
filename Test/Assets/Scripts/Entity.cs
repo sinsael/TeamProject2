@@ -6,22 +6,18 @@ using UnityEngine;
 public class WallDetected
 {
     public float XwallCheckDistance;
-    public float YwallCheckDistance;
     public Transform XwallCheck;
-    public Transform YwallCheck;
-    [SerializeField] private bool _wallDetected;
+    public bool _wallDetected { get; private set; }
     public bool wallDetected => _wallDetected;
     public LayerMask WhatIsWall;
 
-    public void UpdateWallDetected(float xDir, float yDir)
-    {   
+    public void UpdateWallDetected(float xDir)
+    {
         bool xWall = Physics2D.Raycast(XwallCheck.position, Vector2.right * xDir, XwallCheckDistance, WhatIsWall);
-        bool yWall = Physics2D.Raycast(YwallCheck.position, Vector2.up * yDir, YwallCheckDistance, WhatIsWall);
 
-        _wallDetected = xWall || yWall;
+        _wallDetected = xWall;
     }
 }
-
 
 public class Entity : MonoBehaviour
 {
@@ -33,8 +29,13 @@ public class Entity : MonoBehaviour
     [Header("벽 감지")]
     public WallDetected Wall;
 
+    [Header("땅 감지")]
+    public float groundCheckDistance;
+    public Transform groundCheck;
+    public bool groundDetected { get; private set; }
+    public LayerMask WhatIsGround;
+
     public bool facingRight { get; set; } = true;
-    public bool facingUp { get; set; } = true;
     public bool isFacingVertical { get; private set; }
 
 
@@ -42,7 +43,8 @@ public class Entity : MonoBehaviour
 
 
     public Vector2 direction { get; set; }
-    public float speed;
+    [Space]
+    public float Movespeed;
     public bool IsMove { get; private set; }
 
     protected virtual void Awake()
@@ -61,30 +63,19 @@ public class Entity : MonoBehaviour
 
     protected virtual void Update()
     {
-        Wall.UpdateWallDetected(XGizmoDirection, YGizmoDirection);
+        Wall.UpdateWallDetected(XGizmoDirection);
+        HandleCollisionDetection();
         stateMachine.UpdateActiveState();
     }
 
-    public virtual void MoveBy(float x, float y)
+    public virtual void SetVelocity(float xvelocity, float yvelocity)
     {
-        if (direction == Vector2.zero) return;
+        rb.velocity = new Vector2(xvelocity, yvelocity);
 
-        SetTransformDo(speed * direction);
+        XHandleFlip(xvelocity);
     }
 
-    public virtual void SetTransformDo(Vector2 direction)
-    {
-        IsMove = true;
 
-        XHandleFlip(direction.x);
-
-        transform.DOMove(transform.position + (Vector3)direction, 0.1f)
-        .SetEase(Ease.Linear)
-        .OnComplete(() =>
-        {
-            IsMove = false;
-        });
-    }
 
     public void XHandleFlip(float x)
     {
@@ -102,36 +93,23 @@ public class Entity : MonoBehaviour
         transform.localScale = scale;
     }
 
-
-    protected virtual void GizmosDirection()
+    private void HandleCollisionDetection()
     {
-        if (XGizmoDirection != 0)
-            isFacingVertical = false;
-        else if (YGizmoDirection != 0)
-            isFacingVertical = true;
+        groundDetected = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, WhatIsGround);
     }
 
     protected virtual void OnDrawGizmos()
     {
 
-        if (XGizmoDirection != 0 && !isFacingVertical)
-            Gizmos.DrawLine(Wall.XwallCheck.position, Wall.XwallCheck.position + new Vector3(Wall.XwallCheckDistance * XGizmoDirection, 0));
-        
-        if (YGizmoDirection != 0 && isFacingVertical)
-            Gizmos.DrawLine(Wall.YwallCheck.position, Wall.YwallCheck.position + new Vector3(0, Wall.YwallCheckDistance * YGizmoDirection));
+        Gizmos.DrawLine(Wall.XwallCheck.position, Wall.XwallCheck.position + new Vector3(Wall.XwallCheckDistance * XGizmoDirection, 0));
+    
+        Gizmos.DrawLine(transform.position, transform.position + new Vector3(0,-groundCheckDistance));
     }
     protected virtual float XGizmoDirection
     {
         get
         {
             return facingRight ? 1f : -1f;
-        }
-    }
-    protected virtual float YGizmoDirection
-    {
-        get
-        {
-            return facingUp ? 1f : -1f;
         }
     }
 }
