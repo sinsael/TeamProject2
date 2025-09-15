@@ -4,22 +4,23 @@ using UnityEngine;
 [Serializable]
 public class ObjectDetected
 {
-    public float XObjCheckDistance;
-    public float YObjCheckDistance;
-    public Transform XObjCheck;
-    public Transform YObjCheck;
+    public Transform ObjCheck;
+    public float ObjCheckRadius;
 
     public LayerMask WhatIsObj;
 
-    public Collider2D UpdateObjDetected(bool xdir, bool Dir)
+    public Collider2D[] ObjColliders;
+
+    public static event Action<Collider2D> OnObjDetected;
+
+    public void UpdateObjDetected()
     {
-        RaycastHit2D hit;
-
-            Vector2 Xdir = xdir ? Vector2.right : Vector2.left;
-            hit = Physics2D.Raycast(XObjCheck.position, Xdir, XObjCheckDistance, WhatIsObj);
-
-
-        return hit.collider;
+        ObjColliders = Physics2D.OverlapCircleAll(ObjCheck.position, ObjCheckRadius, WhatIsObj);
+        
+        foreach(var collider in ObjColliders)
+        {
+            OnObjDetected?.Invoke(collider);
+        }
     }
 
 }
@@ -27,7 +28,7 @@ public class ObjectDetected
 
 public class Player : Entity
 {
-    public PlayerInputHandler inputSystem {get; private set; }
+    public PlayerInputHandler inputSystem { get; private set; }
 
     public Player_IdleState idleState { get; private set; }
     public Player_XMoveState xMoveState { get; private set; }
@@ -61,9 +62,9 @@ public class Player : Entity
     {
         base.Update();
 
-        obj.UpdateObjDetected(facingRight, isFacingVertical);
-
         direction = new Vector2(inputSystem.moveInput.x, 0);
+
+        obj.UpdateObjDetected();
 
         if (inputSystem.moveInput != Vector2.zero)
         {
@@ -75,21 +76,15 @@ public class Player : Entity
 
     void Intertable()
     {
-        if (inputSystem.InteractableInput())
-        {
-            Debug.Log(obj.UpdateObjDetected(facingRight, isFacingVertical));
-        }
     }
 
     protected override void OnDrawGizmos()
     {
         base.OnDrawGizmos();
 
-        if (isFacingVertical)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(obj.XObjCheck.position, obj.XObjCheck.position + new Vector3(facingRight ? obj.XObjCheckDistance : -obj.XObjCheckDistance, 0));
-        }
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(obj.ObjCheck.position, obj.ObjCheckRadius);
 
     }
 }
