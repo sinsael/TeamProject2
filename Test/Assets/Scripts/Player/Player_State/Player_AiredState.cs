@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class Player_AiredState : PlayerState
 {
@@ -12,7 +9,14 @@ public class Player_AiredState : PlayerState
     {
         base.Update();
 
-        if(player.inputSystem.moveInput.x != 0)
+       
+    }
+
+    public override void FixedUpdate()
+    {
+        base.FixedUpdate();
+        
+         if (player.inputSystem.moveInput.x != 0)
             player.SetVelocity(player.inputSystem.moveInput.x * player.Movespeed, rb.velocity.y);
     }
 }

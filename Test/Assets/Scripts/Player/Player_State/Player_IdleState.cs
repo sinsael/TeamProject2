@@ -23,4 +23,6 @@ public class Player_IdleState : Player_GroundedState
             stateMachine.ChangeState(player.xMoveState);
 
     }
+
+
 }

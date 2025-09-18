@@ -25,9 +25,20 @@ public class Player_XMoveState : Player_GroundedState
             stateMachine.ChangeState(player.idleState);
         }
 
+
+        if (player.Wall.wallDetected && player.inputSystem.moveInput.x != 0)
+        {
+            stateMachine.ChangeState(player.idleState);
+        }
+        
+
+
+    }
+
+    public override void FixedUpdate()
+    {
+        base.FixedUpdate();
         player.SetVelocity(player.inputSystem.moveInput.x * player.Movespeed, player.rb.velocity.y);
-
-
     }
 
 }

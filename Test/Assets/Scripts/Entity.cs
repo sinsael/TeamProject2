@@ -80,6 +80,11 @@ public class Entity : MonoBehaviour
         stateMachine.UpdateActiveState();
     }
 
+    void FixedUpdate()
+    {
+        stateMachine.FixedUpdateActiveState();
+    }
+
     public virtual void SetVelocity(float xvelocity, float yvelocity)
     {
         rb.velocity = new Vector2(xvelocity, yvelocity);
@@ -111,8 +116,8 @@ public class Entity : MonoBehaviour
     {
 
         Gizmos.DrawLine(Wall.XwallCheck.position, Wall.XwallCheck.position + new Vector3(Wall.XwallCheckDistance * XGizmoDirection, 0));
-    
-        Gizmos.DrawLine(transform.position, transform.position + new Vector3(0,-ground.groundCheckDistance));
+
+        Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, -ground.groundCheckDistance));
     }
     protected virtual float XGizmoDirection
     {

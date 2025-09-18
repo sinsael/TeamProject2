@@ -25,10 +25,15 @@ public abstract class EntityState
     {
         anim.SetFloat("YVelocity", rb.velocity.y);
     }
+    
+    public virtual void FixedUpdate()
+    {
+
+    }
 
     public virtual void Exit()
     {
-       anim.SetBool(animBoolName, false);
+        anim.SetBool(animBoolName, false);
     }
 
 }
