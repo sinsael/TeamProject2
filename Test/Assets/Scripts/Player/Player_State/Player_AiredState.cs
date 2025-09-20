@@ -17,6 +17,6 @@ public class Player_AiredState : PlayerState
         base.FixedUpdate();
         
          if (player.inputSystem.moveInput.x != 0)
-            player.SetVelocity(player.inputSystem.moveInput.x * player.Movespeed, rb.velocity.y);
+            player.SetVelocity(player.inputSystem.moveInput.x * player.MoveSpeed, rb.velocity.y);
     }
 }

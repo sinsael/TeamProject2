@@ -227,6 +227,7 @@ GameObject:
   - component: {fileID: 789678597}
   - component: {fileID: 789678598}
   - component: {fileID: 789678599}
+  - component: {fileID: 789678600}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -247,7 +248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Wall:
-    XwallCheckDistance: 1
+    XwallCheckDistance: 0.2
     XwallCheck: {fileID: 916653308}
     WhatIsWall:
       serializedVersion: 2
@@ -259,13 +260,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 128
   Movespeed: 10
-  obj:
-    ObjCheck: {fileID: 1547436355}
-    ObjCheckRadius: 0.75
-    WhatIsObj:
-      serializedVersion: 2
-      m_Bits: 256
-    ObjColliders: []
+  interact: {fileID: 789678600}
   jumpForce: 4
 --- !u!4 &789678596
 Transform:
@@ -360,6 +355,24 @@ CapsuleCollider2D:
   m_Offset: {x: 0.009727061, y: -0.0045401603}
   m_Size: {x: 0.34825742, y: 0.46109167}
   m_Direction: 0
+--- !u!114 &789678600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789678593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed162294aa5a67f4c9273a4b359fd81e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjCheck: {fileID: 1547436355}
+  ObjCheckRadius: 0.75
+  WhatIsObj:
+    serializedVersion: 2
+    m_Bits: 256
+  ObjColliders: []
 --- !u!1 &916653307
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,12 +660,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 216229977, guid: c4e93846dff40d74e992c6efbcf88b62, type: 3}
+  m_Sprite: {fileID: -5727464531380992727, guid: d19ec8c3d19c03343be9558cf7060939, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.625, y: 0.625}
+  m_Size: {x: 0.34375, y: 0.4375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -700,7 +713,8 @@ GameObject:
   - component: {fileID: 1995728794}
   - component: {fileID: 1995728793}
   - component: {fileID: 1995728792}
-  m_Layer: 6
+  - component: {fileID: 1995728795}
+  m_Layer: 8
   m_Name: Square (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -819,6 +833,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &1995728795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1995728791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c45a9b9aa2198b4cb01291f05bbb044, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

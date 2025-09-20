@@ -2,67 +2,25 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
-public class ObjectDetected
-{
-    public Transform ObjCheck;
-    public float ObjCheckRadius;
-
-    public LayerMask WhatIsObj;
-
-    public Collider2D[] ObjColliders;
-
-    private HashSet<interaction> detectedInteractions = new HashSet<interaction>();
-
-    public void UpdateObjDetected()
-    {
-        ObjColliders = Physics2D.OverlapCircleAll(ObjCheck.position, ObjCheckRadius, WhatIsObj);
-
-        HashSet<interaction> currentFrameInteractions = new HashSet<interaction>();
-        foreach (var collider in ObjColliders)
-        {
-            if (collider.TryGetComponent<interaction>(out var interactionComponent))
-            {
-                currentFrameInteractions.Add(interactionComponent);
-            }
-        }
-
-        detectedInteractions.RemoveWhere(comp =>
-        {
-            if (!currentFrameInteractions.Contains(comp))
-            {
-                comp.OnLeaveRay();
-                return true;
-            }
-            return false;
-        });
-
-        foreach (var interactionComp in currentFrameInteractions)
-        {
-            if (detectedInteractions.Add(interactionComp))
-            {
-                interactionComp.OnHitByRay();
-            }
-        }
-
-    }
-
-}
-
-
 public class Player : Entity
 {
     public PlayerInputHandler inputSystem { get; private set; }
+    protected IInteraction interaction;
 
     public Player_IdleState idleState { get; private set; }
     public Player_XMoveState xMoveState { get; private set; }
     public Player_JumpState jumpState { get; private set; }
     public Player_FallState fallState { get; private set; }
 
+    [Header("플레이어 움직임 설정")]
+    public float MoveSpeed = 5;
+    public float jumpForce = 5;
 
     [Header("상호작용 오브젝트 감지")]
-    public ObjectDetected obj;
-    public float jumpForce = 5;
+    public Interaction interact;
+
+
+
 
     protected override void Awake()
     {
@@ -79,6 +37,9 @@ public class Player : Entity
     protected override void Start()
     {
         base.Start();
+
+        interaction = GetComponent<IInteraction>();
+        
         stateMachine.Initialize(idleState);
     }
 
@@ -88,18 +49,22 @@ public class Player : Entity
 
         direction = new Vector2(inputSystem.moveInput.x, 0);
 
-        obj.UpdateObjDetected();
+        interact.UpdateObjDetected();
 
         if (inputSystem.moveInput != Vector2.zero)
         {
             XHandleFlip(inputSystem.moveInput.x);
         }
-
         Intertable();
+
     }
 
-    void Intertable()
+    private void Intertable()
     {
+        if (inputSystem.InteractableInput())
+        {
+            interact.Interact();
+        }
     }
 
     protected override void OnDrawGizmos()
@@ -108,7 +73,7 @@ public class Player : Entity
 
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(obj.ObjCheck.position, obj.ObjCheckRadius);
+        Gizmos.DrawWireSphere(interact.ObjCheck.position, interact.ObjCheckRadius);
 
     }
 }

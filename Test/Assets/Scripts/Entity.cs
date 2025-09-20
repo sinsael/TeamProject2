@@ -55,8 +55,6 @@ public class Entity : MonoBehaviour
 
 
     public Vector2 direction { get; set; }
-    [Space]
-    public float Movespeed;
     public bool IsMove { get; private set; }
 
     protected virtual void Awake()

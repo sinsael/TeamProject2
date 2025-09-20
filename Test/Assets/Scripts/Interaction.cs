@@ -1,26 +1,65 @@
-using System.Collections;
+
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class interaction : MonoBehaviour
+public class Interaction : MonoBehaviour
 {
-    public bool material = false;
+    public Transform ObjCheck;
+    public float ObjCheckRadius;
 
-    public virtual void OnHitByRay()
+    public LayerMask WhatIsObj;
+
+    public Collider2D[] ObjColliders;
+
+    private HashSet<IInteraction> detectedInteractions = new HashSet<IInteraction>();
+
+    public Collider2D[] GetDetectedColliders()
     {
-        if(!material)
-        {
-            material = true;
-            Debug.Log("Hit by ray");
-        }
+        return ObjColliders = Physics2D.OverlapCircleAll(ObjCheck.position, ObjCheckRadius, WhatIsObj);
     }
 
-    public virtual void OnLeaveRay()
+    public void UpdateObjDetected()
     {
-        if(material)
+        GetDetectedColliders();
+
+        HashSet<IInteraction> currentFrameInteractions = new HashSet<IInteraction>();
+
+        foreach (var collider in ObjColliders)
         {
-            material = false;
-            Debug.Log("Leave ray");
+            if (collider.TryGetComponent<IInteraction>(out var interactionComponent))
+            {
+                currentFrameInteractions.Add(interactionComponent);
+            }
+        }
+
+        detectedInteractions.RemoveWhere(interaction =>
+        {
+            if (!currentFrameInteractions.Contains(interaction))
+            {
+                interaction?.OnLeaveRay();
+                return true;
+            }
+            return false;
+        });
+
+        foreach (var interactionComp in currentFrameInteractions)
+        {
+            if (detectedInteractions.Add(interactionComp))
+            {
+                interactionComp?.OnHitByRay();
+            }
+        }
+
+    }
+
+    public void Interact()
+    {
+        foreach (var interactionComp in GetDetectedColliders())
+        {
+            IInteraction interaction = interactionComp.GetComponent<IInteraction>();
+            interaction?.OnInteract();
         }
     }
 }

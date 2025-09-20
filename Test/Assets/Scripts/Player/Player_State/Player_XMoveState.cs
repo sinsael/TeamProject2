@@ -38,7 +38,7 @@ public class Player_XMoveState : Player_GroundedState
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-        player.SetVelocity(player.inputSystem.moveInput.x * player.Movespeed, player.rb.velocity.y);
+        player.SetVelocity(player.inputSystem.moveInput.x * player.MoveSpeed, player.rb.velocity.y);
     }
 
 }
