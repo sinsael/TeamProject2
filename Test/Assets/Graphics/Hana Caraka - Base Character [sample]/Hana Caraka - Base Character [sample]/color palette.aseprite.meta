@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4d3495b9a46b088489078279248521ba
+guid: a4645dafb3c6d004fb55027cd0dffdb2
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -8,7 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
-  importerVersion: 2
+  importerVersion: 1
   textureImporterSettings:
     alphaSource: 1
     mipMapMode: 0
@@ -133,7 +133,7 @@ ScriptedImporter:
       y: 4
       width: 16
       height: 8
-    spriteID: 602038c3c3ca380408e6e09b0fa43ee2
+    spriteID: 234a224819447524cb04d72eb653daed
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -159,7 +159,7 @@ ScriptedImporter:
         y: 0
         width: 16
         height: 8
-      spriteId: 602038c3c3ca380408e6e09b0fa43ee2
+      spriteId: 234a224819447524cb04d72eb653daed
     linkedCells: []
     parentIndex: -1
   platformSettings:

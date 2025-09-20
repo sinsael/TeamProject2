@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -11,16 +12,39 @@ public class ObjectDetected
 
     public Collider2D[] ObjColliders;
 
-    public static event Action<Collider2D> OnObjDetected;
+    private HashSet<interaction> detectedInteractions = new HashSet<interaction>();
 
     public void UpdateObjDetected()
     {
         ObjColliders = Physics2D.OverlapCircleAll(ObjCheck.position, ObjCheckRadius, WhatIsObj);
-        
-        foreach(var collider in ObjColliders)
+
+        HashSet<interaction> currentFrameInteractions = new HashSet<interaction>();
+        foreach (var collider in ObjColliders)
         {
-            OnObjDetected?.Invoke(collider);
+            if (collider.TryGetComponent<interaction>(out var interactionComponent))
+            {
+                currentFrameInteractions.Add(interactionComponent);
+            }
         }
+
+        detectedInteractions.RemoveWhere(comp =>
+        {
+            if (!currentFrameInteractions.Contains(comp))
+            {
+                comp.OnLeaveRay();
+                return true;
+            }
+            return false;
+        });
+
+        foreach (var interactionComp in currentFrameInteractions)
+        {
+            if (detectedInteractions.Add(interactionComp))
+            {
+                interactionComp.OnHitByRay();
+            }
+        }
+
     }
 
 }
