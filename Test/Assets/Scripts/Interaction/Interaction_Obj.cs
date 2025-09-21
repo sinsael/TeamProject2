@@ -14,29 +14,21 @@ public class Interaction_Obj : MonoBehaviour, IInteraction
 
     public virtual void OnHitByRay()
     {
-        if(!material)
-        {
-            material = true;
             sr.color = Color.red;
-        }
     }
 
     public virtual void OnLeaveRay()
     {
-        if(material)
-        {
-            material = false;
             sr.color = currentcol;
-        }
     }
 
-    public void OnSelect()
+    public virtual void OnSelect()
     {
         sr.color = Color.green;
         Debug.Log(gameObject.name + " is selected");
     }
 
-    public void OnDeselect()
+    public virtual void OnDeselect()
     {
         sr.color = currentcol;
         Debug.Log(gameObject.name + " is deselected");
