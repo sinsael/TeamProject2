@@ -6,7 +6,7 @@ public class Interaction_Obj : MonoBehaviour, IInteraction
     Color currentcol;
     public bool material = false;
 
-    public void Start()
+    public virtual void Start()
     {
         sr = GetComponent<SpriteRenderer>();
         currentcol = sr.color;

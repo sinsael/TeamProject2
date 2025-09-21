@@ -259,9 +259,9 @@ MonoBehaviour:
     WhatIsGround:
       serializedVersion: 2
       m_Bits: 128
-  Movespeed: 10
-  interact: {fileID: 789678600}
+  MoveSpeed: 5
   jumpForce: 4
+  interact: {fileID: 789678600}
 --- !u!4 &789678596
 Transform:
   m_ObjectHideFlags: 0
