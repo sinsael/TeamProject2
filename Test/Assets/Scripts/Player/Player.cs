@@ -49,12 +49,9 @@ public class Player : Entity
 
         direction = new Vector2(inputSystem.moveInput.x, 0);
 
+        interact.FindBestTarget();
+        interact.HandleTargetChange();
         interact.UpdateObjDetected();
-
-        if (inputSystem.moveInput != Vector2.zero)
-        {
-            XHandleFlip(inputSystem.moveInput.x);
-        }
         Intertable();
 
     }
@@ -74,6 +71,8 @@ public class Player : Entity
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(interact.ObjCheck.position, interact.ObjCheckRadius);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(interact.interactionCheck.position, interact.interactionRadius);
 
     }
 }

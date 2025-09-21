@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class Interaction : MonoBehaviour
 {
+    [Header("상호작용 오브젝트 감지")]
     public Transform ObjCheck;
     public float ObjCheckRadius;
 
@@ -14,6 +15,15 @@ public class Interaction : MonoBehaviour
     public Collider2D[] ObjColliders;
 
     private HashSet<IInteraction> detectedInteractions = new HashSet<IInteraction>();
+
+    [Space]
+    [Header("상호작용 가능 범위")]
+    public Transform interactionCheck; 
+    public float interactionRadius;    
+    public LayerMask interactableLayer; 
+
+    private IInteraction currentTarget; 
+    private IInteraction previousTarget; 
 
     public Collider2D[] GetDetectedColliders()
     {
@@ -54,12 +64,42 @@ public class Interaction : MonoBehaviour
 
     }
 
+    public void FindBestTarget()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(interactionCheck.position, interactionRadius, interactableLayer);
+
+        float closestDist = float.MaxValue;
+        IInteraction bestTarget = null;
+
+        foreach (var col in colliders)
+        {
+            float dist = Vector2.Distance(interactionCheck.position, col.transform.position);
+            if (dist < closestDist)
+            {
+                closestDist = dist;
+                bestTarget = col.GetComponent<IInteraction>();
+            }
+        }
+
+        currentTarget = bestTarget;
+    }
+
+    public void HandleTargetChange()
+    {
+        if (previousTarget != currentTarget)
+        {
+            previousTarget?.OnDeselect(); // 이전 타겟이 있었다면 선택 해제
+            currentTarget?.OnSelect(); // 새 타겟이 있다면 선택
+
+            previousTarget = currentTarget;
+        }
+    }
+
     public void Interact()
     {
-        foreach (var interactionComp in GetDetectedColliders())
+        if (currentTarget != null)
         {
-            IInteraction interaction = interactionComp.GetComponent<IInteraction>();
-            interaction?.OnInteract();
+            currentTarget.OnInteract();
         }
     }
 }

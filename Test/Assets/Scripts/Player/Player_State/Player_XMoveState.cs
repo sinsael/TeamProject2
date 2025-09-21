@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player_XMoveState : Player_GroundedState
 {
@@ -19,6 +20,9 @@ public class Player_XMoveState : Player_GroundedState
     public override void Update()
     {
         base.Update();
+
+        player.XHandleFlip(player.inputSystem.moveInput.x);
+
 
         if (player.inputSystem.moveInput.x == 0)
         {

@@ -4,7 +4,7 @@ public class Interaction_Obj : MonoBehaviour, IInteraction
 {
     SpriteRenderer sr;
     Color currentcol;
-    public bool material = false;
+    protected bool material = false;
 
     public virtual void Start()
     {
@@ -28,6 +28,18 @@ public class Interaction_Obj : MonoBehaviour, IInteraction
             material = false;
             sr.color = currentcol;
         }
+    }
+
+    public void OnSelect()
+    {
+        sr.color = Color.green;
+        Debug.Log(gameObject.name + " is selected");
+    }
+
+    public void OnDeselect()
+    {
+        sr.color = currentcol;
+        Debug.Log(gameObject.name + " is deselected");
     }
 
     public virtual void OnInteract()
