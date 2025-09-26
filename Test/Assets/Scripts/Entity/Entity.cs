@@ -5,12 +5,13 @@ using UnityEngine;
 [Serializable]
 public class WallDetected
 {
-    public float XwallCheckDistance;
-    public Transform XwallCheck;
-    public bool _wallDetected { get; private set; }
+    public float XwallCheckDistance; // 벽 감지 거리
+    public Transform XwallCheck; // 벽 감지 위치
+    public bool _wallDetected { get; private set; } // 벽 감지 여부
     public bool wallDetected => _wallDetected;
-    public LayerMask WhatIsWall;
+    public LayerMask WhatIsWall; // 벽 레이어
 
+    // 벽 감지 업데이트
     public void UpdateWallDetected(float xDir)
     {
         bool xWall = Physics2D.Raycast(XwallCheck.position, Vector2.right * xDir, XwallCheckDistance, WhatIsWall);
@@ -19,6 +20,7 @@ public class WallDetected
     }
 }
 
+// 벽 감지 클래스와 같음
 [Serializable]
 public class GroundDetected
 {
@@ -34,6 +36,7 @@ public class GroundDetected
 
 }
 
+// 모든 엔티들의 기초가 되는 스크립트
 public class Entity : MonoBehaviour
 {
     protected StateMachine stateMachine;
@@ -83,6 +86,7 @@ public class Entity : MonoBehaviour
         stateMachine.FixedUpdateActiveState();
     }
 
+    // 엔티티 움직임 설정
     public virtual void SetVelocity(float xvelocity, float yvelocity)
     {
         rb.velocity = new Vector2(xvelocity, yvelocity);
@@ -92,6 +96,7 @@ public class Entity : MonoBehaviour
 
 
 
+    // x축 방향에 따른 캐릭터 뒤집기
     public void XHandleFlip(float x)
     {
         if (x > 0 && facingRight == false)
@@ -100,6 +105,7 @@ public class Entity : MonoBehaviour
             xFlip();
     }
 
+    // 캐릭터 뒤집기
     public void xFlip()
     {
         facingRight = !facingRight;
@@ -109,14 +115,14 @@ public class Entity : MonoBehaviour
     }
 
 
-
+    // 기즈모 그리기
     protected virtual void OnDrawGizmos()
     {
-
         Gizmos.DrawLine(Wall.XwallCheck.position, Wall.XwallCheck.position + new Vector3(Wall.XwallCheckDistance * XGizmoDirection, 0));
 
         Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, -ground.groundCheckDistance));
     }
+    // x축 벽 감지 기즈모 방향 설정
     protected virtual float XGizmoDirection
     {
         get

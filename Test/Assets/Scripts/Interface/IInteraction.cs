@@ -1,8 +1,6 @@
 public interface IInteraction 
 {
-   public void OnHitByRay();
-   public void OnLeaveRay();
-   public void OnInteract();
-    public void OnSelect();
-    public void OnDeselect();
+    public void OnInteract(); // 상호작용 실행
+    public void OnSelect(); // 상호작용 범위 진입
+    public void OnDeselect(); // 상호작용 범위 이탈
 }

@@ -5,36 +5,40 @@ public class PlayerInputHandler : MonoBehaviour
 {
     public PlayerInputSet input { get; private set; }
 
-    public Vector2 moveInput { get; private set; }
+    public virtual Vector2 moveInput {get; set;}
 
 
-
-    private void Awake()
+    public virtual void Awake()
     {
         input = new PlayerInputSet();
 
     }
-    private void Update()
+    public virtual void Update()
     {
     }
 
-    private void OnEnable()
+    public virtual void OnEnable()
     {
         input.Enable();
         MovementInput();
     }
-    private void OnDisable()
+    public virtual void OnDisable()
     {
         input.Disable();
     }
 
 
-    private void MovementInput()
+    public virtual void MovementInput()
     {
-        input.Player.Movement.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
-        input.Player.Movement.canceled += ctx => moveInput = Vector2.zero;
+        
     }
 
-    public bool InteractableInput() => input.Player.Interactable.WasPressedThisFrame();
-    public bool JumpInput() => input.Player.Jump.WasPressedThisFrame();
+    public virtual bool InteractableInput()
+    {
+        return false;
+    }
+    public virtual bool JumpInput()
+    {
+        return false;
+    }
 }

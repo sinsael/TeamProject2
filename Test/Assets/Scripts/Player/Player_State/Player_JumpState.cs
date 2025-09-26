@@ -9,7 +9,8 @@ public class Player_JumpState : Player_AiredState
     public override void Enter()
     {
         base.Enter();
-
+        
+        //점프
         if(player.ground.groundDetected)
             player.SetVelocity(player.rb.velocity.x, player.jumpForce);
     }
@@ -18,6 +19,7 @@ public class Player_JumpState : Player_AiredState
     {
         base.Update();
 
+        // 추락상태로 변경
         if(player.rb.velocity.y < 0)
             stateMachine.ChangeState(player.fallState);
 

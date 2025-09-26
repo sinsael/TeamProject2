@@ -2,7 +2,7 @@
     "name": "PlayerInputSet",
     "maps": [
         {
-            "name": "Player",
+            "name": "First_Player",
             "id": "05b6bdc8-a528-4da0-8dac-ebd2a7eb738b",
             "actions": [
                 {
@@ -82,6 +82,96 @@
                     "name": "right",
                     "id": "05f3c643-7b9d-4fc1-8a11-efa424c4754c",
                     "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        },
+        {
+            "name": "Second_Player",
+            "id": "1516bda5-00e9-4f89-bffc-842771a6adbd",
+            "actions": [
+                {
+                    "name": "Interactable",
+                    "type": "Button",
+                    "id": "69fff116-664c-4343-acea-7fd44701911e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "af4e7eb6-4a1e-41ed-86f5-31977f2105d9",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Movement",
+                    "type": "Value",
+                    "id": "6a22cb17-50f0-40d0-9f13-d1c17e8e9a9f",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b6cf8137-e4cc-4327-a586-cf07196eb196",
+                    "path": "<Keyboard>/slash",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interactable",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "40189536-c9a5-418c-bcf6-f27ed8f044e8",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "b60f4f80-db16-42d7-b998-5a403d6de59b",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "left",
+                    "id": "03a1b0cb-d822-48ff-a5ae-33f044422a64",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "0b3bf06b-5c98-4501-b00f-b1ef32def7b5",
+                    "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

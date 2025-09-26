@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Interaction_Obj : MonoBehaviour, IInteraction
+public class Interaction_Obj : MonoBehaviour, IInteraction, IInteraction_circle
 {
     SpriteRenderer sr;
     Color currentcol;

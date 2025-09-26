@@ -1,12 +1,12 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Entity
+public class Player : Entity,IInteraction_circle
 {
-    public PlayerInputHandler inputSystem { get; private set; }
-    protected IInteraction interaction;
+    // 컴포넌트들
+    public PlayerInputHandler inputSystem {get; private set;}
+    protected IInteraction interaction { get; private set; }
 
+    // 상태들
     public Player_IdleState idleState { get; private set; }
     public Player_XMoveState xMoveState { get; private set; }
     public Player_JumpState jumpState { get; private set; }
@@ -27,7 +27,9 @@ public class Player : Entity
         base.Awake();
 
         inputSystem = GetComponent<PlayerInputHandler>();
+        interaction = GetComponent<IInteraction>();
 
+        // 상태들 초기화
         idleState = new Player_IdleState(this, stateMachine, "Idle");
         xMoveState = new Player_XMoveState(this, stateMachine, "XMove");
         jumpState = new Player_JumpState(this, stateMachine, "JumpFall");
@@ -38,8 +40,7 @@ public class Player : Entity
     {
         base.Start();
 
-        interaction = GetComponent<IInteraction>();
-        
+        // 초기 상태 설정
         stateMachine.Initialize(idleState);
     }
 
@@ -47,6 +48,7 @@ public class Player : Entity
     {
         base.Update();
 
+        // 입력에 따른 방향 설정
         direction = new Vector2(inputSystem.moveInput.x, 0);
 
         interact.FindBestTarget();
@@ -56,6 +58,7 @@ public class Player : Entity
 
     }
 
+    // 상호작용 처리
     private void Intertable()
     {
         if (inputSystem.InteractableInput())
@@ -64,6 +67,7 @@ public class Player : Entity
         }
     }
 
+    // 디버그용 기즈모
     protected override void OnDrawGizmos()
     {
         base.OnDrawGizmos();
@@ -73,6 +77,16 @@ public class Player : Entity
         Gizmos.DrawWireSphere(interact.ObjCheck.position, interact.ObjCheckRadius);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(interact.interactionCheck.position, interact.interactionRadius);
+
+    }
+
+    public virtual void OnHitByRay()
+    {
+
+    }
+
+    public virtual void OnLeaveRay()
+    {
 
     }
 }
