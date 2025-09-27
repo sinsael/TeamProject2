@@ -40,6 +40,11 @@ public class Interaction : MonoBehaviour
         // 현재 프레임에 감지된 상호작용 컴포넌트들 수집
         foreach (var collider in ObjColliders)
         {
+            if (collider.gameObject == this.gameObject)
+            {
+                continue;
+            }
+
             if (collider.TryGetComponent<IInteraction_circle>(out var interactionComponent_circle))
             {
                 currentFrameInteractions.Add(interactionComponent_circle);

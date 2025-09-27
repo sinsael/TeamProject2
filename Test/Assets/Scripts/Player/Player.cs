@@ -5,6 +5,7 @@ public class Player : Entity, IInteraction_circle
     // 컴포넌트들
     public PlayerInputHandler inputSystem { get; private set; }
     public Interaction interact { get;  set; }
+    public Sanity sanity { get; set; }
 
     // 상태들
     public Player_IdleState idleState { get; private set; }
@@ -15,9 +16,9 @@ public class Player : Entity, IInteraction_circle
     [Header("플레이어 상세 설정")]
     public float MoveSpeed = 5;
     public float jumpForce = 5;
-    public int Sanity;
-    public const int MaxSanity = 100;
-    public const int MinSanity = 0;
+    [Header("초당 San수치 하락 설정")]
+    public float Sanamount;
+    public float Saninterval;
     protected bool PlayerDetectRay = false;
 
 
@@ -29,6 +30,7 @@ public class Player : Entity, IInteraction_circle
 
         inputSystem = GetComponent<PlayerInputHandler>();
         interact = GetComponent<Interaction>();
+        sanity = GetComponent<Sanity>();
 
         // 상태들 초기화
         idleState = new Player_IdleState(this, stateMachine, "Idle");
@@ -57,7 +59,7 @@ public class Player : Entity, IInteraction_circle
         interact.HandleTargetChange();
         interact.UpdateObjDetected();
         Intertable();
-
+        FarawayPlayer();
     }
 
     // 상호작용 처리
@@ -94,13 +96,19 @@ public class Player : Entity, IInteraction_circle
         PlayerDetectRay = false;
     }
 
-    public virtual void FallSanity(int sanity)
+    public virtual void FarawayPlayer()
     {
-        Sanity -= sanity;
-        if (Sanity < MinSanity)
+        if (!PlayerDetectRay)
         {
-            Sanity = MinSanity;
+            sanity.StartReduceSanity(Sanamount,Saninterval);
+            sanity.StopIncreaseSanity();
+        }
+        else if (PlayerDetectRay)
+        { 
+            sanity.StopReduceSanity();
+            sanity.StartIncreaseSanity(Sanamount,Saninterval);
         }
     }
-}
 
+
+}
