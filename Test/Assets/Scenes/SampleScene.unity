@@ -403,9 +403,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 1
   m_Material: {fileID: 6200000, guid: 04eccc40e9b7dec43b4fac15e60dda67, type: 2}
   m_IncludeLayers:
@@ -502,7 +502,7 @@ MonoBehaviour:
       m_Bits: 128
   MoveSpeed: 5
   jumpForce: 5
-  interact: {fileID: 789678600}
+  Sanity: 100
 --- !u!114 &789678603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -659,7 +659,7 @@ MonoBehaviour:
       m_Bits: 128
   MoveSpeed: 5
   jumpForce: 5
-  interact: {fileID: 879995355}
+  Sanity: 100
 --- !u!4 &879995358
 Transform:
   m_ObjectHideFlags: 0
