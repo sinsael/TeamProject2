@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class Interaction : MonoBehaviour
 {
-    [Header("상호작용 가능 오브젝트 감지")]
+    [Header("첫번쨰 원형 레이캐스트 오브젝트 감지")]
     public Transform ObjCheck; 
     public float ObjCheckRadius; // 감 반경
 

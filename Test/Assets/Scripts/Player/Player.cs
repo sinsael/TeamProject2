@@ -109,6 +109,4 @@ public class Player : Entity, IInteraction_circle
             sanity.StartIncreaseSanity(Sanamount,Saninterval);
         }
     }
-
-
 }
