@@ -12,6 +12,7 @@ public class Player_IdleState : Player_GroundedState
         base.Enter();
 
         player.SetVelocity(0, player.rb.velocity.y);
+        Debug.Log("Idle State Entered");
     }
 
     public override void Update()
@@ -19,7 +20,7 @@ public class Player_IdleState : Player_GroundedState
         base.Update();
 
 
-        if (player.inputSystem.moveInput.x != 0 && !player.Wall.wallDetected)
+        if (player.inputSystem.moveInput.x != 0 && !player.wall.IswallDetected)
             stateMachine.ChangeState(player.xMoveState);
 
     }

@@ -490,32 +490,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 032e5045a105db941b6b2f8ffcabbe52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Wall:
+  wall:
     XwallCheckDistance: 0.3
     XwallCheck: {fileID: 916653308}
     WhatIsWall:
       serializedVersion: 2
       m_Bits: 64
   ground:
-    groundCheckDistance: 0.3
-    groundCheck: {fileID: 1667800575}
+    GroundCheckDistance: 0.3
+    GroundCheck: {fileID: 1667800575}
     WhatIsGround:
       serializedVersion: 2
       m_Bits: 128
-  climing:
+  MoveSpeed: 5
+  JumpForce: 5
+  Sanamount: 1
+  Saninterval: 1
+  climbing:
     wallHangDelay: 3
     wallSlideFallSpeed: -0.3
     maxFallSpeed: -8
     wallClimbSpeed: 2
-    wallJumpPower: {x: 2, y: 4}
+    wallJumpPower: {x: 2, y: 2}
     wallJumpDuration: 1
     controlLock: 0.15
     wallCoyoteTime: 0.2
-  MoveSpeed: 5
-  jumpForce: 5
-  Sanamount: 1
-  Saninterval: 1
-  climingscript: {fileID: 0}
 --- !u!114 &789678603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -687,19 +686,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a64877a878619bf419fcb104a0cd6399, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Wall:
+  wall:
     XwallCheckDistance: 0.3
     XwallCheck: {fileID: 2529809}
     WhatIsWall:
       serializedVersion: 2
       m_Bits: 64
   ground:
-    groundCheckDistance: 0.3
-    groundCheck: {fileID: 1448417084}
+    GroundCheckDistance: 0.3
+    GroundCheck: {fileID: 1448417084}
     WhatIsGround:
       serializedVersion: 2
       m_Bits: 128
-  climing:
+  MoveSpeed: 5
+  JumpForce: 5
+  Sanamount: 1
+  Saninterval: 1
+  climbing:
     wallHangDelay: 3
     wallSlideFallSpeed: -0.3
     maxFallSpeed: -8
@@ -708,11 +711,6 @@ MonoBehaviour:
     wallJumpDuration: 1
     controlLock: 0.15
     wallCoyoteTime: 0.2
-  MoveSpeed: 5
-  jumpForce: 5
-  Sanamount: 1
-  Saninterval: 1
-  climingscript: {fileID: 879995360}
 --- !u!4 &879995358
 Transform:
   m_ObjectHideFlags: 0

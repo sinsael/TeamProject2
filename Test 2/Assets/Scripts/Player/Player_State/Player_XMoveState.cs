@@ -30,7 +30,7 @@ public class Player_XMoveState : Player_GroundedState
         }
 
 
-        if (player.Wall.wallDetected && player.inputSystem.moveInput.x != 0)
+        if (wall.IswallDetected && player.inputSystem.moveInput.x != 0)
         {
             stateMachine.ChangeState(player.idleState);
         }

@@ -10,40 +10,38 @@ public class ClimingSetting
     public float maxFallSpeed = -8f;            // 최대 낙하 속도
 
     [Header("Climb")]
-    public float wallClimbSpeed = 2f;           // 윗키 (W, UpArrow) 누를 때 오르는 속도
+    public float wallClimbSpeed;           // 윗키 (W, UpArrow) 누를 때 오르는 속도
 
     [Header("Wall Jump")]
-    public Vector2 wallJumpPower = new Vector2(2f, 4f); // 벽점프 시 힘 (X: 수평, Y: 수직)
+    public Vector2 wallJumpPower; // 벽점프 시 힘 (X: 수평, Y: 수직)
     public float wallJumpDuration = 1f;                 // 벽점프 유지 시간 (벽에서 떨어진 후 점프 영향 지속 시간)
     public float controlLock = 0.15f;                   // 벽점프 직후 입력 잠금 시간 (초)
     public float wallCoyoteTime = 0.2f;                 // 벽에서 떨어진 뒤에도 점프 가능한 유예 시간 (초)
 }
 
-public class Climing : MonoBehaviour
+public class Climbing : MonoBehaviour
 {
     Rigidbody2D rb;
     WallDetected wall;
     GroundDetected ground;
-    ClimingSetting climing;
+    ClimingSetting climbing;
     PlayerInputHandler Input;
     Player player;
     
 
-    public bool isOnWall { get; private set; } = false;
     public float wallHangTimer { get; private set; }
     public float defaultGravity { get; private set; }
     public float lockTimer { get; private set; }
     public float wallCoyoteTimer { get; private set; }
     public float wallJumpingDirection { get; private set; }
 
-    bool pullingOffWall;
     public void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         player = GetComponent<Player>();
         ground = player.ground;
-        climing = player.climing;
-        wall = player.Wall;
+        climbing = player.climbing;
+        wall = player.wall;
         Input = player.inputSystem;
 
         if (rb != null)
@@ -51,7 +49,7 @@ public class Climing : MonoBehaviour
             defaultGravity = rb.gravityScale;
         }
 
-        wallHangTimer = climing.wallHangDelay;
+        wallHangTimer = climbing.wallHangDelay;
         wallCoyoteTimer = 0f;
         defaultGravity = rb.gravityScale;
     }
@@ -59,7 +57,14 @@ public class Climing : MonoBehaviour
     // 상태에 진입할 때 타이머 등을 초기화하는 함수
     public void EnterState()
     {
+        // ★ 지면이면 진입 금지
+        if (ground.IsgroundDetected) return;
+
+        // ★ 진입 순간에 다시 백업(버프/환경으로 중력 바뀌었을 수 있음)
+        defaultGravity = rb.gravityScale;
+        ResetTimers();
         rb.velocity = new Vector2(rb.velocity.x, 0f);
+
         Debug.Log("벽타기 상태 진입");
     }
 
@@ -72,10 +77,11 @@ public class Climing : MonoBehaviour
     // 타이머 초기화 로직을 별도 함수로 분리
     public void ResetTimers()
     {
-        wallHangTimer = climing.wallHangDelay;
-        wallCoyoteTimer = 0f;
+        wallHangTimer = climbing.wallHangDelay;
+        wallCoyoteTimer = climbing.wallCoyoteTime;
         lockTimer = 0f;
     }
+
 
     public void UpdateClimbingState()
     {
@@ -83,21 +89,22 @@ public class Climing : MonoBehaviour
         if (wallCoyoteTimer > 0f) wallCoyoteTimer -= Time.deltaTime;
         if (lockTimer > 0f) lockTimer -= Time.deltaTime;
 
-        // 벽 감지
-        if (wall.wallDetected)
+        // + 지면이면 벽타기 로직 차단 !!
+        if (ground.IsgroundDetected)
         {
-            isOnWall = true;
-            wallCoyoteTimer = climing.wallCoyoteTime;
+            return;
         }
-        else
+
+        // 벽 감지
+        if (wall.IswallDetected)
         {
-            isOnWall = false;
+            wallCoyoteTimer = climbing.wallCoyoteTime;
         }
 
         // 벽 반대 방향 저장
-        if (isOnWall)
+        if (wall.IswallDetected)
         {
-            wallJumpingDirection = player.facingRight ? -1 : 1;
+            wallJumpingDirection = player._FacingRight ? -1 : 1;
         }
 
 
@@ -105,17 +112,19 @@ public class Climing : MonoBehaviour
 
     public virtual void WallDirection()
     {
-        if (isOnWall)
+        if (wall.IswallDetected)
         {
-            wallJumpingDirection = player.facingRight ? -1 : 1;
+            wallJumpingDirection = player._FacingRight ? -1 : 1;
         }
     }
 
-    public bool CheckAndPerformWallJump()
+    public bool CheckWallJump()
     {
-        pullingOffWall = Mathf.Abs(Input.moveInput.x) >= 0.4f && Mathf.Sign(Input.moveInput.x) == wallJumpingDirection;
+        bool hasHorizontalInput = Mathf.Abs(Input.moveInput.x) > 0.1f;
 
-        if ((isOnWall || wallCoyoteTimer > 0f) && pullingOffWall && lockTimer <= 0f)
+        bool isPushingAwayFromWall = Mathf.Sign(Input.moveInput.x) == wallJumpingDirection;
+
+        if ((wall.IswallDetected ||wallCoyoteTimer > 0f ) && hasHorizontalInput && isPushingAwayFromWall && lockTimer <= 0f)
         {
             WallJump();
             return true;
@@ -125,71 +134,67 @@ public class Climing : MonoBehaviour
 
     public bool CheckAndPerformClimb()
     {
-        if (isOnWall && Input.Climbinginput())
+        // 지면 금지 추가 
+        if (wall.IswallDetected && !ground.IsgroundDetected && Input.Climbinginput())
         {
-            ResetTimers();  
+            ResetTimers();
             rb.gravityScale = 0f;
-            rb.velocity = new Vector2(0f, climing.wallClimbSpeed); 
+            rb.velocity = new Vector2(0f, climbing.wallClimbSpeed);
             return true;
         }
-            return false;
+        return false;
     }
 
-    public void performHangAndSlide()
+    public void performHang()
     {
-        wallHangTimer -= Time.deltaTime;
-
-        if (wallHangTimer > 0f)
-        {
-            rb.gravityScale = 0f;
-            rb.velocity = Vector2.zero;
-        }
-        else
+        // + 진행 중 지면 닿으면 즉시 종료(중력 복원) !!
+        if (ground.IsgroundDetected)
         {
             rb.gravityScale = defaultGravity;
-            float y = rb.velocity.y;
-
-            if (y < climing.wallSlideFallSpeed) y = climing.wallSlideFallSpeed;
-            if (y < climing.maxFallSpeed) y = climing.maxFallSpeed;
-
-            rb.velocity = new Vector2(0f, y);
+            return;
         }
 
+        wallHangTimer -= Time.deltaTime;
+
+       
+            rb.gravityScale = 0f;
+            rb.velocity = Vector2.zero;
+
+
+    }
+
+    public void performSlide()
+    {
+        if (ground.IsgroundDetected)
+        {
+            rb.gravityScale = defaultGravity;
+            return;
+        }
+
+        rb.gravityScale = defaultGravity;
+        float y = rb.velocity.y;
+
+        if (y < climbing.wallSlideFallSpeed) y = climbing.wallSlideFallSpeed;
+        if (y < climbing.maxFallSpeed) y = climbing.maxFallSpeed;
+
+        rb.velocity = new Vector2(0f, y);
         // X 속도 억제
-        bool pushingIntoWall = Mathf.Abs(Input.moveInput.x) > 0.01f && Mathf.Sign(Input.moveInput.x) == (player.facingRight ? 1 : -1);
+        bool pushingIntoWall = Mathf.Abs(Input.moveInput.x) > 0.01f && Mathf.Sign(Input.moveInput.x) == (player._FacingRight ? 1 : -1);
         if (pushingIntoWall || Mathf.Abs(Input.moveInput.x) < 0.01f)
             rb.velocity = new Vector2(0f, rb.velocity.y);
 
         Debug.Log($"행 타이머: {wallHangTimer:F2}, 중력: {rb.gravityScale}, Y속도: {rb.velocity.y:F2}");
-        Debug.Log(Time.timeScale);
     }
 
-    private void WallJump()
+    public void WallJump()
     {
         rb.gravityScale = defaultGravity;
-        rb.velocity = new Vector2(wallJumpingDirection * climing.wallJumpPower.x, climing.wallJumpPower.y);
-
-        // 바라보는 방향 반전
-        if ((wallJumpingDirection > 0 && !player.facingRight) ||
-            (wallJumpingDirection < 0 && player.facingRight))
-        {
-            player.xFlip();
-        }
+        player.SetVelocity(climbing.wallJumpPower.x * wallJumpingDirection, climbing.wallJumpPower.y);
 
         // 재부착 방지
         player.wallAttachLockTimer = 0.2f;
 
-        // climing.controlLock 사용
-        lockTimer = climing.controlLock;
-
-        ResetTimers();
-    }
-
-    public void CheckGroundDetected()
-    {
-        if (ground.groundDetected)
-        {
-            ResetTimers();
-        }
+        // Climbing.controlLock 사용
+        lockTimer = climbing.controlLock;
     }
 }

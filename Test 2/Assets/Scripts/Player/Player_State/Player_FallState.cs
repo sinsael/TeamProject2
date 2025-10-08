@@ -11,13 +11,13 @@ public class Player_FallState : Player_AiredState
         base.Update();
 
         // 공중에서 벽을 만나면 즉시 벽타기
-        if (player.Wall.wallDetected && stateMachine.currentState != player.wallClimbingState)
+        if (player.wall.IswallDetected && stateMachine.currentState != player.wallHangState)
         {
-            stateMachine.ChangeState(player.wallClimbingState);
+            stateMachine.ChangeState(player.wallHangState);
             return;
         }
 
-        if (player.ground.groundDetected)
+        if (player.ground.IsgroundDetected)
             stateMachine.ChangeState(player.idleState);
     }
 }

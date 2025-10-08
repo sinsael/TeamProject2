@@ -9,9 +9,9 @@ public class Player_AiredState : PlayerState
         base.Update();
 
         // 공중에서 벽에 닿는 순간 즉시 벽타기 상태로 전환
-        if (player.Wall.wallDetected)
+        if (wall.IswallDetected)
         {
-            stateMachine.ChangeState(player.wallClimbingState);
+            stateMachine.ChangeState(player.wallHangState);
             return;
         }
     }
@@ -23,9 +23,9 @@ public class Player_AiredState : PlayerState
          if (player.inputSystem.moveInput.x != 0)
             player.SetVelocity(player.inputSystem.moveInput.x * player.MoveSpeed, rb.velocity.y);
     
-        if(player.Wall.wallDetected && player.wallAttachLockTimer <= 0f && stateMachine.currentState != player.wallClimbingState)
+        if(player.wall.IswallDetected && stateMachine.currentState != player.wallHangState)
         {
-            stateMachine.ChangeState(player.wallClimbingState);
+            stateMachine.ChangeState(player.wallHangState);
             return;
         }
     }
