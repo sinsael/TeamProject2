@@ -12,7 +12,7 @@ public class Player_WallSlideState : PlayerState
     {
         base.Update();
 
-        climingscript.performSlide();
+        climbing.performSlide(ground.IsgroundDetected, player._FacingRight, player.inputSystem.moveInput);
 
         if (ground.IsgroundDetected)
         {
@@ -20,7 +20,7 @@ public class Player_WallSlideState : PlayerState
             return;
         }
 
-        if (climingscript.CheckWallJump())
+        if (climbing.CheckWallJump(wall.IswallDetected, player.inputSystem.moveInput, player))
         {
             stateMachine.ChangeState(player.wallJumpState);
             return;
@@ -30,7 +30,7 @@ public class Player_WallSlideState : PlayerState
     public override void Exit()
     {
         base.Exit();
-        climingscript.ExitState();
+        climbing.ExitState();
     }
 
 }

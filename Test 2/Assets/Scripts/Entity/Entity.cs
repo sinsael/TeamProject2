@@ -7,22 +7,19 @@ public class WallDetected
 {
     public float XwallCheckDistance; // 벽 감지 거리
     public Transform XwallCheck; // 벽 감지 위치
-    public bool _WallDetected { get; private set; } // 벽 감지 여부
-    public bool IswallDetected => _WallDetected; // 벽 감지 여부 읽기 전용
+    public bool IswallDetected { get; private set; }
     public LayerMask WhatIsWall; // 벽 레이어
 
     // 벽 감지 업데이트
     public void UpdateWallDetected(float xDir)
     {
-        bool xWall = Physics2D.Raycast(XwallCheck.position, Vector2.right * xDir, XwallCheckDistance, WhatIsWall);
-
-        _WallDetected = xWall;
+        IswallDetected = Physics2D.Raycast(XwallCheck.position, Vector2.right * xDir, XwallCheckDistance, WhatIsWall);
     }
 
     // 땅에 닿아있으면 벽 감지 무시
     public void MaskByGround(bool grounded)
     {
-        if (grounded) _WallDetected = false;
+        if (grounded) IswallDetected = false;
     }
 
 }
@@ -61,14 +58,9 @@ public class Entity : MonoBehaviour
    
 
     public bool _FacingRight { get; private set; } = true;
-    public bool _FacingVertical { get; private set; }
-
-
-    public int _FacingDir { get; private set; } = 1;
 
 
     public Vector2 Direction { get; set; }
-    public bool IsMove { get; private set; }
 
     protected virtual void Awake()
     {
@@ -105,8 +97,6 @@ public class Entity : MonoBehaviour
     public virtual void SetVelocity(float xvelocity, float yvelocity)
     {
         rb.velocity = new Vector2(xvelocity, yvelocity);
-
-        XHandleFlip(xvelocity);
     }
 
 

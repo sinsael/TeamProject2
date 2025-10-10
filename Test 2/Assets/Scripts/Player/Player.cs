@@ -4,8 +4,9 @@ public class Player : Entity, IInteraction_circle
 {
     // 컴포넌트들
     public PlayerInputHandler inputSystem { get; private set; }
-    public Interaction interact { get; set; }
-    public Sanity sanity { get; set; }
+    public Interaction interact { get; private set; }
+    public Sanity sanity { get; private set; }
+    public Climbing climbing { get; private set; }
 
     // 상태들
     public Player_IdleState idleState { get; private set; }
@@ -26,14 +27,6 @@ public class Player : Entity, IInteraction_circle
     protected bool PlayerDetectRay = false;
 
 
-    // -----------추가-----------
-    [Header("벽타기 설정")]
-    public ClimingSetting climbing;
-    public Climbing climingscript { get; private set; }
-
-    public float wallAttachLockTimer { get; set; } = 0.2f;
-    // -----------끝-----------
-
 
     protected override void Awake()
     {
@@ -42,7 +35,7 @@ public class Player : Entity, IInteraction_circle
         inputSystem = GetComponent<PlayerInputHandler>();
         interact = GetComponent<Interaction>();
         sanity = GetComponent<Sanity>();
-        climingscript = GetComponent<Climbing>();
+        climbing = GetComponent<Climbing>();
 
         // 상태들 초기화
         idleState = new Player_IdleState(this, stateMachine, "Idle");
@@ -66,10 +59,6 @@ public class Player : Entity, IInteraction_circle
     protected override void Update()
     {
         base.Update();
-
-        // 잠금 타이머 감소
-        if (wallAttachLockTimer > 0f)
-            wallAttachLockTimer -= Time.deltaTime;
 
         // 입력에 따른 방향 설정
         Direction = new Vector2(inputSystem.moveInput.x, 0f);

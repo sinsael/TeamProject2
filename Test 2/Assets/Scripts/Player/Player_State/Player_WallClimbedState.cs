@@ -13,15 +13,13 @@ public class Player_WallClimbedState : PlayerState
     {
         base.Update();
 
-       
-
-        if (!climingscript.CheckAndPerformClimb())
+        if (!climbing.CheckAndPerformClimb(ground.IsgroundDetected, wall.IswallDetected, player.inputSystem.Climbinginput()))
         {
             stateMachine.ChangeState(player.wallHangState);
             return;
         }
 
-        if (climingscript.CheckWallJump())
+        if (climbing.CheckWallJump(wall.IswallDetected, player.inputSystem.moveInput, player))
         {
             stateMachine.ChangeState(player.wallJumpState);
             return;
@@ -31,6 +29,6 @@ public class Player_WallClimbedState : PlayerState
     public override void Exit()
     {
         base.Exit();
-        climingscript.ExitState();
+        climbing.ExitState();
     }
 }

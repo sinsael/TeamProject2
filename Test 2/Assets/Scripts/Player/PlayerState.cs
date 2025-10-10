@@ -4,8 +4,7 @@ public abstract class PlayerState : EntityState
     protected PlayerInputSet playerInput;
     protected GroundDetected ground;
     protected WallDetected wall;
-    protected ClimingSetting climbing;
-    protected Climbing climingscript;
+    protected Climbing climbing;
 
     protected PlayerState(Player player, StateMachine stateMachine, string animBoolName) : base(stateMachine, animBoolName)
     {
@@ -17,7 +16,6 @@ public abstract class PlayerState : EntityState
         ground = player.ground;
         wall = player.wall;
         climbing = player.climbing;
-        climingscript = player.climingscript;
     }
+
 }
-    

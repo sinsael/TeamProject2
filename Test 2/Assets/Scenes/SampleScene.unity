@@ -497,7 +497,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 64
   ground:
-    GroundCheckDistance: 0.3
+    GroundCheckDistance: 0.27
     GroundCheck: {fileID: 1667800575}
     WhatIsGround:
       serializedVersion: 2
@@ -506,15 +506,6 @@ MonoBehaviour:
   JumpForce: 5
   Sanamount: 1
   Saninterval: 1
-  climbing:
-    wallHangDelay: 3
-    wallSlideFallSpeed: -0.3
-    maxFallSpeed: -8
-    wallClimbSpeed: 2
-    wallJumpPower: {x: 2, y: 2}
-    wallJumpDuration: 1
-    controlLock: 0.15
-    wallCoyoteTime: 0.2
 --- !u!114 &789678603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,6 +545,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99b0418b1f9455b43ac15f643a63786b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wallHangDelay: 3
+  wallSlideFallSpeed: -0.3
+  maxFallSpeed: -8
+  wallClimbSpeed: 6
+  wallJumpPower: {x: 2, y: 4}
+  wallJumpDuration: 1
+  controlLock: 0.15
+  wallCoyoteTime: 0.2
 --- !u!1 &879995352
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,15 +701,6 @@ MonoBehaviour:
   JumpForce: 5
   Sanamount: 1
   Saninterval: 1
-  climbing:
-    wallHangDelay: 3
-    wallSlideFallSpeed: -0.3
-    maxFallSpeed: -8
-    wallClimbSpeed: 2
-    wallJumpPower: {x: 2, y: 4}
-    wallJumpDuration: 1
-    controlLock: 0.15
-    wallCoyoteTime: 0.2
 --- !u!4 &879995358
 Transform:
   m_ObjectHideFlags: 0
@@ -757,6 +747,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99b0418b1f9455b43ac15f643a63786b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wallHangDelay: 3
+  wallSlideFallSpeed: -0.3
+  maxFallSpeed: -8
+  wallClimbSpeed: 6
+  wallJumpPower: {x: 2, y: 4}
+  wallJumpDuration: 1
+  controlLock: 0.15
+  wallCoyoteTime: 0.2
 --- !u!1 &916653307
 GameObject:
   m_ObjectHideFlags: 0

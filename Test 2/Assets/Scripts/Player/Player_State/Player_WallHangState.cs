@@ -19,14 +19,14 @@ public class Player_WallHangState : PlayerState
             return;
         }
 
-        climingscript.EnterState();
+        climbing.EnterState(ground.IsgroundDetected);
     }
 
     public override void Update()
     {
         base.Update();
 
-        climingscript.UpdateClimbingState();
+        climbing.UpdateClimbingState(ground.IsgroundDetected, wall.IswallDetected, player._FacingRight);
 
         // + 지면이면 상태 전환 --- !!!
         if (ground.IsgroundDetected)
@@ -37,23 +37,23 @@ public class Player_WallHangState : PlayerState
             return;
         }
 
-        if (climingscript.CheckWallJump())
+        if (climbing.CheckWallJump(wall.IswallDetected, player.inputSystem.moveInput, player))
         {
             stateMachine.ChangeState(player.wallJumpState);
             return;
         }
 
-        if (climingscript.CheckAndPerformClimb())
+        if (climbing.CheckAndPerformClimb(ground.IsgroundDetected, wall.IswallDetected, player.inputSystem.Climbinginput()))
         {
             stateMachine.ChangeState(player.wallClimbedState);
             return;
         }
 
-        if (climingscript.wallHangTimer > 0f)
+        if (climbing.wallHangTimer > 0f)
         {
-            climingscript.performHang();
+            climbing.performHang(ground.IsgroundDetected);
         }
-        else if (climingscript.wallHangTimer <= 0f)
+        else if (climbing.wallHangTimer <= 0f)
         {
             stateMachine.ChangeState(player.wallSlideState);
         }
@@ -62,6 +62,6 @@ public class Player_WallHangState : PlayerState
     public override void Exit()
     {
         base.Exit();
-        climingscript.ExitState();
+        climbing.ExitState();
     }
 }
