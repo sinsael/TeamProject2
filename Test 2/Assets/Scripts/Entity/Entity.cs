@@ -7,6 +7,7 @@ public class WallDetected
 {
     public float XwallCheckDistance; // 벽 감지 거리
     public Transform XwallCheck; // 벽 감지 위치
+    public int DetectedWallDirection { get; private set; }
     public bool IswallDetected { get; private set; }
     public LayerMask WhatIsWall; // 벽 레이어
 
@@ -14,6 +15,11 @@ public class WallDetected
     public void UpdateWallDetected(float xDir)
     {
         IswallDetected = Physics2D.Raycast(XwallCheck.position, Vector2.right * xDir, XwallCheckDistance, WhatIsWall);
+
+        if (IswallDetected)
+        {
+            DetectedWallDirection = (int)xDir;
+        }
     }
 
     // 땅에 닿아있으면 벽 감지 무시
@@ -128,7 +134,7 @@ public class Entity : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, -ground.GroundCheckDistance));
     }
     // x축 벽 감지 기즈모 방향 설정
-    protected virtual float XGizmoDirection
+    public virtual float XGizmoDirection
     {
         get
         {

@@ -4,20 +4,11 @@
 public class Player_WallHangState : PlayerState
 {
     public Player_WallHangState(Player player, StateMachine stateMachine, string animBoolName)
-        : base(player, stateMachine, animBoolName) {}
+        : base(player, stateMachine, animBoolName) { }
 
     public override void Enter()
     {
         base.Enter();
-
-        // + 지면이면 진입 금지: 곧바로 Grounded로 ---!!!
-        if (ground.IsgroundDetected)
-        {
-            stateMachine.ChangeState(
-                Mathf.Abs(player.inputSystem.moveInput.x) > 0.01f ? player.xMoveState : player.idleState
-            );
-            return;
-        }
 
         climbing.EnterState(ground.IsgroundDetected);
     }
@@ -31,13 +22,11 @@ public class Player_WallHangState : PlayerState
         // + 지면이면 상태 전환 --- !!!
         if (ground.IsgroundDetected)
         {
-            stateMachine.ChangeState(
-                Mathf.Abs(player.inputSystem.moveInput.x) > 0.01f ? player.xMoveState : player.idleState
-            );
+            stateMachine.ChangeState(player.idleState);
             return;
         }
 
-        if (climbing.CheckWallJump(wall.IswallDetected, player.inputSystem.moveInput, player))
+        if (climbing.CheckWallJump(wall.IswallDetected, player.inputSystem.moveInput))
         {
             stateMachine.ChangeState(player.wallJumpState);
             return;

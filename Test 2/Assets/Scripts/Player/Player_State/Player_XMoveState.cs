@@ -11,8 +11,6 @@ public class Player_XMoveState : Player_GroundedState
     public override void Enter()
     {
         base.Enter();
-
-        Debug.Log("x움직임");
     }
 
 

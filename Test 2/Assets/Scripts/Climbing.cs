@@ -92,15 +92,7 @@ public class Climbing : MonoBehaviour
 
     }
 
-    public virtual void WallDirection(bool wall, bool facing)
-    {
-        if (wall)
-        {
-            wallJumpingDirection = facing ? -1 : 1;
-        }
-    }
-
-    public bool CheckWallJump(bool wall, Vector2 input, Entity entity)
+    public bool CheckWallJump(bool wall, Vector2 input)
     {
         bool hasHorizontalInput = Mathf.Abs(input.x) > 0.1f;
 
@@ -108,7 +100,8 @@ public class Climbing : MonoBehaviour
 
         if ((wall || wallCoyoteTimer > 0f) && hasHorizontalInput && isPushingAwayFromWall && lockTimer <= 0f)
         {
-            WallJump(entity);
+            rb.gravityScale = defaultGravity;
+            lockTimer = controlLock;
             return true;
         }
         return false;
@@ -166,15 +159,5 @@ public class Climbing : MonoBehaviour
             rb.velocity = new Vector2(0f, rb.velocity.y);
 
         Debug.Log($"행 타이머: {wallHangTimer:F2}, 중력: {rb.gravityScale}, Y속도: {rb.velocity.y:F2}");
-    }
-
-    public void WallJump(Entity entity)
-    {
-        rb.gravityScale = defaultGravity;
-        entity.SetVelocity(wallJumpPower.x * wallJumpingDirection, wallJumpPower.y);
-
-
-        // Climbing.controlLock 사용
-        lockTimer = controlLock;
     }
 }

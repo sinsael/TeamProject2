@@ -11,16 +11,9 @@ public class PlayerInputHandler : MonoBehaviour
     {
         input = new PlayerInputSet();
     }
-
-    public virtual void Update()
-    {
-        // 업데이트에서 매 프레임마다 Climbing 상태 갱신
-        // 그대로 두기!!
-    }
-
     public virtual void OnEnable()
     {
-        input.Enable();
+        input?.Enable();
         MovementInput();
     }
 

@@ -10,11 +10,8 @@ public class Player_AiredState : PlayerState
 
         player.XHandleFlip(player.inputSystem.moveInput.x);
 
-        if (player.wall.IswallDetected && stateMachine.currentState != player.wallHangState && player.inputSystem.moveInput.x != 0)
-        {
-            stateMachine.ChangeState(player.wallHangState);
-            return;
-        }
+        wallHang();
+        
     }
 
     public override void FixedUpdate()
@@ -26,4 +23,18 @@ public class Player_AiredState : PlayerState
 
     }
 
+
+    public void wallHang()
+    {
+        bool isMovingTowardsWall = (rb.velocity.x * player.wall.DetectedWallDirection) > 0;
+        bool isPushingTowardsWall = (player.inputSystem.moveInput.x * player.wall.DetectedWallDirection) > 0;
+        bool shouldStickToWall = isMovingTowardsWall || (isPushingTowardsWall);
+
+
+        if (player.wall.IswallDetected && shouldStickToWall)
+        {
+            stateMachine.ChangeState(player.wallHangState);
+            return;
+        }
+    }
 }

@@ -20,7 +20,7 @@ public class Player_WallSlideState : PlayerState
             return;
         }
 
-        if (climbing.CheckWallJump(wall.IswallDetected, player.inputSystem.moveInput, player))
+        if (climbing.CheckWallJump(wall.IswallDetected, player.inputSystem.moveInput))
         {
             stateMachine.ChangeState(player.wallJumpState);
             return;

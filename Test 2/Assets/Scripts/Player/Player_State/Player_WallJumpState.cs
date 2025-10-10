@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class Player_WallJumpState : PlayerState
 {
@@ -12,9 +13,11 @@ public class Player_WallJumpState : PlayerState
 		base.Enter();
 
 		player.XHandleFlip(player.inputSystem.moveInput.x);
-	}
+        player.SetVelocity(climbing.wallJumpPower.x * climbing.wallJumpingDirection, climbing.wallJumpPower.y);
 
-	public override void Update()
+    }
+
+    public override void Update()
 	{
 		base.Update();
 
