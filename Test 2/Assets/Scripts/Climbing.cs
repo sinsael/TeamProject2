@@ -107,17 +107,11 @@ public class Climbing : MonoBehaviour
         return false;
     }
 
-    public bool CheckAndPerformClimb(bool ground, bool wall, bool input)
+    public void PerformClimb()
     {
-        // 지면 금지 추가 
-        if (wall && !ground && input)
-        {
             ResetTimers();
             rb.gravityScale = 0f;
             rb.velocity = new Vector2(0f, wallClimbSpeed);
-            return true;
-        }
-        return false;
     }
 
     public void performHang(bool ground)

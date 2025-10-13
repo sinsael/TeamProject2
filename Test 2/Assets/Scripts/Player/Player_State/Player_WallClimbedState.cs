@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class Player_WallClimbedState : PlayerState
 {
@@ -13,7 +10,9 @@ public class Player_WallClimbedState : PlayerState
     {
         base.Update();
 
-        if (!climbing.CheckAndPerformClimb(ground.IsgroundDetected, wall.IswallDetected, player.inputSystem.Climbinginput()))
+        climbing.PerformClimb();
+
+        if (!player.inputSystem.Climbinginput())
         {
             stateMachine.ChangeState(player.wallHangState);
             return;

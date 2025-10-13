@@ -1,5 +1,3 @@
-using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class Player_WallJumpState : PlayerState
 {

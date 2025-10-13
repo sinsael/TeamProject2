@@ -1,4 +1,3 @@
-using UnityEngine;
 
 
 // 땅에 있을때에 상태들 관리 스크립트

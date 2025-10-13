@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-
+﻿
 // 벽 매달리기 / 오르기(W) / 벽점프(반대 방향) / 슬라이드
 public class Player_WallHangState : PlayerState
 {
@@ -32,7 +31,7 @@ public class Player_WallHangState : PlayerState
             return;
         }
 
-        if (climbing.CheckAndPerformClimb(ground.IsgroundDetected, wall.IswallDetected, player.inputSystem.Climbinginput()))
+        if (player.inputSystem.Climbinginput())
         {
             stateMachine.ChangeState(player.wallClimbedState);
             return;

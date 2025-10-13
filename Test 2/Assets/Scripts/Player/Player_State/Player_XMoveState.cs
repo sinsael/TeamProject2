@@ -1,5 +1,3 @@
-using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Player_XMoveState : Player_GroundedState
 {
