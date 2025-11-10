@@ -3,100 +3,67 @@ using UnityEngine;
 
 public class Sanity : MonoBehaviour
 {
-    public float MaxSanPoint = 100f;
-    public float SanPoint;
+    public Player player;
+    private Entity_Stat entityStat;
+
+    public float currentSan;
     public bool isCrazy = false;
 
-    private Coroutine reduceSanityCoroutine = null;
-    private Coroutine IncreaseSanityOverTime = null;
+    public float Regeninterval = 1f;
+    public float Amountinterval = 1f;
+
+    public void Awake()
+    {
+        entityStat = GetComponent<Entity_Stat>();
+
+        isCrazy = false;
+    }
 
     private void Start()
     {
-        SanPoint = MaxSanPoint;
-    }
-
-    public virtual void DecreaseSanPoint(float decrease)
-    {
-        if (isCrazy)
-            return;
-    
-        SanPoint -= decrease;
-        if (SanPoint <= 0)
-        {
-            SanPoint = 0;
-            crazy();
-        }
+        currentSan = entityStat.GetSanity();
     }
 
     public void IncreaseSanPoint(float increase)
     {
-        SanPoint += increase;
-      
-        if (SanPoint > MaxSanPoint)
+        if (isCrazy)
+            return;
+
+        float newSanPoint = currentSan + increase;
+        float maxSanPoint = entityStat.GetSanity();
+
+        currentSan = Mathf.Min(newSanPoint, maxSanPoint);
+    }
+
+    public void ReduceSanpoint(float Reduce)
+    {
+        currentSan -= Reduce;
+
+        if (currentSan <= 0f)
         {
-            SanPoint = MaxSanPoint;
+            currentSan = 0f;
+            crazy();
         }
+    }
+    public void RegenerateSanpoint()
+    {
+        if (isCrazy)
+            return;
+        float regenAmount = entityStat.san.SanityRegen.GetValue();
+        IncreaseSanPoint(regenAmount * Time.deltaTime);
+    }
+
+    public void DrainSanpoint()
+    {
+        if (isCrazy)
+            return;
+        float drainAmount = entityStat.san.SanityAmount.GetValue();
+        ReduceSanpoint(drainAmount * Time.deltaTime);
     }
 
     private void crazy()
     {
-        Debug.Log("You are going crazy!");
         isCrazy = true;
+        player?.PlayerCrazy();
     }
-
-    public void StartReduceSanity(float amount, float interval)
-    {
-        if (isCrazy) return;
-
-        if (reduceSanityCoroutine == null)
-        {
-            reduceSanityCoroutine = StartCoroutine(ReduceSanityOverTime(amount, interval));
-        }
-    }
-
-    public void StopReduceSanity()
-    {
-        if (reduceSanityCoroutine != null)
-        {
-            StopCoroutine(reduceSanityCoroutine);
-            reduceSanityCoroutine = null;
-        }
-    }
-
-    public void StartIncreaseSanity(float amount, float interval)
-    {
-        if (IncreaseSanityOverTime == null)
-        {
-            IncreaseSanityOverTime = StartCoroutine(IncreaseSanity(amount, interval));
-        }
-    }
-
-    public void StopIncreaseSanity()
-    {
-        if (IncreaseSanityOverTime != null)
-        {
-            StopCoroutine(IncreaseSanityOverTime);
-            IncreaseSanityOverTime = null;
-        }
-    }
-
-    private IEnumerator ReduceSanityOverTime(float amount, float interval)
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(interval);
-
-            DecreaseSanPoint(amount);
-        }
-    }
-
-    private IEnumerator IncreaseSanity(float amount, float interval)
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(interval);
-            IncreaseSanPoint(amount);
-        }
-    }
-
 }

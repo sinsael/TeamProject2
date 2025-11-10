@@ -94,6 +94,14 @@ public class Interaction : MonoBehaviour
         currentTarget = bestTarget;
     }
 
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(ObjCheck.position, ObjCheckRadius);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(interactionCheck.position, interactionRadius);
+    }
+
     // 타겟 변경 처리
     public void HandleTargetChange()
     {

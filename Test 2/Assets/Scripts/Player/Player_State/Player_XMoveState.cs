@@ -1,7 +1,6 @@
 
 public class Player_XMoveState : Player_GroundedState
 {
-
     public Player_XMoveState(Player player, StateMachine stateMachine, string animBoolName) : base(player, stateMachine, animBoolName)
     {
 
