@@ -20,7 +20,7 @@ public class WallDetected
         {
             DetectedWallDirection = (int)xDir;
         }
-    }
+    }   
 
     // 땅에 닿아있으면 벽 감지 무시
     public void MaskByGround(bool grounded)

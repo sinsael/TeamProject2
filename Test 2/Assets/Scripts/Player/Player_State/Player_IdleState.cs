@@ -20,7 +20,7 @@ public class Player_IdleState : Player_GroundedState
         base.Update();
 
 
-        if (player.inputSystem.moveInput.x != 0 && !player.wall.IswallDetected)
+        if (player.inputSystem.moveInput.x != 0 || !player.wall.IswallDetected)
             stateMachine.ChangeState(player.xMoveState);
 
     }
