@@ -9,8 +9,3 @@ public enum ClimbedState
     Climbiup,
     slide
 }
-
-public class ClimbingState : MonoBehaviour
-{
-   
-}
