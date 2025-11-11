@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player_FallState : Player_AiredState
@@ -12,7 +10,14 @@ public class Player_FallState : Player_AiredState
     {
         base.Update();
 
-        if(player.ground.groundDetected)
+        // 공중에서 벽을 만나면 즉시 벽타기
+        if (player.Wall.wallDetected && stateMachine.currentState != player.Player_WallClimbingState)
+        {
+            stateMachine.ChangeState(player.Player_WallClimbingState);
+            return;
+        }
+
+        if (player.ground.groundDetected)
             stateMachine.ChangeState(player.idleState);
     }
 }
