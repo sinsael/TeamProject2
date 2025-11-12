@@ -94,9 +94,10 @@ public class Entity : MonoBehaviour
         stateMachine.UpdateActiveState();
     }
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         stateMachine.FixedUpdateActiveState();
+
     }
 
     // 엔티티 움직임 설정

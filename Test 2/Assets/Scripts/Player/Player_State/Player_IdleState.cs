@@ -11,7 +11,6 @@ public class Player_IdleState : Player_GroundedState
     {
         base.Enter();
 
-        player.SetVelocity(0, player.rb.velocity.y);
         Debug.Log("Idle State Entered");
     }
 
@@ -20,7 +19,7 @@ public class Player_IdleState : Player_GroundedState
         base.Update();
 
 
-        if (player.inputSystem.moveInput.x != 0 || !player.wall.IswallDetected)
+        if (player.inputSystem.moveInput.x != 0)
             stateMachine.ChangeState(player.xMoveState);
 
     }

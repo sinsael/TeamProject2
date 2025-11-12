@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements.Experimental;
 
 public class Player : Entity
 {
@@ -57,8 +58,6 @@ public class Player : Entity
 
         // 초기 상태 설정
         stateMachine.Initialize(idleState);
-        MoveSpeed = playerStat.GetSpeed();
-        JumpForce = playerStat.GetJumpForce();
     }
 
     protected override void Update()
@@ -68,11 +67,74 @@ public class Player : Entity
         // 입력에 따른 방향 설정
         Direction = new Vector2(inputSystem.moveInput.x, 0f);
 
+        XHandleFlip(inputSystem.moveInput.x);
+
         interact.FindBestTarget();
         interact.HandleTargetChange();
         Intertable();
         HandleProximitySanity();
+
+        if (wall.IswallDetected && !ground.IsgroundDetected)
+        {
+            climbing.UpdateClimbingState(ground.IsgroundDetected, wall.IswallDetected, _FacingRight);
+        }
+        else if (!ground.IsgroundDetected)
+        {
+            
+        }
+        else
+        {
+            
+        }
     }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+
+        if (wall.IswallDetected && !ground.IsgroundDetected)
+        {
+            if (climbing.CheckWallJump(wall.IswallDetected, inputSystem.moveInput))
+            {
+                SetVelocity(climbing.wallJumpPower.x * climbing.wallJumpingDirection, climbing.wallJumpPower.y);
+            }
+            else if (inputSystem.Climbinginput())
+            {
+                climbing.PerformClimb();
+            }
+            else if (climbing.wallHangTimer > 0f)
+            {
+                climbing.performHang(ground.IsgroundDetected);
+            }
+            else if (climbing.wallHangTimer <= 0f)
+            {
+                climbing.performSlide(ground.IsgroundDetected, _FacingRight, inputSystem.moveInput);
+            }
+        }
+        else if (!ground.IsgroundDetected)
+        {
+            if (inputSystem.moveInput.x != 0)
+            {
+                SetVelocity(inputSystem.moveInput.x * MoveSpeed, rb.velocity.y);
+            }
+        }
+        else
+        {
+            if (inputSystem.JumpInput())
+            {
+                SetVelocity(rb.velocity.x, JumpForce);
+            }
+            else if (inputSystem.moveInput.x != 0)
+            {
+                SetVelocity(inputSystem.moveInput.x * MoveSpeed, rb.velocity.y);
+            }
+            else
+            {
+                SetVelocity(0, rb.velocity.y);
+            }
+        }
+    }
+
 
     // 상호작용 처리
     private void Intertable()
@@ -127,7 +189,7 @@ public class Player : Entity
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, PlayerDetectRadius);
     }
-    
+
     public virtual void PlayerCrazy()
     {
 

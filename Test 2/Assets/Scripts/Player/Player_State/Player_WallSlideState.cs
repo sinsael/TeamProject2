@@ -9,8 +9,6 @@ public class Player_WallSlideState : PlayerState
     {
         base.Update();
 
-        climbing.performSlide(ground.IsgroundDetected, player._FacingRight, player.inputSystem.moveInput);
-
         if (ground.IsgroundDetected)
         {
             stateMachine.ChangeState(player.idleState);

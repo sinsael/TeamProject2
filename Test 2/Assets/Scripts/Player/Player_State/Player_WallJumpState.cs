@@ -9,10 +9,6 @@ public class Player_WallJumpState : PlayerState
 	public override void Enter()
 	{
 		base.Enter();
-
-		player.XHandleFlip(player.inputSystem.moveInput.x);
-        player.SetVelocity(climbing.wallJumpPower.x * climbing.wallJumpingDirection, climbing.wallJumpPower.y);
-
     }
 
     public override void Update()

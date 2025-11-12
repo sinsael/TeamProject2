@@ -9,10 +9,7 @@ public class Player_JumpState : Player_AiredState
     public override void Enter()
     {
         base.Enter();
-        
-        //มกวม
-        if(ground.IsgroundDetected)
-            player.SetVelocity(player.rb.velocity.x, player.JumpForce);
+       
     }
 
     public override void Update()

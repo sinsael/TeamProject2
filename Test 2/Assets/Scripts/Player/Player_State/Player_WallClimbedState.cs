@@ -10,8 +10,6 @@ public class Player_WallClimbedState : PlayerState
     {
         base.Update();
 
-        climbing.PerformClimb();
-
         if (!player.inputSystem.Climbinginput())
         {
             stateMachine.ChangeState(player.wallHangState);

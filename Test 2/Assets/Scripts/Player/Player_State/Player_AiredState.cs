@@ -17,9 +17,6 @@ public class Player_AiredState : PlayerState
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-        // 공중에서의 움직임 설정
-        if (player.inputSystem.moveInput.x != 0)
-            player.SetVelocity(player.inputSystem.moveInput.x * player.MoveSpeed, rb.velocity.y);
 
     }
 

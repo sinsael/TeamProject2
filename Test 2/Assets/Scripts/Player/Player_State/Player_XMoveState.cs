@@ -16,9 +16,6 @@ public class Player_XMoveState : Player_GroundedState
     {
         base.Update();
 
-        player.XHandleFlip(player.inputSystem.moveInput.x);
-
-
         if (player.inputSystem.moveInput.x == 0)
         {
             stateMachine.ChangeState(player.idleState);
@@ -28,8 +25,6 @@ public class Player_XMoveState : Player_GroundedState
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-        // x축 움직임 설정
-        player.SetVelocity(player.inputSystem.moveInput.x * player.MoveSpeed, player.rb.velocity.y);
     }
 
 }

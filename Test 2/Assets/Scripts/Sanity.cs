@@ -21,7 +21,6 @@ public class Sanity : MonoBehaviour
 
     private void Start()
     {
-        currentSan = entityStat.GetSanity();
     }
 
     public void IncreaseSanPoint(float increase)

@@ -16,8 +16,6 @@ public class Player_WallHangState : PlayerState
     {
         base.Update();
 
-        climbing.UpdateClimbingState(ground.IsgroundDetected, wall.IswallDetected, player._FacingRight);
-
         // + 지면이면 상태 전환 --- !!!
         if (ground.IsgroundDetected)
         {
@@ -37,11 +35,7 @@ public class Player_WallHangState : PlayerState
             return;
         }
 
-        if (climbing.wallHangTimer > 0f)
-        {
-            climbing.performHang(ground.IsgroundDetected);
-        }
-        else if (climbing.wallHangTimer <= 0f)
+        if (climbing.wallHangTimer <= 0f)
         {
             stateMachine.ChangeState(player.wallSlideState);
         }
