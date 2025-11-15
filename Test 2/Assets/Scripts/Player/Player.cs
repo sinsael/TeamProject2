@@ -58,6 +58,9 @@ public class Player : Entity
 
         // 초기 상태 설정
         stateMachine.Initialize(idleState);
+
+        MoveSpeed = playerStat.GetSpeed();
+        JumpForce = playerStat.GetJumpForce();
     }
 
     protected override void Update()
