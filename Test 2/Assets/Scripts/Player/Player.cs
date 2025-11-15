@@ -123,14 +123,16 @@ public class Player : Entity
             if (inputSystem.JumpInput())
             {
                 SetVelocity(rb.velocity.x, JumpForce);
+
             }
             else if (inputSystem.moveInput.x != 0)
             {
                 SetVelocity(inputSystem.moveInput.x * MoveSpeed, rb.velocity.y);
+
             }
             else
             {
-                SetVelocity(0, rb.velocity.y);
+                SetVelocity(0, rb.velocity.y); 
             }
         }
     }
