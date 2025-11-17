@@ -70,7 +70,7 @@ public class Player_AnimationController : MonoBehaviour
     {
         if (currentState == newState) return;
 
-        currentState = newState;
+        currentState = newState;    
 
         anim.SetInteger("State", (int)newState);
     }

@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class Second_PlayerInputHandler : PlayerInputHandler
 {
+    public override void Awake()
+    {
+        input = new PlayerInputSet();
+    }
+
+    public override void OnEnable()
+    {
+        input.Second_Player.Enable();
+    }
+    public override void OnDisable()
+    {
+        input.Second_Player.Disable();
+    }
     public override void MovementInput()
     {
         input.Second_Player.Movement.performed += ctx => moveInput = ctx.ReadValue<Vector2>();

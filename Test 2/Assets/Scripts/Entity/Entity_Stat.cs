@@ -5,6 +5,8 @@ using UnityEngine;
 public class Entity_Stat : MonoBehaviour
 {
     public StatSO defaultStatSetup;
+
+
     public SanityStat san = new SanityStat
     {
         maxSanity = new Stat(),
@@ -18,25 +20,18 @@ public class Entity_Stat : MonoBehaviour
         jumpForce = new Stat()
     };
 
-    protected virtual void Awake()
+    public void Start()
     {
-        if (defaultStatSetup == null)
+        if (defaultStatSetup != null)
         {
-            Debug.LogError("defaultStatSetup(StatSO)이 할당되지 않았습니다!", this.gameObject);
-            return;
+            san.maxSanity.SetBaseValue(defaultStatSetup.Sanity);
+            san.SanityRegen.SetBaseValue(defaultStatSetup.RegenSanity);
+            san.SanityAmount.SetBaseValue(defaultStatSetup.SanityAmount);
+
+            move.speed.SetBaseValue(defaultStatSetup.speed);
+            move.jumpForce.SetBaseValue(defaultStatSetup.jumpForce);
         }
-
-        // [핵심] Stat 클래스의 SetBaseValue() 메서드를 사용해 값을 초기화합니다.
-        // (defaultStatSetup에 speed, jumpForce 등이 float로 선언되어 있다고 가정)
-
-        move.speed.SetBaseValue(defaultStatSetup.speed);
-        move.jumpForce.SetBaseValue(defaultStatSetup.jumpForce);
-
-        san.maxSanity.SetBaseValue(defaultStatSetup.Sanity);
-        san.SanityRegen.SetBaseValue(defaultStatSetup.RegenSanity);
-        san.SanityAmount.SetBaseValue(defaultStatSetup.SanityAmount);
     }
-
     public float GetSanity()
     {
         return san.maxSanity.GetValue();

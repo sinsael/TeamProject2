@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerInputHandler : MonoBehaviour
 {
-    public PlayerInputSet input { get; private set; }
+    public PlayerInputSet input { get; set; }
 
     public virtual Vector2 moveInput { get; set; }
 

@@ -14,7 +14,6 @@ public class Player : Entity
     public float MoveSpeed;
     public float JumpForce;
 
-
     public Player otherPlayer;
     public float PlayerDetectRadius;
     public LayerMask WhatisPlayer;
@@ -30,6 +29,9 @@ public class Player : Entity
         sanity = GetComponent<Sanity>();
         climbing = GetComponent<Climbing>();
         playerStat = GetComponent<Entity_Stat>();
+
+        MoveSpeed = playerStat.GetSpeed();
+        JumpForce = playerStat.GetJumpForce();
     }
 
     protected override void Start()
@@ -54,26 +56,12 @@ public class Player : Entity
         if (wall.IswallDetected && !ground.IsgroundDetected)
         {
             climbing.UpdateClimbingState(ground.IsgroundDetected, wall.IswallDetected, _FacingRight);
-        }
-        else if (!ground.IsgroundDetected)
-        {
-            
-        }
-        else
-        {
-            
-        }
-    }
 
-    protected override void FixedUpdate()
-    {
-        base.FixedUpdate();
-
-        if (wall.IswallDetected && !ground.IsgroundDetected)
-        {
             if (climbing.CheckWallJump(wall.IswallDetected, inputSystem.moveInput))
             {
                 SetVelocity(climbing.wallJumpPower.x * climbing.wallJumpingDirection, climbing.wallJumpPower.y);
+                Debug.Log("Wall Jumped");
+
             }
             else if (inputSystem.Climbinginput())
             {
@@ -88,18 +76,19 @@ public class Player : Entity
                 climbing.performSlide(ground.IsgroundDetected, _FacingRight, inputSystem.moveInput);
             }
         }
-        else if (!ground.IsgroundDetected)
+        else if (!ground.IsgroundDetected && !wall.IswallDetected)
         {
             if (inputSystem.moveInput.x != 0)
             {
                 SetVelocity(inputSystem.moveInput.x * MoveSpeed, rb.velocity.y);
             }
         }
-        else
+        else if (!wall.IswallDetected && ground.IsgroundDetected)
         {
             if (inputSystem.JumpInput())
             {
                 SetVelocity(rb.velocity.x, JumpForce);
+                Debug.Log("Jumped");
 
             }
             else if (inputSystem.moveInput.x != 0)
@@ -109,9 +98,16 @@ public class Player : Entity
             }
             else
             {
-                SetVelocity(0, rb.velocity.y); 
+                SetVelocity(0, rb.velocity.y);
             }
         }
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+
+        
     }
 
 
