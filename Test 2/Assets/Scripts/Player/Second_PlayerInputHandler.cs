@@ -12,6 +12,7 @@ public class Second_PlayerInputHandler : PlayerInputHandler
     public override void OnEnable()
     {
         input.Second_Player.Enable();
+        MovementInput();
     }
     public override void OnDisable()
     {

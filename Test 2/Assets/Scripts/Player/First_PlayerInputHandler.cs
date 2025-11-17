@@ -12,6 +12,7 @@ public class First_PlayerInputHandler : PlayerInputHandler
     public override void OnEnable()
     {
         input.First_Player.Enable();
+        MovementInput();
     }
 
     public override void OnDisable()
@@ -20,8 +21,8 @@ public class First_PlayerInputHandler : PlayerInputHandler
     }   
     public override void MovementInput()
     {
-        input.Second_Player.Movement.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
-        input.Second_Player.Movement.canceled += ctx => moveInput = Vector2.zero;
+        input.First_Player.Movement.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+        input.First_Player.Movement.canceled += ctx => moveInput = Vector2.zero;
     }
 
     public override bool InteractableInput() => input.First_Player.Interactable.WasPressedThisFrame();

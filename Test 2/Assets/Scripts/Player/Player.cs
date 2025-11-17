@@ -30,13 +30,13 @@ public class Player : Entity
         climbing = GetComponent<Climbing>();
         playerStat = GetComponent<Entity_Stat>();
 
-        MoveSpeed = playerStat.GetSpeed();
-        JumpForce = playerStat.GetJumpForce();
     }
 
     protected override void Start()
     {
         base.Start();
+        MoveSpeed = playerStat.GetSpeed();
+        JumpForce = playerStat.GetJumpForce();
     }
 
     protected override void Update()
@@ -107,7 +107,7 @@ public class Player : Entity
     {
         base.FixedUpdate();
 
-        
+
     }
 
 
