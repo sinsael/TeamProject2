@@ -98,7 +98,7 @@ public class Entity : MonoBehaviour
     // 엔티티 움직임 설정
     public virtual void SetVelocity(float xvelocity, float yvelocity)
     {
-        rb.velocity = new Vector2(xvelocity, yvelocity);
+        rb.linearVelocity = new Vector2(xvelocity, yvelocity);
     }
 
 

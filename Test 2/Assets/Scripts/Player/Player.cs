@@ -80,25 +80,25 @@ public class Player : Entity
         {
             if (inputSystem.moveInput.x != 0)
             {
-                SetVelocity(inputSystem.moveInput.x * MoveSpeed, rb.velocity.y);
+                SetVelocity(inputSystem.moveInput.x * MoveSpeed, rb.linearVelocity.y);
             }
         }
         else if (!wall.IswallDetected && ground.IsgroundDetected)
         {
             if (inputSystem.JumpInput())
             {
-                SetVelocity(rb.velocity.x, JumpForce);
+                SetVelocity(rb.linearVelocity.x, JumpForce);
                 Debug.Log("Jumped");
 
             }
             else if (inputSystem.moveInput.x != 0)
             {
-                SetVelocity(inputSystem.moveInput.x * MoveSpeed, rb.velocity.y);
+                SetVelocity(inputSystem.moveInput.x * MoveSpeed, rb.linearVelocity.y);
 
             }
             else
             {
-                SetVelocity(0, rb.velocity.y);
+                SetVelocity(0, rb.linearVelocity.y);
             }
         }
     }

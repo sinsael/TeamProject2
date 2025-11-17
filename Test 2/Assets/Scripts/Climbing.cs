@@ -5,17 +5,17 @@ public class Climbing : MonoBehaviour
     Rigidbody2D rb;
 
     [Header("Hang / Slide")]
-    public float wallHangDelay = 3f;            // ¸Å´Þ¸®´Â ½Ã°£ (ÃÊ)_±âÈ¹¼­ ´ë·Î 3ÃÊ
-    public float wallSlideFallSpeed = -0.3f;    // º®¿¡¼­ ¶³¾îÁö´Â ¼Óµµ_±âÈ¹¼­ ´ë·Î 0.3 Áß·Â°ª
-    public float maxFallSpeed = -8f;            // ÃÖ´ë ³«ÇÏ ¼Óµµ
+    public float wallHangDelay = 3f;            // ï¿½Å´Þ¸ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ (ï¿½ï¿½)_ï¿½ï¿½È¹ï¿½ï¿½ ï¿½ï¿½ï¿½ 3ï¿½ï¿½
+    public float wallSlideFallSpeed = -0.3f;    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½_ï¿½ï¿½È¹ï¿½ï¿½ ï¿½ï¿½ï¿½ 0.3 ï¿½ß·Â°ï¿½
+    public float maxFallSpeed = -8f;            // ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½
 
     [Header("Climb")]
-    public float wallClimbSpeed;           // À­Å° (W, UpArrow) ´©¸¦ ¶§ ¿À¸£´Â ¼Óµµ
+    public float wallClimbSpeed;           // ï¿½ï¿½Å° (W, UpArrow) ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½
 
     [Header("Wall Jump")]
-    public Vector2 wallJumpPower; // º®Á¡ÇÁ ½Ã Èû (X: ¼öÆò, Y: ¼öÁ÷)
-    public float controlLock = 0.15f;                   // º®Á¡ÇÁ Á÷ÈÄ ÀÔ·Â Àá±Ý ½Ã°£ (ÃÊ)
-    public float wallCoyoteTime = 0.2f;                 // º®¿¡¼­ ¶³¾îÁø µÚ¿¡µµ Á¡ÇÁ °¡´ÉÇÑ À¯¿¹ ½Ã°£ (ÃÊ)
+    public Vector2 wallJumpPower; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ (X: ï¿½ï¿½ï¿½ï¿½, Y: ï¿½ï¿½ï¿½ï¿½)
+    public float controlLock = 0.15f;                   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ (ï¿½ï¿½)
+    public float wallCoyoteTime = 0.2f;                 // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ (ï¿½ï¿½)
 
     public float wallHangTimer { get; private set; }
     public float defaultGravity { get; private set; }
@@ -36,27 +36,27 @@ public class Climbing : MonoBehaviour
         defaultGravity = rb.gravityScale;
     }
 
-    // »óÅÂ¿¡ ÁøÀÔÇÒ ¶§ Å¸ÀÌ¸Ó µîÀ» ÃÊ±âÈ­ÇÏ´Â ÇÔ¼ö
+    // ï¿½ï¿½ï¿½Â¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Å¸ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
     public void EnterState(bool ground)
     {
-        // ¡Ú Áö¸éÀÌ¸é ÁøÀÔ ±ÝÁö
+        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (ground) return;
 
-        // ¡Ú ÁøÀÔ ¼ø°£¿¡ ´Ù½Ã ¹é¾÷(¹öÇÁ/È¯°æÀ¸·Î Áß·Â ¹Ù²î¾úÀ» ¼ö ÀÖÀ½)
+        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½/È¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß·ï¿½ ï¿½Ù²ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
         defaultGravity = rb.gravityScale;
         ResetTimers();
-        rb.velocity = new Vector2(rb.velocity.x, 0f);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
 
-        Debug.Log("º®Å¸±â »óÅÂ ÁøÀÔ");
+        Debug.Log("ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
     }
 
-    // »óÅÂ¸¦ ³ª°¥ ¶§ Áß·ÂÀ» ¿ø·¡´ë·Î µ¹¸®´Â ÇÔ¼ö
+    // ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ß·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
     public void ExitState()
     {
         rb.gravityScale = defaultGravity;
     }
 
-    // Å¸ÀÌ¸Ó ÃÊ±âÈ­ ·ÎÁ÷À» º°µµ ÇÔ¼ö·Î ºÐ¸®
+    // Å¸ï¿½Ì¸ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½Ð¸ï¿½
     public void ResetTimers()
     {
         wallHangTimer = wallHangDelay;
@@ -67,23 +67,23 @@ public class Climbing : MonoBehaviour
 
     public void UpdateClimbingState(bool ground, bool wall, bool facing)
     {
-        // ¸Å ÇÁ·¹ÀÓ ½Ã°£ °¨¼Ò Ã³¸®
+        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
         if (wallCoyoteTimer > 0f) wallCoyoteTimer -= Time.deltaTime;
         if (lockTimer > 0f) lockTimer -= Time.deltaTime;
 
-        // + Áö¸éÀÌ¸é º®Å¸±â ·ÎÁ÷ Â÷´Ü !!
+        // + ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ !!
         if (ground)
         {
             return;
         }
 
-        // º® °¨Áö
+        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (wall)
         {
             wallCoyoteTimer = wallCoyoteTime;
         }
 
-        // º® ¹Ý´ë ¹æÇâ ÀúÀå
+        // ï¿½ï¿½ ï¿½Ý´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (wall)
         {
             wallJumpingDirection = facing ? -1 : 1;
@@ -111,12 +111,12 @@ public class Climbing : MonoBehaviour
     {
             ResetTimers();
             rb.gravityScale = 0f;
-            rb.velocity = new Vector2(0f, wallClimbSpeed);
+            rb.linearVelocity = new Vector2(0f, wallClimbSpeed);
     }
 
     public void performHang(bool ground)
     {
-        // + ÁøÇà Áß Áö¸é ´êÀ¸¸é Áï½Ã Á¾·á(Áß·Â º¹¿ø) !!
+        // + ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ß·ï¿½ ï¿½ï¿½ï¿½ï¿½) !!
         if (ground)
         {
             rb.gravityScale = defaultGravity;
@@ -127,7 +127,7 @@ public class Climbing : MonoBehaviour
 
 
         rb.gravityScale = 0f;
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
 
 
     }
@@ -141,17 +141,17 @@ public class Climbing : MonoBehaviour
         }
 
         rb.gravityScale = defaultGravity;
-        float velocityY = rb.velocity.y;
+        float velocityY = rb.linearVelocity.y;
 
         if (velocityY < wallSlideFallSpeed) velocityY = wallSlideFallSpeed;
         if (velocityY < maxFallSpeed) velocityY = maxFallSpeed;
 
-        rb.velocity = new Vector2(0f, velocityY);
-        // X ¼Óµµ ¾ïÁ¦
+        rb.linearVelocity = new Vector2(0f, velocityY);
+        // X ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½
         bool pushingIntoWall = Mathf.Abs(input.x) > 0.01f && Mathf.Sign(input.x) == (facing ? 1 : -1);
         if (pushingIntoWall || Mathf.Abs(input.x) < 0.01f)
-            rb.velocity = new Vector2(0f, rb.velocity.y);
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
 
-        Debug.Log($"Çà Å¸ÀÌ¸Ó: {wallHangTimer:F2}, Áß·Â: {rb.gravityScale}, Y¼Óµµ: {rb.velocity.y:F2}");
+        Debug.Log($"ï¿½ï¿½ Å¸ï¿½Ì¸ï¿½: {wallHangTimer:F2}, ï¿½ß·ï¿½: {rb.gravityScale}, Yï¿½Óµï¿½: {rb.linearVelocity.y:F2}");
     }
 }
