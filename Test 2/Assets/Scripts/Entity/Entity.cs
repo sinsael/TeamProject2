@@ -50,7 +50,6 @@ public class GroundDetected
 // 모든 엔티들의 기초가 되는 스크립트
 public class Entity : MonoBehaviour
 {
-    protected StateMachine stateMachine;
 
     public Animator anim { get; private set; }
     public Rigidbody2D rb { get; private set; }
@@ -72,8 +71,6 @@ public class Entity : MonoBehaviour
     {
         anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
-
-        stateMachine = new StateMachine();
     }
 
     protected virtual void Start()
@@ -91,12 +88,10 @@ public class Entity : MonoBehaviour
         ground.HandleCollisionDetection();                 // 1) 땅 먼저 
         wall.UpdateWallDetected(XGizmoDirection);          // 2) 벽
         wall.MaskByGround(ground.IsgroundDetected);          // 3) 땅이면 벽 false + 추가
-        stateMachine.UpdateActiveState();
     }
 
     protected virtual void FixedUpdate()
     {
-        stateMachine.FixedUpdateActiveState();
 
     }
 

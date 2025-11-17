@@ -22,7 +22,7 @@ public class Player_AnimationController : MonoBehaviour
     private void Awake()
     {
         player = GetComponent<Player>();
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -68,13 +68,10 @@ public class Player_AnimationController : MonoBehaviour
 
     public void ChangeState(PlayerStates newState)
     {
-        // 이미 같은 상태면 아무것도 하지 않음
         if (currentState == newState) return;
 
         currentState = newState;
 
-        // [핵심]
-        // 애니메이터에 'State' 숫자를 딱 한 번 설정합니다.
         anim.SetInteger("State", (int)newState);
     }
 }

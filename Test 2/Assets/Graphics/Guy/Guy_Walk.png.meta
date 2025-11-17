@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0ae07c1167774f848ba4acb77774b3a6
+guid: ff93b493cff540040825c67460cab2ba
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -46,8 +46,8 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.3, y: 0}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -97,43 +97,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Idle_0
+      name: Guy_Walk_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 600
         height: 1000
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 9
+      pivot: {x: 0.28, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f02d9dca3aadd9d4e8c4e842999f6a2a
-      internalID: 1373017743
+      spriteID: 7101c50992fde9040ba41211b3e8bbed
+      internalID: 591612441
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle_1
+      name: Guy_Walk_1
       rect:
         serializedVersion: 2
         x: 600
         y: 0
         width: 600
         height: 1000
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 9
+      pivot: {x: 0.33, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 01d4eb53b157b0943ab001220f6be266
-      internalID: 1769082508
+      spriteID: c4255ee0499eef740bbe02b732215b74
+      internalID: -1614946021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Guy_Walk_2
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 0
+        width: 600
+        height: 1000
+      alignment: 9
+      pivot: {x: 0.3, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37e32995315abee4daac4147a28f1f3c
+      internalID: 1373814959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Guy_Walk_3
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 0
+        width: 600
+        height: 1000
+      alignment: 9
+      pivot: {x: 0.34, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5ffa5d53cb8ae0479a48ad91bf9f3b9
+      internalID: 833448014
       vertices: []
       indices: 
       edges: []
@@ -142,15 +184,17 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Idle_0: 1373017743
-      Idle_1: 1769082508
+      Guy_Walk_0: 591612441
+      Guy_Walk_1: -1614946021
+      Guy_Walk_2: 1373814959
+      Guy_Walk_3: 833448014
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
