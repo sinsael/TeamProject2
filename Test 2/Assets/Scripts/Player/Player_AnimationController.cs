@@ -6,7 +6,6 @@ public enum PlayerStates
     Idle,
     Move,
     Jump,
-    Fall,
     WallHang,
     WallSlide,
     WallClimb
@@ -16,6 +15,7 @@ public class Player_AnimationController : MonoBehaviour
 {
     Player player;
     Animator anim;
+    Rigidbody2D rb;
 
     public PlayerStates currentState { get; private set; }
 
@@ -23,10 +23,13 @@ public class Player_AnimationController : MonoBehaviour
     {
         player = GetComponent<Player>();
         anim = GetComponentInChildren<Animator>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
+        anim.SetFloat("Yvelocity", rb.linearVelocity.y);
+
         if (player.wall.IswallDetected && !player.ground.IsgroundDetected)
         {
             if (player.climbing.CheckWallJump(player.wall.IswallDetected, player.inputSystem.moveInput))
@@ -48,10 +51,11 @@ public class Player_AnimationController : MonoBehaviour
         }
         else if (!player.ground.IsgroundDetected)
         {
+            ChangeState(PlayerStates.Jump);
         }
         else
         {
-            if (player.inputSystem.JumpInput())
+            if (rb.linearVelocity.y > 0.1f)
             {
                 ChangeState(PlayerStates.Jump);
             }
@@ -70,7 +74,7 @@ public class Player_AnimationController : MonoBehaviour
     {
         if (currentState == newState) return;
 
-        currentState = newState;    
+        currentState = newState;
 
         anim.SetInteger("State", (int)newState);
     }
