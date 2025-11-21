@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class BookUIManager : MonoBehaviour
 {
     [SerializeField] Image page;
-    [SerializeField] Sprite[] pagesprites;
+    [SerializeField] Sprite[] pageSprites;
     [SerializeField] Button nextButton;
     [SerializeField] Button prevButton;
 
@@ -20,7 +20,7 @@ public class BookUIManager : MonoBehaviour
     [ContextMenu("test next")]
     private void OnNextBtnClick()
     {
-        if(_currentIndex < pagesprites.Length -1)
+        if(_currentIndex < pageSprites.Length -1)
         {
             _currentIndex++;
             UpdatePage();
@@ -39,8 +39,8 @@ public class BookUIManager : MonoBehaviour
 
     private void UpdatePage()
     {
-        page.sprite = pagesprites[_currentIndex];
+        page.sprite = pageSprites[_currentIndex];
         prevButton.gameObject?.SetActive(_currentIndex > 0);
-        nextButton.gameObject?.SetActive(_currentIndex < pagesprites.Length - 1);
+        nextButton.gameObject?.SetActive(_currentIndex < pageSprites.Length - 1);
     }
 }

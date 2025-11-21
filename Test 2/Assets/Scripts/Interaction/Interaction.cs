@@ -22,8 +22,8 @@ public class Interaction : MonoBehaviour
     public float interactionRadius;    
     public LayerMask interactableLayer; 
 
-    private IInteraction currentTarget; 
-    private IInteraction previousTarget; 
+    private IInteraction _currentTarge; 
+    private IInteraction _previousTarget; 
 
     public Collider2D[] GetDetectedColliders()
     {
@@ -91,7 +91,7 @@ public class Interaction : MonoBehaviour
             }
         }
 
-        currentTarget = bestTarget;
+        _currentTarge = bestTarget;
     }
 
     void OnDrawGizmos()
@@ -105,21 +105,21 @@ public class Interaction : MonoBehaviour
     // 타겟 변경 처리
     public void HandleTargetChange()
     {
-        if (previousTarget != currentTarget)
+        if (_previousTarget != _currentTarge)
         {
-            previousTarget?.OnDeselect(); // 이전 타겟에서 벗어남 처리
-            currentTarget?.OnSelect(); // 새 타겟 선택 처리
+            _previousTarget?.OnDeselect(); // 이전 타겟에서 벗어남 처리
+            _currentTarge?.OnSelect(); // 새 타겟 선택 처리
 
-            previousTarget = currentTarget;
+            _previousTarget = _currentTarge;
         }
     }
 
     // 상호작용 실행
     public void Interact()
     {
-        if (currentTarget != null)
+        if (_currentTarge != null)
         {
-            currentTarget.OnInteract();
+            _currentTarge.OnInteract();
         }
     }
 }
