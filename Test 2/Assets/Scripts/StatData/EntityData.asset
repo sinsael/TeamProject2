@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EntityData
   m_EditorClassIdentifier: 
   speed: 3
-  jumpForce: 3
+  jumpForce: 10
   Sanity: 100
   RegenSanity: 3
   SanityAmount: 3

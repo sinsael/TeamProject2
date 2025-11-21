@@ -206,24 +206,18 @@ MonoBehaviour:
     m_Style: 1
     m_Time: 2
     m_CustomCurve:
+      serializedVersion: 2
       m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
   m_CustomBlends: {fileID: 0}
-  m_OutputCamera: {fileID: 17688523}
-  m_TargetOverride: {fileID: 0}
   m_CameraCutEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_CallsDirty: 1
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_CallsDirty: 1
-  m_LastFrameUpdated: 6
-  mNextFrameId: 1
-  mActiveCameraPreviousFrameGameObject: {fileID: 723879436}
 --- !u!20 &17688523
 Camera:
   m_ObjectHideFlags: 0
@@ -288,17 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player2Renderer: {fileID: 1774367346}
-  darkenColor:
-    r: 0.5
-    g: 0.5
-    b: 0.5
-    a: 1
-  originalColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  p2Material: {fileID: 0}
+  darkenColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!1 &84688155
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,21 +333,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color:
-    r: 1
-    g: 1
-    b: 1
-    a: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastTargetCache: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  <useLegacyMeshGeneration>k__BackingField: 0
   m_Maskable: 1
-  m_IsMaskingGraphic: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_CallsDirty: 1
   m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
@@ -372,12 +348,8 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
-  m_AlphaHitTestMinimumThreshold: 0
-  m_Tracked: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
-  m_CachedReferencePixelsPerUnit: 100
-  m_SecondaryTextures: []
 --- !u!222 &84688158
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -431,7 +403,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ad980451443d70438faac0bc6c235a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_vcamOwner: {fileID: 1152538165}
   m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
@@ -463,31 +434,6 @@ MonoBehaviour:
   m_MaximumFOV: 60
   m_MinimumOrthoSize: 1
   m_MaximumOrthoSize: 5000
-  m_PreviousCameraPosition: {x: 1, y: 0, z: -10}
-  <TrackedPoint>k__BackingField: {x: 1, y: 0, z: 0}
-  m_InheritingPosition: 0
-  m_prevFOV: 10.171056
-  m_prevRotation: {x: -0, y: -0, z: -0, w: 1}
-  <LastBounds>k__BackingField:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
-  <LastBoundsMatrix>k__BackingField:
-    e00: 0
-    e01: 0
-    e02: 0
-    e03: 0
-    e10: 0
-    e11: 0
-    e12: 0
-    e13: 0
-    e20: 0
-    e21: 0
-    e22: 0
-    e23: 0
-    e30: 0
-    e31: 0
-    e32: 0
-    e33: 0
 --- !u!114 &130080734
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -529,7 +475,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f67f01fdd12d8bb47800af160b5be359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LeverManager
-  activeLevers: []
   maxActiveLevers: 2
 --- !u!4 &147638982
 Transform:
@@ -577,12 +522,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RootRaycaster: {fileID: 0}
   m_IgnoreReversedGraphics: 1
   m_BlockingObjects: 0
   m_BlockingMask:
+    serializedVersion: 2
     m_Bits: 4294967295
-  m_Canvas: {fileID: 0}
 --- !u!114 &368287463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -605,7 +549,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_Canvas: {fileID: 0}
   m_PresetInfoIsWorld: 0
 --- !u!223 &368287464
 Canvas:
@@ -738,7 +681,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 8.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -766,24 +709,18 @@ MonoBehaviour:
     m_Style: 1
     m_Time: 2
     m_CustomCurve:
+      serializedVersion: 2
       m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
   m_CustomBlends: {fileID: 0}
-  m_OutputCamera: {fileID: 519420031}
-  m_TargetOverride: {fileID: 0}
   m_CameraCutEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_CallsDirty: 1
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_CallsDirty: 1
-  m_LastFrameUpdated: 6
-  mNextFrameId: 1
-  mActiveCameraPreviousFrameGameObject: {fileID: 1152538163}
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -797,17 +734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player2Renderer: {fileID: 1229343014}
-  darkenColor:
-    r: 0.5
-    g: 0.5
-    b: 0.5
-    a: 1
-  originalColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  p2Material: {fileID: 0}
+  darkenColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!1 &723879436
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,25 +783,9 @@ MonoBehaviour:
   m_ExcludedPropertiesInInspector:
   - m_Script
   m_LockStageInInspector: 
-  m_ValidatingStreamVersion: 20170927
-  m_OnValidateCalled: 1
   m_StreamingVersion: 20170927
   m_Priority: 10
-  m_ActivationId: 6
   m_StandbyUpdate: 2
-  <mExtensions>k__BackingField: []
-  <PreviousStateIsValid>k__BackingField: 1
-  m_WasStarted: 1
-  mSlaveStatusUpdated: 1
-  m_parentVcam: {fileID: 0}
-  m_QueuePriority: 10
-  m_blendStartPosition: 0
-  m_CachedFollowTarget: {fileID: 879995358}
-  m_CachedFollowTargetVcam: {fileID: 0}
-  m_CachedLookAtTarget: {fileID: 0}
-  m_CachedLookAtTargetVcam: {fileID: 0}
-  <FollowTargetChanged>k__BackingField: 0
-  <LookAtTargetChanged>k__BackingField: 0
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 879995358}
   m_Lens:
@@ -888,21 +799,14 @@ MonoBehaviour:
     GateFit: 2
     FocusDistance: 10
     m_SensorSize: {x: 1, y: 1}
-    m_OrthoFromCamera: 1
-    m_PhysicalFromCamera: 0
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
     m_OnCameraLive:
       m_PersistentCalls:
         m_Calls: []
-      m_CallsDirty: 1
   m_LegacyBlendHint: 0
-  m_ComponentPipeline:
-  - {fileID: 2087134144}
   m_ComponentOwner: {fileID: 2087134143}
-  mCachedLookAtTarget: {fileID: 0}
-  mCachedLookAtTargetVcam: {fileID: 0}
 --- !u!1 &768311736
 GameObject:
   m_ObjectHideFlags: 0
@@ -975,7 +879,7 @@ SpriteRenderer:
   m_Size: {x: 28.8, y: 10.799999}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &768311738
@@ -1027,7 +931,7 @@ Transform:
   m_GameObject: {fileID: 789678593}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: 8.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1116,11 +1020,13 @@ MonoBehaviour:
   ObjCheck: {fileID: 1547436355}
   ObjCheckRadius: 0.75
   WhatIsObj:
+    serializedVersion: 2
     m_Bits: 768
   ObjColliders: []
   interactionCheck: {fileID: 1547436355}
   interactionRadius: 0.28
   interactableLayer:
+    serializedVersion: 2
     m_Bits: 256
 --- !u!114 &789678604
 MonoBehaviour:
@@ -1135,7 +1041,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  entityStat: {fileID: 0}
   currentSan: 0
   isCrazy: 0
   Regeninterval: 1
@@ -1152,7 +1057,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99b0418b1f9455b43ac15f643a63786b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
   wallHangDelay: 3
   wallSlideFallSpeed: -0.3
   maxFallSpeed: -8
@@ -1160,11 +1064,6 @@ MonoBehaviour:
   wallJumpPower: {x: 2, y: 4}
   controlLock: 0.15
   wallCoyoteTime: 0.2
-  <wallHangTimer>k__BackingField: 0
-  <defaultGravity>k__BackingField: 0
-  <lockTimer>k__BackingField: 0
-  <wallCoyoteTimer>k__BackingField: 0
-  <wallJumpingDirection>k__BackingField: 0
 --- !u!114 &789678607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1190,9 +1089,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9ace618ecff0cb469635dffebbeb3e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  anim: {fileID: 0}
-  <currentState>k__BackingField: 0
 --- !u!114 &789678609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1205,7 +1101,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb4faf69e6cec049aa6e15ed344c186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <moveInput>k__BackingField: {x: 0, y: 0}
 --- !u!114 &789678610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1218,33 +1113,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a64877a878619bf419fcb104a0cd6399, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <anim>k__BackingField: {fileID: 0}
-  <rb>k__BackingField: {fileID: 0}
   wall:
     XwallCheckDistance: 0.3
     XwallCheck: {fileID: 916653308}
-    <DetectedWallDirection>k__BackingField: 0
-    <IswallDetected>k__BackingField: 0
     WhatIsWall:
+      serializedVersion: 2
       m_Bits: 64
   ground:
     GroundCheckDistance: 0.3
     GroundCheck: {fileID: 1667800575}
-    <IsgroundDetected>k__BackingField: 0
     WhatIsGround:
+      serializedVersion: 2
       m_Bits: 192
-  <_FacingRight>k__BackingField: 1
-  <Direction>k__BackingField: {x: 0, y: 0}
-  <inputSystem>k__BackingField: {fileID: 0}
-  <interact>k__BackingField: {fileID: 0}
-  <sanity>k__BackingField: {fileID: 0}
-  <climbing>k__BackingField: {fileID: 0}
-  <playerStat>k__BackingField: {fileID: 0}
   MoveSpeed: 0
   JumpForce: 0
   otherPlayer: {fileID: 879995366}
   PlayerDetectRadius: 0
   WhatisPlayer:
+    serializedVersion: 2
     m_Bits: 0
 --- !u!1 &879995352
 GameObject:
@@ -1350,11 +1236,13 @@ MonoBehaviour:
   ObjCheck: {fileID: 1053599069}
   ObjCheckRadius: 0.75
   WhatIsObj:
+    serializedVersion: 2
     m_Bits: 768
   ObjColliders: []
   interactionCheck: {fileID: 1053599069}
   interactionRadius: 0.28
   interactableLayer:
+    serializedVersion: 2
     m_Bits: 256
 --- !u!4 &879995358
 Transform:
@@ -1388,7 +1276,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  entityStat: {fileID: 0}
   currentSan: 0
   isCrazy: 0
   Regeninterval: 1
@@ -1405,7 +1292,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99b0418b1f9455b43ac15f643a63786b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
   wallHangDelay: 3
   wallSlideFallSpeed: -0.3
   maxFallSpeed: -8
@@ -1413,11 +1299,6 @@ MonoBehaviour:
   wallJumpPower: {x: 2, y: 4}
   controlLock: 0.15
   wallCoyoteTime: 0.2
-  <wallHangTimer>k__BackingField: 0
-  <defaultGravity>k__BackingField: 0
-  <lockTimer>k__BackingField: 0
-  <wallCoyoteTimer>k__BackingField: 0
-  <wallJumpingDirection>k__BackingField: 0
 --- !u!114 &879995362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1443,9 +1324,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9ace618ecff0cb469635dffebbeb3e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  anim: {fileID: 0}
-  <currentState>k__BackingField: 0
 --- !u!114 &879995365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1458,7 +1336,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dca21e51821f2f49b07b7a1a43380e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <moveInput>k__BackingField: {x: 0, y: 0}
 --- !u!114 &879995366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1471,33 +1348,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 032e5045a105db941b6b2f8ffcabbe52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <anim>k__BackingField: {fileID: 0}
-  <rb>k__BackingField: {fileID: 0}
   wall:
     XwallCheckDistance: 0.3
     XwallCheck: {fileID: 2529809}
-    <DetectedWallDirection>k__BackingField: 0
-    <IswallDetected>k__BackingField: 0
     WhatIsWall:
+      serializedVersion: 2
       m_Bits: 64
   ground:
     GroundCheckDistance: 0.3
     GroundCheck: {fileID: 1448417084}
-    <IsgroundDetected>k__BackingField: 0
     WhatIsGround:
+      serializedVersion: 2
       m_Bits: 192
-  <_FacingRight>k__BackingField: 1
-  <Direction>k__BackingField: {x: 0, y: 0}
-  <inputSystem>k__BackingField: {fileID: 0}
-  <interact>k__BackingField: {fileID: 0}
-  <sanity>k__BackingField: {fileID: 0}
-  <climbing>k__BackingField: {fileID: 0}
-  <playerStat>k__BackingField: {fileID: 0}
   MoveSpeed: 0
   JumpForce: 0
   otherPlayer: {fileID: 789678610}
   PlayerDetectRadius: 0
   WhatisPlayer:
+    serializedVersion: 2
     m_Bits: 512
 --- !u!1 &916653307
 GameObject:
@@ -1561,13 +1429,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 654b2feae2e57214380ec74429f731ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Interaction_Valve
-  sr: {fileID: 0}
-  currentcol:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  material: 0
   block: {fileID: 2044518929}
   valveOn: 0
 --- !u!61 &936425951
@@ -1671,7 +1532,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &936425953
@@ -1746,7 +1607,7 @@ Transform:
   m_GameObject: {fileID: 1152538163}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 8.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1768,25 +1629,9 @@ MonoBehaviour:
   m_ExcludedPropertiesInInspector:
   - m_Script
   m_LockStageInInspector: 
-  m_ValidatingStreamVersion: 20170927
-  m_OnValidateCalled: 1
   m_StreamingVersion: 20170927
   m_Priority: 10
-  m_ActivationId: 7
   m_StandbyUpdate: 2
-  <mExtensions>k__BackingField: []
-  <PreviousStateIsValid>k__BackingField: 1
-  m_WasStarted: 1
-  mSlaveStatusUpdated: 1
-  m_parentVcam: {fileID: 0}
-  m_QueuePriority: 10
-  m_blendStartPosition: 0
-  m_CachedFollowTarget: {fileID: 789678596}
-  m_CachedFollowTargetVcam: {fileID: 0}
-  m_CachedLookAtTarget: {fileID: 0}
-  m_CachedLookAtTargetVcam: {fileID: 0}
-  <FollowTargetChanged>k__BackingField: 0
-  <LookAtTargetChanged>k__BackingField: 0
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 789678596}
   m_Lens:
@@ -1800,21 +1645,14 @@ MonoBehaviour:
     GateFit: 2
     FocusDistance: 10
     m_SensorSize: {x: 1, y: 1}
-    m_OrthoFromCamera: 1
-    m_PhysicalFromCamera: 0
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
     m_OnCameraLive:
       m_PersistentCalls:
         m_Calls: []
-      m_CallsDirty: 1
   m_LegacyBlendHint: 0
-  m_ComponentPipeline:
-  - {fileID: 130080733}
   m_ComponentOwner: {fileID: 130080732}
-  mCachedLookAtTarget: {fileID: 0}
-  mCachedLookAtTargetVcam: {fileID: 0}
 --- !u!1 &1229343012
 GameObject:
   m_ObjectHideFlags: 0
@@ -1903,7 +1741,7 @@ SpriteRenderer:
   m_Size: {x: 37.5, y: 62.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &1229343015
@@ -2047,7 +1885,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1309135234
@@ -2303,7 +2141,7 @@ SpriteRenderer:
   m_Size: {x: 1.875, y: 2.65625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &2011337278
@@ -2337,15 +2175,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SendPointerHoverToParent: 1
-  m_EventSystem: {fileID: 0}
-  m_InputOverride: {fileID: 0}
-  m_DefaultInput: {fileID: 0}
-  m_PrevActionTime: 0
-  m_LastMoveVector: {x: 0, y: 0}
-  m_ConsecutiveMoveCount: 0
-  m_LastMousePosition: {x: 0, y: 0}
-  m_MousePosition: {x: 0, y: 0}
-  m_CurrentFocusedGameObject: {fileID: 0}
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -2365,14 +2194,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SystemInputModules: []
-  m_CurrentInputModule: {fileID: 0}
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
-  m_CurrentSelected: {fileID: 0}
-  m_HasFocus: 1
-  m_SelectionGuard: 0
 --- !u!4 &2011337281
 Transform:
   m_ObjectHideFlags: 0
@@ -2460,7 +2284,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &2044518931
@@ -2523,7 +2347,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ad980451443d70438faac0bc6c235a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_vcamOwner: {fileID: 723879438}
   m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
@@ -2555,31 +2378,6 @@ MonoBehaviour:
   m_MaximumFOV: 60
   m_MinimumOrthoSize: 1
   m_MaximumOrthoSize: 5000
-  m_PreviousCameraPosition: {x: 13.78, y: 0, z: -10}
-  <TrackedPoint>k__BackingField: {x: 13.78, y: 0, z: 0}
-  m_InheritingPosition: 0
-  m_prevFOV: 10.171056
-  m_prevRotation: {x: -0, y: -0, z: -0, w: 1}
-  <LastBounds>k__BackingField:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
-  <LastBoundsMatrix>k__BackingField:
-    e00: 0
-    e01: 0
-    e02: 0
-    e03: 0
-    e10: 0
-    e11: 0
-    e12: 0
-    e13: 0
-    e20: 0
-    e21: 0
-    e22: 0
-    e23: 0
-    e30: 0
-    e31: 0
-    e32: 0
-    e33: 0
 --- !u!114 &2087134145
 MonoBehaviour:
   m_ObjectHideFlags: 3
