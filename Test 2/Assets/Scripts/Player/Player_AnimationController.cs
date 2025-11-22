@@ -8,7 +8,8 @@ public enum PlayerStates
     Jump,
     WallHang,
     WallSlide,
-    WallClimb
+    WallClimb,
+    Crouch
 }
 
 public class Player_AnimationController : MonoBehaviour
@@ -62,6 +63,10 @@ public class Player_AnimationController : MonoBehaviour
             else if (player.inputSystem.moveInput.x != 0)
             {
                 ChangeState(PlayerStates.Move);
+            }
+            else if (player.inputSystem.CrouchInput())
+            {
+                ChangeState(PlayerStates.Crouch);
             }
             else
             {

@@ -19,6 +19,16 @@ public class BookUIManager : MonoBehaviour
         UpdatePage();
     }
 
+    private void OnEnable()
+    {
+        Time.timeScale = 0;
+    }
+
+    private void OnDisable()
+    {
+        Time.timeScale = 1f;
+    }
+
     [ContextMenu("test next")]
     private void OnNextBtnClick()
     {

@@ -28,4 +28,5 @@ public class First_PlayerInputHandler : PlayerInputHandler
     public override bool InteractableInput() => input.First_Player.Interactable.WasPressedThisFrame();
     public override bool JumpInput() => input.First_Player.Up.WasPressedThisFrame();
     public override bool Climbinginput() => input.First_Player.Up.IsPressed();
+    public override bool CrouchInput() => input.First_Player.Down.IsPressed();
 }

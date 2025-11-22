@@ -41,4 +41,8 @@ public class PlayerInputHandler : MonoBehaviour
     {
         return false;
     }
+    public virtual bool CrouchInput()
+    {
+        return false;
+    }
 }
