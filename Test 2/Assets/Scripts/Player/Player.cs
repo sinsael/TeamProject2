@@ -17,6 +17,7 @@ public class Player : Entity
     public Player otherPlayer;
     public float PlayerDetectRadius;
     public LayerMask WhatisPlayer;
+    public Transform playerCheck;
 
 
 
@@ -128,7 +129,7 @@ public class Player : Entity
 
         // 2. 내 위치(transform.position)를 기준으로 PlayerDetectRadius 반경 안에
         //    WhatisPlayer 레이어에 해당하는 모든 콜라이더를 찾습니다.
-        Collider2D[] detectedColliders = Physics2D.OverlapCircleAll(transform.position, PlayerDetectRadius, WhatisPlayer);
+        Collider2D[] detectedColliders = Physics2D.OverlapCircleAll(playerCheck.position, PlayerDetectRadius, WhatisPlayer);
 
         bool isOtherPlayerNearby = false;
 
@@ -162,7 +163,7 @@ public class Player : Entity
         base.OnDrawGizmos();
 
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, PlayerDetectRadius);
+        Gizmos.DrawWireSphere(playerCheck.position, PlayerDetectRadius);
     }
 
     public virtual void PlayerCrazy()
