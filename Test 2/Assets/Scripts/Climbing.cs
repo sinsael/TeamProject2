@@ -5,17 +5,17 @@ public class Climbing : MonoBehaviour
     Rigidbody2D rb;
 
     [Header("Hang / Slide")]
-    public float wallHangDelay = 3f;            // �Ŵ޸��� �ð� (��)_��ȹ�� ��� 3��
-    public float wallSlideFallSpeed = -0.3f;    // ������ �������� �ӵ�_��ȹ�� ��� 0.3 �߷°�
-    public float maxFallSpeed = -8f;            // �ִ� ���� �ӵ�
+    public float wallHangDelay = 3f;           
+    public float wallSlideFallSpeed = -0.3f; 
+    public float maxFallSpeed = -8f;       
 
     [Header("Climb")]
-    public float wallClimbSpeed;           // ��Ű (W, UpArrow) ���� �� ������ �ӵ�
+    public float wallClimbSpeed;
 
     [Header("Wall Jump")]
-    public Vector2 wallJumpPower; // ������ �� �� (X: ����, Y: ����)
-    public float controlLock = 0.15f;                   // ������ ���� �Է� ��� �ð� (��)
-    public float wallCoyoteTime = 0.2f;                 // ������ ������ �ڿ��� ���� ������ ���� �ð� (��)
+    public Vector2 wallJumpPower;
+    public float controlLock = 0.15f;         
+    public float wallCoyoteTime = 0.2f;           
 
     public float wallHangTimer { get; private set; }
     public float defaultGravity { get; private set; }
@@ -36,13 +36,11 @@ public class Climbing : MonoBehaviour
         defaultGravity = rb.gravityScale;
     }
 
-    // ���¿� ������ �� Ÿ�̸� ���� �ʱ�ȭ�ϴ� �Լ�
     public void EnterState(bool ground)
     {
         // �� �����̸� ���� ����
         if (ground) return;
 
-        // �� ���� ������ �ٽ� ���(����/ȯ������ �߷� �ٲ���� �� ����)
         defaultGravity = rb.gravityScale;
         ResetTimers();
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
@@ -50,13 +48,11 @@ public class Climbing : MonoBehaviour
         Debug.Log("��Ÿ�� ���� ����");
     }
 
-    // ���¸� ���� �� �߷��� ������� ������ �Լ�
     public void ExitState()
     {
         rb.gravityScale = defaultGravity;
     }
 
-    // Ÿ�̸� �ʱ�ȭ ������ ���� �Լ��� �и�
     public void ResetTimers()
     {
         wallHangTimer = wallHangDelay;
@@ -142,7 +138,7 @@ public class Climbing : MonoBehaviour
         if (velocityY < maxFallSpeed) velocityY = maxFallSpeed;
 
         rb.linearVelocity = new Vector2(0f, velocityY);
-        // X �ӵ� ����
+
         bool pushingIntoWall = Mathf.Abs(input.x) > 0.01f && Mathf.Sign(input.x) == (facing ? 1 : -1);
         if (pushingIntoWall || Mathf.Abs(input.x) < 0.01f)
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
