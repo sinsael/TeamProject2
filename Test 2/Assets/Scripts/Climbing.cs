@@ -67,23 +67,19 @@ public class Climbing : MonoBehaviour
 
     public void UpdateClimbingState(bool ground, bool wall, bool facing)
     {
-        // �� ������ �ð� ���� ó��
         if (wallCoyoteTimer > 0f) wallCoyoteTimer -= Time.deltaTime;
         if (lockTimer > 0f) lockTimer -= Time.deltaTime;
 
-        // + �����̸� ��Ÿ�� ���� ���� !!
         if (ground)
         {
             return;
         }
 
-        // �� ����
         if (wall)
         {
             wallCoyoteTimer = wallCoyoteTime;
         }
 
-        // �� �ݴ� ���� ����
         if (wall)
         {
             wallJumpingDirection = facing ? -1 : 1;
@@ -116,7 +112,6 @@ public class Climbing : MonoBehaviour
 
     public void performHang(bool ground)
     {
-        // + ���� �� ���� ������ ��� ����(�߷� ����) !!
         if (ground)
         {
             rb.gravityScale = defaultGravity;
@@ -151,7 +146,5 @@ public class Climbing : MonoBehaviour
         bool pushingIntoWall = Mathf.Abs(input.x) > 0.01f && Mathf.Sign(input.x) == (facing ? 1 : -1);
         if (pushingIntoWall || Mathf.Abs(input.x) < 0.01f)
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
-
-        Debug.Log($"�� Ÿ�̸�: {wallHangTimer:F2}, �߷�: {rb.gravityScale}, Y�ӵ�: {rb.linearVelocity.y:F2}");
     }
 }

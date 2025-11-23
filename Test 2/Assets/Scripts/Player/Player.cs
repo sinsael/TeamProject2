@@ -10,6 +10,8 @@ public class Player : Entity
     public Climbing climbing { get; private set; }
     public Entity_Stat playerStat { get; private set; }
 
+    public PlayerStates CurrentState;
+
     [Header("플레이어 움직임 설정")]
     public float MoveSpeed;
     public float JumpForce;
@@ -54,52 +56,86 @@ public class Player : Entity
         Intertable();
         HandleProximitySanity();
 
+        HandleMovementLogic();
+    }
+
+    private void HandleMovementLogic()
+    {
+        // --- [A] 벽 상태 로직 ---
         if (wall.IswallDetected && !ground.IsgroundDetected)
         {
             climbing.UpdateClimbingState(ground.IsgroundDetected, wall.IswallDetected, _FacingRight);
 
+            // A-1. 벽 점프 (가장 높은 우선순위)
+            // ★ 여기서 CheckWallJump를 한 번만 호출하므로 이중 호출 문제 해결
             if (climbing.CheckWallJump(wall.IswallDetected, inputSystem.moveInput))
             {
                 SetVelocity(climbing.wallJumpPower.x * climbing.wallJumpingDirection, climbing.wallJumpPower.y);
+                CurrentState = PlayerStates.Jump; // 상태 강제 설정
                 Debug.Log("Wall Jumped");
-
+                return; // 점프했으면 다른 벽 로직 무시
             }
-            else if (inputSystem.Climbinginput())
+
+            // A-2. 벽 타기 (Climb)
+            if (inputSystem.Climbinginput())
             {
                 climbing.PerformClimb();
+                CurrentState = PlayerStates.WallClimb;
             }
+            // A-3. 벽 매달리기 (Hang)
             else if (climbing.wallHangTimer > 0f)
             {
                 climbing.performHang(ground.IsgroundDetected);
+                CurrentState = PlayerStates.WallHang;
             }
-            else if (climbing.wallHangTimer <= 0f)
-            {
-                climbing.performSlide(ground.IsgroundDetected, _FacingRight, inputSystem.moveInput);
-            }
-        }
-        else if (!ground.IsgroundDetected && !wall.IswallDetected)
-        {
-            if (inputSystem.moveInput.x != 0)
-            {
-                SetVelocity(inputSystem.moveInput.x * MoveSpeed, rb.linearVelocity.y);
-            }
-        }
-        else if (!wall.IswallDetected && ground.IsgroundDetected)
-        {
-            if (inputSystem.JumpInput())
-            {
-                SetVelocity(rb.linearVelocity.x, JumpForce);
-                Debug.Log("Jumped");
-
-            }
-            else if (inputSystem.moveInput.x != 0)
-            {
-                SetVelocity(inputSystem.moveInput.x * MoveSpeed, rb.linearVelocity.y);
-
-            }
+            // A-4. 벽 슬라이드 (Slide)
             else
             {
-                SetVelocity(0, rb.linearVelocity.y);
+                climbing.performSlide(ground.IsgroundDetected, _FacingRight, inputSystem.moveInput);
+                CurrentState = PlayerStates.WallSlide;
+            }
+        }
+        else
+        {
+            // ★ 벽에서 벗어났다면 즉시 중력 복구 (공중부양 버그 방지)
+            if (climbing != null) climbing.ExitState();
+
+            // B-1. 공중 (점프 중이거나 떨어지는 중)
+            if (!ground.IsgroundDetected)
+            {
+                // 공중 이동 제어
+                if (inputSystem.moveInput.x != 0)
+                {
+                    SetVelocity(inputSystem.moveInput.x * MoveSpeed, rb.linearVelocity.y);
+                }
+
+                // 상태 결정 (상승 중이면 Jump, 아니면 떨어지는 모션이지만 여기선 Jump로 통일하신 듯 합니다)
+                CurrentState = PlayerStates.Jump;
+            }
+            // B-2. 땅 (Ground)
+            else
+            {
+                if (inputSystem.JumpInput())
+                {
+                    SetVelocity(rb.linearVelocity.x, JumpForce);
+                    CurrentState = PlayerStates.Jump;
+                    Debug.Log("Jumped");
+                }
+                else if (inputSystem.moveInput.x != 0)
+                {
+                    SetVelocity(inputSystem.moveInput.x * MoveSpeed, rb.linearVelocity.y);
+                    CurrentState = PlayerStates.Move;
+                }
+                else if (inputSystem.CrouchInput())
+                {
+                    SetVelocity(0, rb.linearVelocity.y);
+                    CurrentState = PlayerStates.Crouch;
+                }
+                else
+                {
+                    SetVelocity(0, rb.linearVelocity.y);
+                    CurrentState = PlayerStates.Idle;
+                }
             }
         }
     }
