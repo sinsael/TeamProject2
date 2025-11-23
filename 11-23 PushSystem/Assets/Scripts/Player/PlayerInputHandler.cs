@@ -36,19 +36,16 @@ public class PlayerInputHandler : MonoBehaviour
     {
         return false;
     }
-
-    public virtual bool InteractableHoldInput()
+    public virtual bool InteractableHoldInput() // 상호작용 홀드버전
     {
         return false;
     }
-
 
     public virtual bool JumpInput()
     {
         return false;
     }
-
-    public virtual bool CrouchInput() //웅크리기 추가
+    public virtual bool CrouchInput()
     {
         return false;
     }

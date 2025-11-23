@@ -20,7 +20,7 @@ public class Entity_Stat : MonoBehaviour
         jumpForce = new Stat()
     };
 
-    public void Start()
+    public void Awake()
     {
         if (defaultStatSetup != null)
         {

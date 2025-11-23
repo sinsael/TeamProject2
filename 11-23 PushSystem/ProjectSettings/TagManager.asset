@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Push_OBJ
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - Entity
   - P1_Cam
   - P2_Cam
-  - Crouch
-  - Pushing_OBJ
+  - 
+  - 
   - 
   - 
   - 

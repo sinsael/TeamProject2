@@ -6,7 +6,7 @@ public class PushOBJHandler : MonoBehaviour
     [Header("Push Block")] // 밀기 기능
     public float distance = 1f;        // 레이 길이
     public float yOffset = 0.2f;   // 인스펙터에서 조절 가능
-    public LayerMask PushBlockLayer;          // 블록 레이어
+    //public LayerMask PushBlockLayer;          // 블록 레이어 (태그로 변경!!!)
 
     [Header("Push Move Slow")]
     [SerializeField] private float pushingSpeedMultiplier = 0.4f; // 밀 때 속도 비율 올리면 낮아짐
@@ -27,7 +27,7 @@ public class PushOBJHandler : MonoBehaviour
     public void PushingSystem()
     {
         PushingOBJ();
-        PushingJumpBlock ();
+        PushingJumpBlock();
         PushingSlowMove();
     }
 
@@ -68,14 +68,15 @@ public class PushOBJHandler : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(
             origin,
             Vector2.right * transform.localScale.x,
-            distance,
-            PushBlockLayer
+            distance
         );
 
         if (hit.collider == null)
             return;
 
-        // 여기까지 왔으면 박스 맞은 거
+        if (!hit.collider.CompareTag("Push_OBJ"))
+            return;
+
         pushingOBJ = hit.collider.gameObject;
 
         pushingJoint = pushingOBJ.GetComponent<FixedJoint2D>();

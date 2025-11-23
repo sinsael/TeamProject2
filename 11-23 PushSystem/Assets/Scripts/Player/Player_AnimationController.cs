@@ -6,7 +6,6 @@ public enum PlayerStates
     Idle,
     Move,
     Jump,
-    Fall,
     WallHang,
     WallSlide,
     WallClimb,
@@ -17,6 +16,7 @@ public class Player_AnimationController : MonoBehaviour
 {
     Player player;
     Animator anim;
+    Rigidbody2D rb;
 
     public PlayerStates currentState { get; private set; }
 
@@ -24,50 +24,16 @@ public class Player_AnimationController : MonoBehaviour
     {
         player = GetComponent<Player>();
         anim = GetComponentInChildren<Animator>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
-        if (player.wall.IswallDetected && !player.ground.IsgroundDetected)
+        anim.SetFloat("Yvelocity", rb.linearVelocity.y);
+
+        if (player.CurrentState != currentState)
         {
-            if (player.climbing.CheckWallJump(player.wall.IswallDetected, player.inputSystem.moveInput))
-            {
-                ChangeState(PlayerStates.Jump);
-            }
-            else if (player.inputSystem.Climbinginput())
-            {
-                ChangeState(PlayerStates.WallClimb);
-            }
-            else if (player.climbing.wallHangTimer > 0f)
-            {
-                ChangeState(PlayerStates.WallHang);
-            }
-            else if (player.climbing.wallHangTimer <= 0f)
-            {
-                ChangeState(PlayerStates.WallSlide);
-            }
-        }
-        else if (!player.ground.IsgroundDetected)
-        {
-        }
-        else
-        {
-            if (player.inputSystem.JumpInput())
-            {
-                ChangeState(PlayerStates.Jump);
-            }
-            else if (player.inputSystem.moveInput.x != 0)
-            {
-                ChangeState(PlayerStates.Move);
-            }
-            else if (player.inputSystem.CrouchInput())  //¿õÅ©¸®±â
-            {
-                ChangeState(PlayerStates.Crouch);
-            }
-            else
-            {
-                ChangeState(PlayerStates.Idle);
-            }
+            ChangeState(player.CurrentState);
         }
     }
 
@@ -75,7 +41,7 @@ public class Player_AnimationController : MonoBehaviour
     {
         if (currentState == newState) return;
 
-        currentState = newState;    
+        currentState = newState;
 
         anim.SetInteger("State", (int)newState);
     }

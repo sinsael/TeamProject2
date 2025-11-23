@@ -122,7 +122,7 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Down"",
                     ""type"": ""Button"",
-                    ""id"": ""b6084100-7fb9-4ea1-8118-cf946f6c90e7"",
+                    ""id"": ""f3abe133-51ae-4cd4-9771-15596cc8f7a6"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -187,7 +187,7 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1e5807a7-2492-4aa1-a808-0cc80d22afe6"",
+                    ""id"": ""93e4d348-4615-475c-b839-d104404ce12d"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",

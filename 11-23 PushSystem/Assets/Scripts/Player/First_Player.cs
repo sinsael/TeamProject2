@@ -1,18 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class First_Player : Player
 {
-    [Header("Crouch")]
+    [Header("Crouch")] //1P Àü¿ë ¿õÅ©¸®±â (Crouch)
     public Collider2D standCollider;
     public Collider2D crouchCollider;
 
     private bool isCrouching = false;
 
     public PushOBJHandler pushHandler { get; private set; }
-
 
     protected override void Awake()
     {
@@ -23,6 +21,7 @@ public class First_Player : Player
 
         pushHandler = GetComponent<PushOBJHandler>();
         pushHandler.Init(this);
+
     }
 
     protected override void Update()
@@ -36,9 +35,6 @@ public class First_Player : Player
         Crouch();
     }
 
-    // ==========================
-    //    ¿õÅ©¸®±â Ã³¸®
-    // ==========================
     private void Crouch()
     {
         if (pushHandler != null && pushHandler.IsPushing)
@@ -67,7 +63,6 @@ public class First_Player : Player
             }
         }
     }
-
     private void StartCrouch()
     {
         isCrouching = true;
@@ -84,7 +79,6 @@ public class First_Player : Player
         if (crouchCollider != null) crouchCollider.enabled = false;
     }
 
-    // ¿õÅ©¸®¸é ÀÌµ¿ ºÒ°¡
     private void isCrouchingMovementInputBlock()
     {
         Vector2 input = inputSystem.moveInput;

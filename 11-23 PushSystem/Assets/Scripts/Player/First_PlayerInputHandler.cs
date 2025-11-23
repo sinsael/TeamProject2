@@ -29,5 +29,5 @@ public class First_PlayerInputHandler : PlayerInputHandler
     public override bool InteractableHoldInput() => input.First_Player.Interactable.IsPressed(); // 상호작용(E)의 홀드버전
     public override bool JumpInput() => input.First_Player.Up.WasPressedThisFrame();
     public override bool Climbinginput() => input.First_Player.Up.IsPressed();
-    public override bool CrouchInput() => input.First_Player.Down.IsPressed(); //Down 입력 감지
+    public override bool CrouchInput() => input.First_Player.Down.IsPressed();
 }
