@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements.Experimental;
 
 public class Player : Entity
@@ -145,7 +146,7 @@ public class Player : Entity
 
 
     // 상호작용 처리
-    private void Intertable()
+    protected virtual void Intertable()
     {
         if (inputSystem.InteractableInput())
         {
