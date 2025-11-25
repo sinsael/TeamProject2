@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Hasugu_Map_0: -4407449727971405411
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
