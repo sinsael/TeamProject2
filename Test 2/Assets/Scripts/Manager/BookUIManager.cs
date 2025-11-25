@@ -7,14 +7,26 @@ public class BookUIManager : MonoBehaviour
     [SerializeField] Sprite[] pageSprites;
     [SerializeField] Button nextButton;
     [SerializeField] Button prevButton;
+    [SerializeField] Button CloseButton;
 
     private int _currentIndex = 0;
     private void Start()
     {
         nextButton.onClick?.AddListener(OnNextBtnClick);
         prevButton.onClick?.AddListener(OnPrevBtnClick);
+        CloseButton.onClick?.AddListener(OnCloseBtnClick);
 
         UpdatePage();
+    }
+
+    private void OnEnable()
+    {
+        Time.timeScale = 0;
+    }
+
+    private void OnDisable()
+    {
+        Time.timeScale = 1f;
     }
 
     [ContextMenu("test next")]
@@ -42,5 +54,10 @@ public class BookUIManager : MonoBehaviour
         page.sprite = pageSprites[_currentIndex];
         prevButton.gameObject?.SetActive(_currentIndex > 0);
         nextButton.gameObject?.SetActive(_currentIndex < pageSprites.Length - 1);
+    }
+
+    void OnCloseBtnClick()
+    {
+        gameObject.SetActive(false);
     }
 }

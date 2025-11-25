@@ -118,6 +118,15 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Down"",
+                    ""type"": ""Button"",
+                    ""id"": ""f3abe133-51ae-4cd4-9771-15596cc8f7a6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -175,6 +184,17 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""93e4d348-4615-475c-b839-d104404ce12d"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -276,6 +296,7 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
         m_First_Player_Interactable = m_First_Player.FindAction("Interactable", throwIfNotFound: true);
         m_First_Player_Up = m_First_Player.FindAction("Up", throwIfNotFound: true);
         m_First_Player_Movement = m_First_Player.FindAction("Movement", throwIfNotFound: true);
+        m_First_Player_Down = m_First_Player.FindAction("Down", throwIfNotFound: true);
         // Second_Player
         m_Second_Player = asset.FindActionMap("Second_Player", throwIfNotFound: true);
         m_Second_Player_Interactable = m_Second_Player.FindAction("Interactable", throwIfNotFound: true);
@@ -365,6 +386,7 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
     private readonly InputAction m_First_Player_Interactable;
     private readonly InputAction m_First_Player_Up;
     private readonly InputAction m_First_Player_Movement;
+    private readonly InputAction m_First_Player_Down;
     /// <summary>
     /// Provides access to input actions defined in input action map "First_Player".
     /// </summary>
@@ -388,6 +410,10 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "First_Player/Movement".
         /// </summary>
         public InputAction @Movement => m_Wrapper.m_First_Player_Movement;
+        /// <summary>
+        /// Provides access to the underlying input action "First_Player/Down".
+        /// </summary>
+        public InputAction @Down => m_Wrapper.m_First_Player_Down;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -423,6 +449,9 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
+            @Down.started += instance.OnDown;
+            @Down.performed += instance.OnDown;
+            @Down.canceled += instance.OnDown;
         }
 
         /// <summary>
@@ -443,6 +472,9 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
+            @Down.started -= instance.OnDown;
+            @Down.performed -= instance.OnDown;
+            @Down.canceled -= instance.OnDown;
         }
 
         /// <summary>
@@ -622,6 +654,13 @@ public partial class @PlayerInputSet: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMovement(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Down" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDown(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Second_Player" which allows adding and removing callbacks.

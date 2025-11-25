@@ -8,7 +8,8 @@ public enum PlayerStates
     Jump,
     WallHang,
     WallSlide,
-    WallClimb
+    WallClimb,
+    Crouch
 }
 
 public class Player_AnimationController : MonoBehaviour
@@ -30,43 +31,9 @@ public class Player_AnimationController : MonoBehaviour
     {
         anim.SetFloat("Yvelocity", rb.linearVelocity.y);
 
-        if (player.wall.IswallDetected && !player.ground.IsgroundDetected)
+        if (player.CurrentState != currentState)
         {
-            if (player.climbing.CheckWallJump(player.wall.IswallDetected, player.inputSystem.moveInput))
-            {
-                ChangeState(PlayerStates.Jump);
-            }
-            else if (player.inputSystem.Climbinginput())
-            {
-                ChangeState(PlayerStates.WallClimb);
-            }
-            else if (player.climbing.wallHangTimer > 0f)
-            {
-                ChangeState(PlayerStates.WallHang);
-            }
-            else if (player.climbing.wallHangTimer <= 0f)
-            {
-                ChangeState(PlayerStates.WallSlide);
-            }
-        }
-        else if (!player.ground.IsgroundDetected)
-        {
-            ChangeState(PlayerStates.Jump);
-        }
-        else
-        {
-            if (rb.linearVelocity.y > 0.1f)
-            {
-                ChangeState(PlayerStates.Jump);
-            }
-            else if (player.inputSystem.moveInput.x != 0)
-            {
-                ChangeState(PlayerStates.Move);
-            }
-            else
-            {
-                ChangeState(PlayerStates.Idle);
-            }
+            ChangeState(player.CurrentState);
         }
     }
 
