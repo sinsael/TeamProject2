@@ -36,6 +36,10 @@ public class PlayerInputHandler : MonoBehaviour
     {
         return false;
     }
+    public virtual bool InteractableHoldInput()
+    {
+        return false;
+    }
 
     public virtual bool JumpInput()
     {
