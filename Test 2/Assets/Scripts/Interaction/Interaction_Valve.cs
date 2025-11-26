@@ -12,9 +12,9 @@ public class Interaction_Valve : Interaction_Obj
     public int time;
     public bool valveOn = false;
 
-    public override void OnInteract()
+    public override void OnInteract(PlayerInputHandler PlayerInput)
     {
-        base.OnInteract();
+        base.OnInteract(PlayerInput);
 
         valveOn = true;
 
