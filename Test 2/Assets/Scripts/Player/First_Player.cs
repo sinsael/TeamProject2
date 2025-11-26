@@ -10,17 +10,41 @@ public class First_Player : Player
 
     private bool isCrouching = false;
 
+    public PushOBJHandler pushHandler { get; private set; }
+
+    private Interaction interaction;
+
     protected override void Awake()
     {
         base.Awake();
 
         if (standCollider != null) standCollider.enabled = true;
         if (crouchCollider != null) crouchCollider.enabled = false;
+
+        pushHandler = GetComponent<PushOBJHandler>();
+        interaction = GetComponent<Interaction>();
+        pushHandler.Init(this);
+
     }
 
     protected override void Update()
     {
+        isCrouchingMovementInputBlock();
+        pushHandler.PushingotherMoveBlock();
+
         base.Update();
+
+        pushHandler.PushingSystem();
+        Crouch();
+    }
+
+    private void Crouch()
+    {
+        if (pushHandler != null && pushHandler.IsPushing)
+        {
+            if (isCrouching) StopCrouch();
+            return;
+        }
 
         if (wall.IswallDetected && !ground.IsgroundDetected)
         {
@@ -42,7 +66,6 @@ public class First_Player : Player
             }
         }
     }
-
     private void StartCrouch()
     {
         isCrouching = true;
@@ -57,5 +80,17 @@ public class First_Player : Player
 
         if (standCollider != null) standCollider.enabled = true;
         if (crouchCollider != null) crouchCollider.enabled = false;
+    }
+
+    private void isCrouchingMovementInputBlock()
+    {
+        Vector2 input = inputSystem.moveInput;
+
+        if (isCrouching)
+        {
+            input.x = 0f;
+            inputSystem.moveInput = input;
+            return;
+        }
     }
 }

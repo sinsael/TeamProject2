@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Push_OBJ
   layers:
   - Default
   - TransparentFX
@@ -40,18 +41,6 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: BG
-    uniqueID: 3145839883
-    locked: 0
-  - name: Obj
-    uniqueID: 4173412531
-    locked: 0
-  - name: Player
-    uniqueID: 3615776151
-    locked: 0
-  - name: UI
-    uniqueID: 832044725
     locked: 0
   m_RenderingLayers:
   - Default
