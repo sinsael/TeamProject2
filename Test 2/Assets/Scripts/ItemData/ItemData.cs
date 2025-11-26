@@ -5,10 +5,11 @@ using UnityEngine.UI;
 public class ItemData : ScriptableObject
 {
     public Sprite itemSprite;
-    public ItemType itemType;
-    public enum ItemType
+    public string itemName;
+  
+    //아이템 사용법
+    public virtual void Use()
     {
-        Book,
-        Wood
+        Debug.Log("실행");
     }
 }

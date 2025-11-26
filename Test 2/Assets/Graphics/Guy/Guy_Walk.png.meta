@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -67,7 +67,7 @@ TextureImporter:
   swizzle: 50462976
   cookieLightType: 0
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -80,7 +80,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -102,11 +102,12 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 600
-        height: 1000
+        width: 120
+        height: 200
       alignment: 9
-      pivot: {x: 0.28, y: 0}
+      pivot: {x: 0.27, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -121,13 +122,14 @@ TextureImporter:
       name: Guy_Walk_1
       rect:
         serializedVersion: 2
-        x: 600
+        x: 120
         y: 0
-        width: 600
-        height: 1000
+        width: 120
+        height: 200
       alignment: 9
-      pivot: {x: 0.33, y: 0}
+      pivot: {x: 0.32, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -142,13 +144,14 @@ TextureImporter:
       name: Guy_Walk_2
       rect:
         serializedVersion: 2
-        x: 1200
+        x: 240
         y: 0
-        width: 600
-        height: 1000
+        width: 120
+        height: 200
       alignment: 9
-      pivot: {x: 0.3, y: 0}
+      pivot: {x: 0.27, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -163,24 +166,26 @@ TextureImporter:
       name: Guy_Walk_3
       rect:
         serializedVersion: 2
-        x: 1800
+        x: 360
         y: 0
-        width: 600
-        height: 1000
+        width: 120
+        height: 200
       alignment: 9
-      pivot: {x: 0.34, y: 0}
+      pivot: {x: 0.35, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b5ffa5d53cb8ae0479a48ad91bf9f3b9
+      spriteID: 89d50e89d7a0fb4429c8e063e6bdeab0
       internalID: 833448014
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
+    customData: 
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
@@ -190,6 +195,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
     nameFileIdTable:
       Guy_Walk_0: 591612441
       Guy_Walk_1: -1614946021

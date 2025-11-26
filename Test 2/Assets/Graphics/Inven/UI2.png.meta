@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 84ce3e8989cf4c04691b9c33ed5b3614
+guid: 662fad9cb4b28f84b8e743fb703a2dc8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 810313662175728187
-    second: UI__0
+      213: -1179297276305794913
+    second: UI2_0
   - first:
-      213: 8575771826690646489
-    second: UI__1
+      213: 8137955173826623314
+    second: UI2_1
   - first:
-      213: -1983856752922641867
-    second: UI__2
+      213: 1636785368724435784
+    second: UI2_2
   - first:
-      213: -424125806351208803
-    second: UI__3
+      213: -2479488561180824256
+    second: UI2_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -84,7 +84,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -109,13 +109,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UI__0
+      name: UI2_0
       rect:
         serializedVersion: 2
-        x: 267
-        y: 39
-        width: 102
-        height: 106
+        x: 43
+        y: 35
+        width: 111
+        height: 114
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b3251a68bffce3b00800000000000000
-      internalID: 810313662175728187
+      spriteID: f981539106b42afe0800000000000000
+      internalID: -1179297276305794913
       vertices: []
       indices: 
       edges: []
@@ -134,7 +134,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 0aa33535d559d394a9c9d0938e9103c2
+    spriteID: 2c50ea799f589364dbc38fa0f6787eb9
     internalID: 0
     vertices: []
     indices: 
@@ -144,11 +144,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      UI__0: 810313662175728187
-      UI__1: 8575771826690646489
-      UI__2: -1983856752922641867
-      UI__3: -424125806351208803
-      UI__4: -1192788189
+      UI2_0: -1179297276305794913
+      UI2_1: 8137955173826623314
+      UI2_2: 1636785368724435784
+      UI2_3: -2479488561180824256
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
