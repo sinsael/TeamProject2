@@ -21,11 +21,18 @@ public class Inventory : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
             Destroy(gameObject);
 
+        if (transform.parent != null)
+        {
+            DontDestroyOnLoad(transform.root.gameObject);
+        }
+        else
+        {
+            DontDestroyOnLoad(gameObject);
+        }
         FreshSlot();
     }
 
