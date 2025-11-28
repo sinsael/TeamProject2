@@ -19,23 +19,30 @@ public class Interaction_BreakWall : Interaction_Obj
 
     private int currentCount = 0;           // 타격 받은 횟수    
     private bool isBreakableDiscovered = false; // 활성화 여부
+    private bool isBroken = false;          // 이미 파괴됨
+    private BoxCollider2D col;
 
     public override void Start()
     {
         base.Start();
-        if (wallRenderer == null)
-            wallRenderer = GetComponent<SpriteRenderer>();
+
+        wallRenderer = GetComponent<SpriteRenderer>();
+        col = GetComponent<BoxCollider2D>();
 
         if (hiddenItem != null) // 아이템 비활성화 아니면 꺼두기
-        {
             hiddenItem.SetActive(false);
-        }
+ 
     }
 
     public override void OnInteract(PlayerInputHandler interactor) // 플레이어 정보 받아오기
     {
         if (interactor == null) 
             return;
+
+        if (isBroken) // 이미 파괴된 상태라면 무시
+        {
+            return;
+        }
 
         // 2P 벽을 활성화 하기 전
         if (!isBreakableDiscovered)
@@ -46,6 +53,8 @@ public class Interaction_BreakWall : Interaction_Obj
                 if (interactor is Second_PlayerInputHandler)
                 {
                     isBreakableDiscovered = true;
+                    sr.enabled = true;
+                    wallRenderer.enabled = true;
                     if (sr != null) sr.color = Color.yellow;
                     Debug.Log("2P 상호작용");
                 }
@@ -62,32 +71,9 @@ public class Interaction_BreakWall : Interaction_Obj
             return;
         }
 
-        // 이미 활성화된 상태라면 1P / 2P 모두 파괴 가능
-        currentCount++;
-
-        int remaining = maxHitCount - currentCount;
-        Debug.Log("벽 타격! (" + currentCount + "/" + maxHitCount + "), 남은 횟수: " + remaining);
-
-        UpdateBreakSprite(); 
-
-        if (currentCount >= maxHitCount)
+        if (interactor is First_PlayerInputHandler) // 1P 가 상호작용 할 때만 타격
         {
-            Debug.Log("벽 완전히 파괴됨!");
-            Destroy(gameObject);
-
-            // 이 타이밍에 아이템을 드러내기
-            if (hiddenItem != null)
-            {
-                // 부모(벽)가 사라져도 아이템이 살아있게 하려면 부모 분리
-                hiddenItem.transform.SetParent(null);
-
-                // 원하는 위치로 옮기고
-                hiddenItem.transform.position = transform.position; // 벽 위치
-                                                                    // 또는 미리 맞춰놨다면 생략
-
-                // 활성화
-                hiddenItem.SetActive(true);
-            }
+            HitWall();
         }
     }
 
@@ -114,5 +100,35 @@ public class Interaction_BreakWall : Interaction_Obj
 
         int index = Mathf.Clamp(currentCount, 0, breakSprites.Length - 1);
         wallRenderer.sprite = breakSprites[index];
+    }
+
+    private void HitWall()
+    {
+        currentCount++;
+
+        int remaining = maxHitCount - currentCount;
+        Debug.Log("벽 타격! (" + currentCount + "/" + maxHitCount + "), 남은 횟수: " + remaining);
+
+        UpdateBreakSprite();
+
+        if (currentCount >= maxHitCount)
+        {
+            Debug.Log("벽 완전히 파괴됨!");
+            isBroken = true;
+            col.enabled = false;
+
+            // 벽이 파괴될때 아이템 드러내기
+            if (hiddenItem != null)
+            {
+                // 부모(벽)가 사라져도 아이템이 살아있게 하려면 부모 분리
+                hiddenItem.transform.SetParent(null);
+
+                // 벽 한가운데 놔두고
+                hiddenItem.transform.position = transform.position;                                                   
+
+                // 활성화 시키기
+                hiddenItem.SetActive(true);
+            }
+        }
     }
 }
