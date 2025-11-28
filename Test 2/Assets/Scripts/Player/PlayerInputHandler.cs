@@ -13,6 +13,8 @@ public class PlayerInputHandler : MonoBehaviour
     }
     public virtual void OnEnable()
     {
+        if (Time.timeScale == 0f)
+            return;
         input?.Enable();
         MovementInput();
     }

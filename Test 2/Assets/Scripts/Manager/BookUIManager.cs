@@ -59,5 +59,6 @@ public class BookUIManager : MonoBehaviour
     void OnCloseBtnClick()
     {
         gameObject.SetActive(false);
+        Time.timeScale = 1f;
     }
 }

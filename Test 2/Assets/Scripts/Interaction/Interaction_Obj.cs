@@ -30,6 +30,8 @@ public class Interaction_Obj : MonoBehaviour, IInteraction, IInteraction_circle
 
     public virtual void OnDeselect()
     {
+        if (sr == null)
+            return;
         sr.color = currentcol;
         Debug.Log(gameObject.name + " is deselected");
     }

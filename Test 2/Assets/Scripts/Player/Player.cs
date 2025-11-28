@@ -65,6 +65,8 @@ public class Player : Entity
 
     private void HandleMovementLogic()
     {
+        if (Time.timeScale == 0)
+            return;
         if (wall.IswallDetected && !ground.IsgroundDetected)
         {
             climbing.UpdateClimbingState(ground.IsgroundDetected, wall.IswallDetected, _FacingRight);
