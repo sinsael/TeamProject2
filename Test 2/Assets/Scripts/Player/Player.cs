@@ -45,6 +45,8 @@ public class Player : Entity
 
     protected override void Update()
     {
+        if (Time.timeScale == 0)
+            return;
         base.Update();
 
         Direction = new Vector2(inputSystem.moveInput.x, 0f);
@@ -65,8 +67,7 @@ public class Player : Entity
 
     private void HandleMovementLogic()
     {
-        if (Time.timeScale == 0)
-            return;
+
         if (wall.IswallDetected && !ground.IsgroundDetected)
         {
             climbing.UpdateClimbingState(ground.IsgroundDetected, wall.IswallDetected, _FacingRight);
