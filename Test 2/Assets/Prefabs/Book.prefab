@@ -168,7 +168,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   page: {fileID: 3509316053867165531}
-  pageSprites: []
+  pageSprites:
+  - {fileID: -8857946688505897167, guid: 6cf7456da68ad4c4284b015fdb8708dc, type: 3}
+  - {fileID: -5597995755193609183, guid: 45de610f1af39a8418e5a95264bd2c1c, type: 3}
+  - {fileID: -4477349825573479581, guid: 92eb709664da49144b1be253dfe453d5, type: 3}
   nextButton: {fileID: 2310210645196344141}
   prevButton: {fileID: 2725414338051080232}
   CloseButton: {fileID: 511960518542773166}

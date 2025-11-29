@@ -73,16 +73,6 @@ public class GameManager : MonoBehaviour
             if (playerObj != null)
                 playerController = playerObj.GetComponent<MonoBehaviour>(); // 혹은 구체적인 클래스명
         }
-
-        if (isfirsteLoad)
-        {
-            ChangeGameState(GameState.GameStart);
-        }
-        else
-        {
-            // [수정] 바로 실행하지 않고, 코루틴을 통해 한 프레임 대기 후 실행
-            StartCoroutine(WaitAndFadeIn());
-        }
     }
 
     IEnumerator WaitAndFadeIn()

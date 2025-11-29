@@ -195,6 +195,6 @@ public class Player : Entity
 
     public virtual void PlayerCrazy()
     {
-
+        GameManager.Instance.ChangeGameState(GameState.GameOver);
     }
 }
