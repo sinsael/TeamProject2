@@ -11,7 +11,7 @@ public class Interaction_PipeLever : Interaction_Obj
     public bool On = true;
     Sequence MySequence;
 
-    public override void OnInteract()
+    public override void OnInteract(PlayerInputHandler PlayerInput)
     {
 
         if (On)

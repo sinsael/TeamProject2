@@ -25,6 +25,12 @@ public class Interaction : MonoBehaviour
     private IInteraction _currentTarge; 
     private IInteraction _previousTarget; 
 
+    private PlayerInputHandler PlayerInput; // 인풋 핸들러 준비
+
+    private void Start()
+    {
+        PlayerInput = GetComponent<PlayerInputHandler>(); // 인풋 핸들러 가져오기
+    }
     public Collider2D[] GetDetectedColliders()
     {
         return ObjColliders = Physics2D.OverlapCircleAll(ObjCheck.position, ObjCheckRadius, WhatIsObj);
@@ -119,7 +125,7 @@ public class Interaction : MonoBehaviour
     {
         if (_currentTarge != null)
         {
-            _currentTarge.OnInteract();
+            _currentTarge.OnInteract(PlayerInput); // 인풋 핸들러 전달
         }
     }
 }

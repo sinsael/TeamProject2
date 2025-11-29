@@ -8,9 +8,9 @@ public class Interaction_Lever : Interaction_Obj
 
     private bool isActive = false;
 
-    public override void OnInteract()
+    public override void OnInteract(PlayerInputHandler PlayerInput)
     {
-        base.OnInteract();
+        base.OnInteract(PlayerInput);
 
         // 상태에 따라 토글(Toggle) 실행
         if (isActive)
