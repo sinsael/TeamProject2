@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Interaction_Obj : MonoBehaviour, IInteraction, IInteraction_circle
 {
-    SpriteRenderer sr;
-    Color currentcol;
+    protected SpriteRenderer sr;
+    protected Color currentcol;
     protected bool material = false;
 
     public virtual void Start()
@@ -32,11 +32,15 @@ public class Interaction_Obj : MonoBehaviour, IInteraction, IInteraction_circle
     {
         if (sr == null)
             return;
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
         sr.color = currentcol;
         Debug.Log(gameObject.name + " is deselected");
     }
 
-    public virtual void OnInteract()
+    public virtual void OnInteract(PlayerInputHandler PlayerInput)
     {
         Debug.Log("Interacted with " + gameObject.name);
     }
