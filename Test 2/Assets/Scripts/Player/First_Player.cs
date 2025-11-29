@@ -27,6 +27,16 @@ public class First_Player : Player
 
     }
 
+    protected override void Start()
+    {
+        base.Start();
+        Second_Player p2 = FindAnyObjectByType<Second_Player>();
+        if (p2 != null)
+        {
+            otherPlayer = p2.GetComponent<Second_Player>();
+        }
+    }
+
     protected override void Update()
     {
         isCrouchingMovementInputBlock();
