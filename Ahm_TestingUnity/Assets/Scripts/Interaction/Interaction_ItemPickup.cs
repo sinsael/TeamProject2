@@ -8,7 +8,6 @@ public class Interaction_ItemPickup : Interaction_Obj
     {
         if (Inventory.Instance.AddList(ItemData))
         {
-            // 성공했으니 맵에서 삭제
             Destroy(gameObject);
         }
         else

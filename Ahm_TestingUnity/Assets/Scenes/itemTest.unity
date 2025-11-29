@@ -258,7 +258,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 3063
+    m_Bits: 7159
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -778,7 +778,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 2039
+    m_Bits: 6135
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1301,16 +1301,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjCheck: {fileID: 1547436355}
-  ObjCheckRadius: 0
+  ObjCheckRadius: 1
   WhatIsObj:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 4864
   ObjColliders: []
   interactionCheck: {fileID: 1547436355}
-  interactionRadius: 0
+  interactionRadius: 1
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 4352
 --- !u!114 &789678604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1520,16 +1520,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjCheck: {fileID: 1053599069}
-  ObjCheckRadius: 0.75
+  ObjCheckRadius: 1
   WhatIsObj:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 4864
   ObjColliders: []
   interactionCheck: {fileID: 1053599069}
-  interactionRadius: 0.28
+  interactionRadius: 1
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 4352
 --- !u!4 &879995358
 Transform:
   m_ObjectHideFlags: 0
@@ -2815,7 +2815,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: -75911179973699863, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

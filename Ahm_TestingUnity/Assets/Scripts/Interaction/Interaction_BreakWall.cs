@@ -5,13 +5,14 @@ public class Interaction_BreakWall : Interaction_Obj
     public enum ActivateMode // 무슨 모드냐 (2P 가 활성화, 촛불 클릭 활성화)
     {
         BySecondPlayer, // 2P 상호작용 활성화 모드
-        ByCandle        // 촛불 클릭 활성화 모드 
+        ByCandle        // 인벤토리의 
     }
 
     [SerializeField] private ActivateMode activateMode = ActivateMode.BySecondPlayer; // 기본은 2P 상호작용 모드
     
     [Header("벽이 부서졌을 때 드러날 숨겨진 아이템")]
     [SerializeField] private GameObject hiddenItem; // 벽 뒤 아이템 지정
+
 
     public int maxHitCount = 5;             // 타격 카운트 (벽 체력)
     public Sprite[] breakSprites;           // 스프라이트 배열
@@ -65,7 +66,27 @@ public class Interaction_BreakWall : Interaction_Obj
             }
             else if (activateMode == ActivateMode.ByCandle) // 촛불 상호작용 모드 일 때
             {
-                Debug.Log("검은 촛불이 먼가 수상하다");
+                // 인벤토리에서 현재 선택된 아이템 가져오기
+                ItemData selectedItem = null;
+
+                if (Inventory.Instance != null)
+                {
+                    selectedItem = Inventory.Instance.GetSelectedItem();
+                }
+
+                // 선택된 아이템이 블랙 촛불인지 확인
+                if (selectedItem is Interaction_BlackCandle)
+                {
+                    // 블랙 촛불이 선택된 상태이므로 벽 활성화
+                    ActivateByCandle();
+                }
+                else
+                {
+                    Debug.Log("블랙 촛불이 선택되어 있어야 벽을 활성화할 수 있습니다.");
+                }
+
+                // 촛불 모드는 여기서 처리 끝
+                return;
             }
 
             return;
@@ -78,20 +99,30 @@ public class Interaction_BreakWall : Interaction_Obj
     }
 
 
-    public void ActivateByCandle() // 촛불 상호작용과 연결 (CandleActivator.cs)
+    public void ActivateByCandle()
     {
-        if (isBreakableDiscovered) // 벽 활성화 시 무시
+        if (isBreakableDiscovered)
             return;
 
-        if (activateMode != ActivateMode.ByCandle) // 벽이 촛불 방식이 아니라면 무시
-        {
+        if (activateMode != ActivateMode.ByCandle)
             return;
-        }
 
         isBreakableDiscovered = true;
-        if (sr != null) sr.color = Color.yellow; // 부모의 색깔 사용
-        Debug.Log("촛불로 벽이 활성화되었다."); 
+
+        if (sr != null)
+        {
+            sr.enabled = true;
+            sr.color = Color.yellow;
+        }
+
+        if (wallRenderer != null)
+        {
+            wallRenderer.enabled = true;
+        }
+
+        Debug.Log("촛불 사용으로 벽 활성화");
     }
+
 
     private void UpdateBreakSprite()
     {

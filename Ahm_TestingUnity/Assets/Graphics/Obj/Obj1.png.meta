@@ -220,7 +220,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Obj1_3
+      name: BlackCandle_1
       rect:
         serializedVersion: 2
         x: 185
@@ -585,6 +585,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
+      BlackCandle_1: 7369740438480282620
       Crack_1: 3521392254067778311
       Crack_2: 763548821027890332
       Crack_3: 6389894454001293726
@@ -597,7 +598,6 @@ TextureImporter:
       Obj1_12: -2876996468503508461
       Obj1_13: -7947519225928429374
       Obj1_2: -1166470445535631653
-      Obj1_3: 7369740438480282620
       Obj1_4: 1493442077006304022
       Obj1_5: -6507364139724699964
       Obj1_6: -5715524675118982732

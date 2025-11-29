@@ -49,6 +49,7 @@ public class InvenSlot : MonoBehaviour, IPointerClickHandler
     {
         newData = data;
         image.sprite = newData.itemSprite;
+        image.preserveAspect = true;
 
         SetAlpha(1);
 
