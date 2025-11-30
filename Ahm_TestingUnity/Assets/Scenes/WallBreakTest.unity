@@ -833,7 +833,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activateMode: 1
   hiddenItem: {fileID: 1712761460}
-  requireBookPile: 1
   discoveredSprite: {fileID: -2876996468503508461, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
   maxHitCount: 5
   breakSprites:
@@ -842,7 +841,6 @@ MonoBehaviour:
   - {fileID: 6389894454001293726, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
   - {fileID: 3888481159467530186, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
   - {fileID: 5985110107442944109, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
-  wallRenderer: {fileID: 0}
 --- !u!61 &459586663
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1532,6 +1530,7 @@ GameObject:
   - component: {fileID: 735617318}
   - component: {fileID: 735617317}
   - component: {fileID: 735617316}
+  - component: {fileID: 735617320}
   m_Layer: 8
   m_Name: BookFile_Sample_0
   m_TagString: Untagged
@@ -1667,6 +1666,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &735617320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 735617315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf2a80063aca4aa57589541b1bf78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  radius: 1.5
+  normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  nearMaterial: {fileID: -876546973899608171, guid: 4c107bce05f75f94492cc13ffd669adf, type: 3}
 --- !u!1 &789678593
 GameObject:
   m_ObjectHideFlags: 0
@@ -2352,6 +2369,7 @@ GameObject:
   - component: {fileID: 1043855032}
   - component: {fileID: 1043855031}
   - component: {fileID: 1043855030}
+  - component: {fileID: 1043855034}
   m_Layer: 8
   m_Name: Break_Wall
   m_TagString: Untagged
@@ -2373,8 +2391,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activateMode: 0
   hiddenItem: {fileID: 1741909729}
-  requireBookPile: 1
-  discoveredSprite: {fileID: -7947519225928429374, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
+  discoveredSprite: {fileID: 3521392254067778311, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
   maxHitCount: 5
   breakSprites:
   - {fileID: 3521392254067778311, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
@@ -2382,7 +2399,6 @@ MonoBehaviour:
   - {fileID: 6389894454001293726, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
   - {fileID: 3888481159467530186, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
   - {fileID: 5985110107442944109, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
-  wallRenderer: {fileID: 0}
 --- !u!61 &1043855031
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2499,6 +2515,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1043855034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1043855029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ccf2a80063aca4aa57589541b1bf78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  radius: 1.5
+  normalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  nearMaterial: {fileID: 2100000, guid: ccdfcd2df44d0834393296a448c4ee96, type: 2}
 --- !u!1 &1053599068
 GameObject:
   m_ObjectHideFlags: 0

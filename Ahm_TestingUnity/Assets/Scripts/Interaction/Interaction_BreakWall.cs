@@ -8,22 +8,22 @@ public class Interaction_BreakWall : Interaction_Obj
         ByCandle        // 인벤토리의 
     }
 
+    [Header("첫 발견자 모드 (2P, 촛불)")]
     [SerializeField] private ActivateMode activateMode = ActivateMode.BySecondPlayer; // 기본은 2P 상호작용 모드
     
     [Header("벽이 부서졌을 때 드러날 숨겨진 아이템")]
     [SerializeField] private GameObject hiddenItem; // 벽 뒤 아이템 지정
 
-    [SerializeField] private bool requireBookPile = true; // 요걸 트루로 만들어서 책 더미로 기믹 활성화 필요하게 만들기
-    private static bool wallGimmickUnlocked = false;      // 책 더미로 기믹 활성화 여부
-
     [Header("발견 시 표시되는 스프라이트")]
     [SerializeField] private Sprite discoveredSprite; // 발견되었을 때 먼저 보여줄 이미지 1장
 
+    private bool requireBookPile = true; // 요걸 트루로 만들어서 책 더미로 기믹 활성화 필요하게 만들기
+    private static bool wallGimmickUnlocked = false;      // 책 더미로 기믹 활성화 여부
 
     public int maxHitCount = 5;             // 타격 카운트 (벽 체력)
     public Sprite[] breakSprites;           // 스프라이트 배열
 
-    public SpriteRenderer wallRenderer;     // 벽 렌더러
+    private SpriteRenderer wallRenderer;     // 벽 렌더러
 
     private int currentCount = 0;           // 타격 받은 횟수    
     private bool isBreakableDiscovered = false; // 활성화 여부
