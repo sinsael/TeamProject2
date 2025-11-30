@@ -13,14 +13,22 @@ public class Interaction_BreakWall : Interaction_Obj
     [Header("벽이 부서졌을 때 드러날 숨겨진 아이템")]
     [SerializeField] private GameObject hiddenItem; // 벽 뒤 아이템 지정
 
+    [SerializeField] private bool requireBookPile = true; // 요걸 트루로 만들어서 책 더미로 기믹 활성화 필요하게 만들기
+    private static bool wallGimmickUnlocked = false;      // 책 더미로 기믹 활성화 여부
+
+    [Header("발견 시 표시되는 스프라이트")]
+    [SerializeField] private Sprite discoveredSprite; // 발견되었을 때 먼저 보여줄 이미지 1장
+
 
     public int maxHitCount = 5;             // 타격 카운트 (벽 체력)
     public Sprite[] breakSprites;           // 스프라이트 배열
+
     public SpriteRenderer wallRenderer;     // 벽 렌더러
 
     private int currentCount = 0;           // 타격 받은 횟수    
     private bool isBreakableDiscovered = false; // 활성화 여부
     private bool isBroken = false;          // 이미 파괴됨
+
     private BoxCollider2D col;
 
     public override void Start()
@@ -32,7 +40,14 @@ public class Interaction_BreakWall : Interaction_Obj
 
         if (hiddenItem != null) // 아이템 비활성화 아니면 꺼두기
             hiddenItem.SetActive(false);
- 
+
+        // 시작 시에는 발견 전이므로 숨김 처리
+        if (!isBreakableDiscovered)
+        {
+            if (sr != null) sr.enabled = false;
+            if (wallRenderer != null) wallRenderer.enabled = false;
+        }
+
     }
 
     public override void OnInteract(PlayerInputHandler interactor) // 플레이어 정보 받아오기
@@ -41,6 +56,11 @@ public class Interaction_BreakWall : Interaction_Obj
             return;
 
         if (isBroken) // 이미 파괴된 상태라면 무시
+        {
+            return;
+        }
+
+        if (requireBookPile && !wallGimmickUnlocked)
         {
             return;
         }
@@ -54,8 +74,7 @@ public class Interaction_BreakWall : Interaction_Obj
                 if (interactor is Second_PlayerInputHandler)
                 {
                     isBreakableDiscovered = true;
-                    sr.enabled = true;
-                    wallRenderer.enabled = true;
+                    ShowDiscoveredVisual();
                     if (sr != null) sr.color = Color.yellow;
                     Debug.Log("2P 상호작용");
                 }
@@ -77,7 +96,6 @@ public class Interaction_BreakWall : Interaction_Obj
                 // 선택된 아이템이 블랙 촛불인지 확인
                 if (selectedItem is Interaction_BlackCandle)
                 {
-                    // 블랙 촛불이 선택된 상태이므로 벽 활성화
                     ActivateByCandle();
                 }
                 else
@@ -98,7 +116,7 @@ public class Interaction_BreakWall : Interaction_Obj
         }
     }
 
-
+    // 촛불(아이템) 선택 후 벽 상호작용으로 벽 활성화 
     public void ActivateByCandle()
     {
         if (isBreakableDiscovered)
@@ -109,30 +127,43 @@ public class Interaction_BreakWall : Interaction_Obj
 
         isBreakableDiscovered = true;
 
-        if (sr != null)
-        {
-            sr.enabled = true;
-            sr.color = Color.yellow;
-        }
+        // 촛불로 발견해도 반드시 "발견 스프라이트"를 먼저 보여줘야 함
+        ShowDiscoveredVisual();
 
-        if (wallRenderer != null)
-        {
-            wallRenderer.enabled = true;
-        }
-
-        Debug.Log("촛불 사용으로 벽 활성화");
+        Debug.Log("촛불 선택으로 벽 발견");
     }
 
+    private void ShowDiscoveredVisual()
+    {
+        if (sr != null) sr.enabled = true;
+        if (wallRenderer != null) wallRenderer.enabled = true;
 
+        // 발견되면 먼저 '발견 스프라이트'로 교체
+        if (wallRenderer != null && discoveredSprite != null)
+        {
+            wallRenderer.sprite = discoveredSprite;
+        }
+
+        // 발견 연출 색(원하면 제거 가능)
+        if (sr != null) sr.color = Color.yellow;
+    }
+
+    // 타격 시 벽 스프라이트 진행
     private void UpdateBreakSprite()
     {
         if (breakSprites == null || breakSprites.Length == 0)
             return;
 
-        int index = Mathf.Clamp(currentCount, 0, breakSprites.Length - 1);
+        if (wallRenderer == null)
+            return;
+
+        // 1타: breakSprites[0], 2타: breakSprites[1] ... 되도록 -1
+        int index = Mathf.Clamp(currentCount - 1, 0, breakSprites.Length - 1);
         wallRenderer.sprite = breakSprites[index];
     }
 
+
+    //벽 때리기
     private void HitWall()
     {
         currentCount++;
@@ -145,21 +176,25 @@ public class Interaction_BreakWall : Interaction_Obj
         if (currentCount >= maxHitCount)
         {
             Debug.Log("벽 완전히 파괴됨!");
-            isBroken = true;
-            col.enabled = false;
 
-            // 벽이 파괴될때 아이템 드러내기
+            isBroken = true;
+
+            if (col != null)
+                col.enabled = false;
+
+            // 벽이 파괴될 때 아이템 드러내기
             if (hiddenItem != null)
             {
-                // 부모(벽)가 사라져도 아이템이 살아있게 하려면 부모 분리
                 hiddenItem.transform.SetParent(null);
-
-                // 벽 한가운데 놔두고
-                hiddenItem.transform.position = transform.position;                                                   
-
-                // 활성화 시키기
+                hiddenItem.transform.position = transform.position;
                 hiddenItem.SetActive(true);
             }
         }
+    }
+
+    // 책 더미로 기믹 활성화
+    public static void UnlockWallGimmickByBookPile()
+    {
+        wallGimmickUnlocked = true;
     }
 }
