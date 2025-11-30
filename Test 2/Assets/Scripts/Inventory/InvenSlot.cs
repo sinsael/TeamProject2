@@ -49,6 +49,7 @@ public class InvenSlot : MonoBehaviour, IPointerClickHandler
     {
         newData = data;
         image.sprite = newData.itemSprite;
+        image.preserveAspect = true; // 아이템 비율맞추기 추가
 
         SetAlpha(1);
 

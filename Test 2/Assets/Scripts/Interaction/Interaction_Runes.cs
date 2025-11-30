@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ItemData", menuName = "Scriptable Objects/ItemData/Interaction_Run")]
+[CreateAssetMenu(fileName = "ItemData", menuName = "Scriptable Objects/ItemData/Interaction_Runes")]
 public class Interaction_Runes : ItemData
 {
     public override void Use()
@@ -9,6 +9,6 @@ public class Interaction_Runes : ItemData
         Debug.Log("∑È¿‘¥œµ¢ Ω««‡!!!!!!");
 
 
-        Inventory.Instance.RemoveItem(this);
+
     }
 }

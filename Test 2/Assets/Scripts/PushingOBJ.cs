@@ -24,11 +24,15 @@ public class PushingOBJ : MonoBehaviour
     private float noGroundTimer = 0f;
     private bool hasGround = false;
 
+    private RigidbodyConstraints2D baseConstraints;
+
     private void Start()
     {
         joint = GetComponent<FixedJoint2D>();
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
+
+        if (rb != null) baseConstraints = rb.constraints;
 
         xPos = transform.position.x;
         lastPos = transform.position;
@@ -37,6 +41,8 @@ public class PushingOBJ : MonoBehaviour
     private void FixedUpdate()
     {
         hasGround = CheckGroundUnderBox();
+
+        UpdateFreezeXByPushing();
 
         if (joint != null && joint.enabled)
         {
@@ -71,6 +77,20 @@ public class PushingOBJ : MonoBehaviour
         {
             xPos = transform.position.x;
             lastPos = transform.position;
+        }
+    }
+
+    private void UpdateFreezeXByPushing()
+    {
+        if (rb == null) return;
+
+        if (beingPushed)
+        {
+            rb.constraints = rb.constraints & ~RigidbodyConstraints2D.FreezePositionX;
+        }
+        else
+        {
+            rb.constraints = baseConstraints;
         }
     }
 

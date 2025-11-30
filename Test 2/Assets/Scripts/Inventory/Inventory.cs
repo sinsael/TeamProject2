@@ -157,4 +157,13 @@ public class Inventory : MonoBehaviour
     {
         return items.Contains(data);
     }
+
+    // 선택된 아이템 데이터 공개 (벽파괴에서 쓸거임(BreakWall.cs))
+    public ItemData GetSelectedItem()
+    {
+        if (selectedSlot == null)
+            return null;
+
+        return selectedSlot.GetItemData();
+    }
 }
