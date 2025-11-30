@@ -17,11 +17,12 @@ public class Interaction_BreakWall : Interaction_Obj
     [Header("발견 시 표시되는 스프라이트")]
     [SerializeField] private Sprite discoveredSprite; // 발견되었을 때 먼저 보여줄 이미지 1장
 
-    private bool requireBookPile = true; // 요걸 트루로 만들어서 책 더미로 기믹 활성화 필요하게 만들기
-    private static bool wallGimmickUnlocked = false;      // 책 더미로 기믹 활성화 여부
-
+    [Header("벽 타격 관련 설정")]
     public int maxHitCount = 5;             // 타격 카운트 (벽 체력)
     public Sprite[] breakSprites;           // 스프라이트 배열
+
+    private bool requireBookPile = true; // 요걸 트루로 만들어서 책 더미로 기믹 활성화 필요하게 만들기
+    private static bool wallGimmickUnlocked = false;      // 책 더미로 기믹 활성화 여부
 
     private SpriteRenderer wallRenderer;     // 벽 렌더러
 
