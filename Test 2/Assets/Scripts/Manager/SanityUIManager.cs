@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class SanityUIManager : MonoBehaviour
 {
     public static SanityUIManager instance;
@@ -16,9 +17,45 @@ public class SanityUIManager : MonoBehaviour
     private void Awake()
     {
         if (instance == null)
+        {
             instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         else
             Destroy(gameObject);
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    // 씬 로드 완료 시 호출되는 함수
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        FindSanityComponents();
+    }
+
+    public void FindSanityComponents()
+    {
+        // 1P 찾기 (First_Player 클래스를 가진 오브젝트 검색)
+        First_Player p1 = FindAnyObjectByType<First_Player>();
+        if (p1 != null)
+        {
+            player1Sanity = p1.GetComponent<Sanity>();
+        }
+
+        // 2P 찾기 (Second_Player 클래스를 가진 오브젝트 검색)
+        Second_Player p2 = FindAnyObjectByType<Second_Player>();
+        if (p2 != null)
+        {
+            player2Sanity = p2.GetComponent<Sanity>();
+        }
     }
 
     void Update()
@@ -45,8 +82,5 @@ public class SanityUIManager : MonoBehaviour
 
         // 3. 슬라이더 값 적용 (부드럽게 움직이는 Lerp 적용)
         slider.value = Mathf.Lerp(slider.value, ratio, Time.deltaTime * 5f);
-
-        // 부드러운 게 싫고 즉시 반응하길 원하면 아래 줄을 쓰세요.
-        // slider.value = ratio;
     }
 }

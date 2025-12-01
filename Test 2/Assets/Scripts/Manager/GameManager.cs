@@ -20,9 +20,6 @@ public class GameManager : MonoBehaviour
     public GameObject GameStartUI;
     public GameObject GamePauseUI;
 
-
-    public MonoBehaviour playerController;
-
     public void Awake()
     {
         if (Instance == null)
@@ -66,13 +63,7 @@ public class GameManager : MonoBehaviour
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // 혹시 모를 연결 끊김 방지를 위해 다시 찾기 시도
-        if (playerController == null)
-        {
-            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-            if (playerObj != null)
-                playerController = playerObj.GetComponent<MonoBehaviour>(); // 혹은 구체적인 클래스명
-        }
+        StartCoroutine(WaitAndFadeIn());
     }
 
     IEnumerator WaitAndFadeIn()
@@ -113,7 +104,6 @@ public class GameManager : MonoBehaviour
             case GameState.GameStart:
                 if (GameStartUI != null) GameStartUI.SetActive(true);
 
-                playerController.enabled = false;
                 Time.timeScale = 0f; // 시간 정상화
                 break;
 
@@ -124,7 +114,6 @@ public class GameManager : MonoBehaviour
 
             case GameState.GamePlay:
                 Time.timeScale = 1f; // 시간 정상화
-                playerController.enabled = true;
                 break;
 
             case GameState.GameOver:

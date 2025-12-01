@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System;
-
+using UnityEngine.SceneManagement;
 public class InvenSlot : MonoBehaviour, IPointerClickHandler
 {
 
