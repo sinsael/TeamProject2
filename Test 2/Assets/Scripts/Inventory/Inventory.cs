@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Inventory : MonoBehaviour
 {
@@ -36,14 +37,33 @@ public class Inventory : MonoBehaviour
         FreshSlot();
     }
 
-
-    //테스트 삭제해도 됨
-    private void Update()
+    private void OnEnable()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        ClearAllItems();
+    }
+
+    public void ClearAllItems()
+    {
+        items.Clear();
+
+        foreach (InvenSlot slot in Slots)
         {
-            AddList(testData);
+            slot.ClearSlot();
         }
+
+        DeselectCurrent();
+
+        Debug.Log("씬 이동으로 인해 인벤토리가 초기화되었습니다.");
     }
 
     /// <summary>

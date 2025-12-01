@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8939093183189871448}
   - component: {fileID: 1320298077758566511}
-  - component: {fileID: 5666488000460432759}
   - component: {fileID: 6917573000923352793}
   m_Layer: 0
   m_Name: Manager
@@ -47,22 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LeverManager
   maxActiveLevers: 2
---- !u!114 &5666488000460432759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2541970532157278804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b500631d2d2aff74d94dd02a15a0b703, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SanityUIManager
-  player1SanitySlider: {fileID: 0}
-  player2SanitySlider: {fileID: 0}
-  player1Sanity: {fileID: 0}
-  player2Sanity: {fileID: 0}
 --- !u!114 &6917573000923352793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,4 +60,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameStartUI: {fileID: 0}
   GamePauseUI: {fileID: 0}
-  playerController: {fileID: 0}
