@@ -9,6 +9,9 @@ public class Interaction_BookCase_Right : Interaction_Obj
     public GameObject FollowTarget;
     public float targetZoomSize = 3f;
     public float zoomDuration = 3f;
+    Transform originalTarget;
+    float originalSize;
+    bool isActive;
     public override void Start()
     {
         base.Start();
@@ -19,16 +22,41 @@ public class Interaction_BookCase_Right : Interaction_Obj
         confiner = obj.GetComponent<CinemachineConfiner2D>();
     }
 
+    public override void OnDeselect()
+    {
+        base.OnDeselect();
+
+        if(originalTarget == null) return;
+        targetCam.Follow = originalTarget;
+        StopAllCoroutines();
+        StartCoroutine(SmoothZoom(originalSize, 0));
+        isActive = false;
+        confiner.InvalidateCache();
+    }
+
     public override void OnInteract(PlayerInputHandler PlayerInput)
     {
         base.OnInteract(PlayerInput);
 
-        if (targetCam != null)
+        if (targetCam != null && isActive == false)
         {
+            originalTarget = targetCam.Follow;
+            originalSize = targetCam.m_Lens.OrthographicSize;
+
             targetCam.Follow = FollowTarget.transform;
 
-            // 코루틴 시작 (부드러운 줌)
+            // ???? ???? (?ε??? ??)
             StartCoroutine(SmoothZoom(targetZoomSize, zoomDuration));
+            isActive = true;
+        }
+        else if (isActive == true)
+        {
+            if (originalTarget == null) return;
+            targetCam.Follow = originalTarget;
+            StopAllCoroutines();
+            StartCoroutine(SmoothZoom(originalSize, 0));
+            isActive = false;
+            confiner.InvalidateCache();
         }
     }
 
@@ -39,14 +67,14 @@ public class Interaction_BookCase_Right : Interaction_Obj
 
         while (time < duration)
         {
-            // Lerp를 이용해 서서히 값 변경
+            // Lerp?? ????? ?????? ?? ????
             targetCam.m_Lens.OrthographicSize = Mathf.Lerp(startSize, targetSize, time / duration);
             time += Time.deltaTime;
             confiner.InvalidateCache();
             yield return null;
         }
 
-        // 마지막에 정확한 값으로 고정
+        // ???????? ????? ?????? ????
         targetCam.m_Lens.OrthographicSize = targetSize;
     }
 }
