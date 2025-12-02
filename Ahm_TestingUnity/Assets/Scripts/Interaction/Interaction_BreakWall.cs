@@ -172,6 +172,8 @@ public class Interaction_BreakWall : Interaction_Obj
         int remaining = maxHitCount - currentCount;
         Debug.Log("벽 타격! (" + currentCount + "/" + maxHitCount + "), 남은 횟수: " + remaining);
 
+        CameraShake.instance.ShakeCamera(2f, 0.2f);
+
         UpdateBreakSprite();
 
         if (currentCount >= maxHitCount)
