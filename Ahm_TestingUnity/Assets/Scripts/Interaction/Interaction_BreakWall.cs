@@ -21,6 +21,10 @@ public class Interaction_BreakWall : Interaction_Obj
     public int maxHitCount = 5;             // 타격 카운트 (벽 체력)
     public Sprite[] breakSprites;           // 스프라이트 배열
 
+    [Header("벽 파괴 시 파티클")]
+    [SerializeField] private BreakVfxSpawner vfx;
+    [SerializeField] private Transform vfxPoint; // optional
+
     private bool requireBookPile = true; // 요걸 트루로 만들어서 책 더미로 기믹 활성화 필요하게 만들기
     private static bool wallGimmickUnlocked = false;      // 책 더미로 기믹 활성화 여부
 
@@ -173,6 +177,9 @@ public class Interaction_BreakWall : Interaction_Obj
         Debug.Log("벽 타격! (" + currentCount + "/" + maxHitCount + "), 남은 횟수: " + remaining);
 
         CameraShake.instance.ShakeCamera(2f, 0.2f);
+
+        Vector3 p = (vfxPoint != null) ? vfxPoint.position : transform.position;
+        if (vfx != null) vfx.SpawnDebris(p);
 
         UpdateBreakSprite();
 
