@@ -365,7 +365,8 @@ GameObject:
   - component: {fileID: 789678603}
   - component: {fileID: 789678597}
   - component: {fileID: 789678599}
-  m_Layer: 0
+  - component: {fileID: 789678604}
+  m_Layer: 9
   m_Name: First_Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -403,9 +404,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 1
   m_Material: {fileID: 6200000, guid: 04eccc40e9b7dec43b4fac15e60dda67, type: 2}
   m_IncludeLayers:
@@ -469,7 +470,7 @@ MonoBehaviour:
   ObjCheckRadius: 0.75
   WhatIsObj:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
   ObjColliders: []
   interactionCheck: {fileID: 1547436355}
   interactionRadius: 0.28
@@ -502,7 +503,8 @@ MonoBehaviour:
       m_Bits: 128
   MoveSpeed: 5
   jumpForce: 5
-  interact: {fileID: 789678600}
+  Sanamount: 1
+  Saninterval: 1
 --- !u!114 &789678603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -515,6 +517,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dca21e51821f2f49b07b7a1a43380e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &789678604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789678593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 988474cc1b8c25c4b8eb1af11f874ebc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxSanPoint: 100
+  SanPoint: 0
+  isCrazy: 0
 --- !u!1 &879995352
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,7 +546,8 @@ GameObject:
   - component: {fileID: 879995355}
   - component: {fileID: 879995354}
   - component: {fileID: 879995353}
-  m_Layer: 0
+  - component: {fileID: 879995359}
+  m_Layer: 9
   m_Name: Second_Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -614,7 +632,7 @@ MonoBehaviour:
   ObjCheckRadius: 0.75
   WhatIsObj:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
   ObjColliders: []
   interactionCheck: {fileID: 1053599069}
   interactionRadius: 0.28
@@ -659,7 +677,8 @@ MonoBehaviour:
       m_Bits: 128
   MoveSpeed: 5
   jumpForce: 5
-  interact: {fileID: 879995355}
+  Sanamount: 1
+  Saninterval: 1
 --- !u!4 &879995358
 Transform:
   m_ObjectHideFlags: 0
@@ -669,7 +688,7 @@ Transform:
   m_GameObject: {fileID: 879995352}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.089, y: 0, z: 0}
+  m_LocalPosition: {x: 3.25, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -679,6 +698,21 @@ Transform:
   - {fileID: 1053599069}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &879995359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879995352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 988474cc1b8c25c4b8eb1af11f874ebc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxSanPoint: 100
+  SanPoint: 0
+  isCrazy: 0
 --- !u!1 &916653307
 GameObject:
   m_ObjectHideFlags: 0

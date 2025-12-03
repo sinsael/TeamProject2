@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97c0da9602bf3294685f8406d2db52da, type: 3}
+  m_Name: item_BlackCandle
+  m_EditorClassIdentifier: 
+  itemSprite: {fileID: 7369740438480282620, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
+  itemName: "\uAC80\uC740 \uCD1B\uBD88"

@@ -1,21 +1,25 @@
-// °øÁß¿¡ ÀÖÀ»¶§ÀÇ »óÅÂµé °ü¸® ½ºÅ©¸³Æ®
+ï»¿// ê³µì¤‘ì— ìˆì„ë•Œì˜ ìƒíƒœë“¤ ê´€ë¦¬ ìŠ¤í¬ë¦½íŠ¸
 public class Player_AiredState : PlayerState
 {
-    public Player_AiredState(Player player, StateMachine stateMachine, string animBoolName) : base(player, stateMachine, animBoolName)
-    {
-    }
+    public Player_AiredState(Player player, StateMachine stateMachine, string animBoolName)
+        : base(player, stateMachine, animBoolName) { }
 
     public override void Update()
     {
         base.Update();
 
-       
+        // ê³µì¤‘ì—ì„œ ë²½ì— ë‹¿ëŠ” ìˆœê°„ ì¦‰ì‹œ ë²½íƒ€ê¸° ìƒíƒœë¡œ ì „í™˜
+        if (player.Wall.wallDetected)
+        {
+            stateMachine.ChangeState(player.Player_WallClimbingState);
+            return;
+        }
     }
 
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-        // °øÁß¿¡¼­ÀÇ ¿òÁ÷ÀÓ ¼³Á¤
+        // ê³µì¤‘ì—ì„œì˜ ì›€ì§ì„ ì„¤ì •
          if (player.inputSystem.moveInput.x != 0)
             player.SetVelocity(player.inputSystem.moveInput.x * player.MoveSpeed, rb.velocity.y);
     }
