@@ -600,7 +600,7 @@ GameObject:
   - component: {fileID: 371583561}
   - component: {fileID: 371583560}
   m_Layer: 0
-  m_Name: Square (3)
+  m_Name: White_Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -670,7 +670,7 @@ Transform:
   m_GameObject: {fileID: 371583559}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 30.74, y: 3.4076977, z: 0}
+  m_LocalPosition: {x: 31.02, y: 3.4076977, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -781,7 +781,7 @@ MonoBehaviour:
   - {fileID: 1757989065, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
   - {fileID: -6507364139724699964, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
   IBR: {fileID: 1739514899}
-  candleIndex: 0
+  myCandleColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!61 &389422078
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -933,7 +933,7 @@ MonoBehaviour:
   - {fileID: 1395710506, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
   - {fileID: -5715524675118982732, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
   IBR: {fileID: 1739514899}
-  candleIndex: 1
+  myCandleColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!61 &435167634
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1126,7 +1126,7 @@ GameObject:
   - component: {fileID: 549786326}
   - component: {fileID: 549786325}
   m_Layer: 0
-  m_Name: Square (1)
+  m_Name: Green_Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1196,7 +1196,7 @@ Transform:
   m_GameObject: {fileID: 549786324}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 26.67, y: 3.4076977, z: 0}
+  m_LocalPosition: {x: 29.23, y: 3.4076977, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1515,7 +1515,7 @@ MonoBehaviour:
   - {fileID: 1104392610, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
   - {fileID: 7369740438480282620, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
   IBR: {fileID: 1739514899}
-  candleIndex: 3
+  myCandleColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!61 &962808609
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1573,7 +1573,7 @@ GameObject:
   - component: {fileID: 1049092535}
   - component: {fileID: 1049092534}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Blue_Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1643,7 +1643,7 @@ Transform:
   m_GameObject: {fileID: 1049092533}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 32.7, y: 3.4076977, z: 0}
+  m_LocalPosition: {x: 32.91, y: 3.4076977, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1764,7 +1764,7 @@ MonoBehaviour:
   - {fileID: -1822286159, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
   - {fileID: 1493442077006304022, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
   IBR: {fileID: 1739514899}
-  candleIndex: 2
+  myCandleColor: {r: 0, g: 0, b: 1, a: 1}
 --- !u!61 &1320762154
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1996,7 +1996,7 @@ GameObject:
   - component: {fileID: 1401221954}
   - component: {fileID: 1401221953}
   m_Layer: 0
-  m_Name: Square (2)
+  m_Name: Black_Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2897,22 +2897,20 @@ MonoBehaviour:
   targetZoomSize: 3
   zoomDuration: 1
   isActive: 0
+  isSequence: 0
   isPuzzleSolved: 0
   candles:
   - {fileID: 389422077}
   - {fileID: 435167633}
   - {fileID: 1320762153}
   - {fileID: 962808608}
-  puzzleObjects:
-  - {fileID: 1049092534}
+  fourObjects:
   - {fileID: 549786325}
-  - {fileID: 1401221953}
   - {fileID: 371583560}
-  hintColors:
-  - {r: 0, g: 0.055066347, b: 1, a: 1}
-  - {r: 0, g: 0, b: 0, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 0.018987417, g: 1, b: 0, a: 1}
+  - {fileID: 1401221953}
+  - {fileID: 1049092534}
+  colorDisplayTime: 1
+  intervalTime: 2.5
 --- !u!1 &1746147384
 GameObject:
   m_ObjectHideFlags: 0
@@ -3947,11 +3945,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1630542718923057737, guid: 6198c5df7f965ab45920f2d5eaf6b9c0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0040225983
+      value: 0.013015747
       objectReference: {fileID: 0}
     - target: {fileID: 1630542718923057737, guid: 6198c5df7f965ab45920f2d5eaf6b9c0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.38194
+      value: -7.73194
       objectReference: {fileID: 0}
     - target: {fileID: 1630542718923057737, guid: 6198c5df7f965ab45920f2d5eaf6b9c0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4201,7 +4199,7 @@ SceneRoots:
   - {fileID: 8954499446913440918}
   - {fileID: 1455857215}
   - {fileID: 681439989}
-  - {fileID: 1049092535}
   - {fileID: 549786326}
-  - {fileID: 1401221954}
   - {fileID: 371583561}
+  - {fileID: 1049092535}
+  - {fileID: 1401221954}
