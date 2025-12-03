@@ -1,19 +1,25 @@
 fileFormatVersion: 2
-guid: 662fad9cb4b28f84b8e743fb703a2dc8
+guid: 84ca7b79cfbd1c34faa0de99b55e4a0f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1179297276305794913
-    second: UI2_0
+      213: -369707991428910338
+    second: 1_StageLayer_0
   - first:
-      213: 8137955173826623314
-    second: UI2_1
+      213: -2251074738697621684
+    second: 1_StageLayer_1
   - first:
-      213: 1636785368724435784
-    second: UI2_2
+      213: -4566859569734548199
+    second: 1_StageLayer_2
   - first:
-      213: -2479488561180824256
-    second: UI2_3
+      213: -7462107450954601059
+    second: 1_StageLayer_3
+  - first:
+      213: 8428176093996251701
+    second: 1_StageLayer_4
+  - first:
+      213: 6694826132789478899
+    second: 1_StageLayer_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,13 +115,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UI2_0
+      name: 1_chair
       rect:
         serializedVersion: 2
-        x: 43
-        y: 35
-        width: 111
-        height: 114
+        x: 0
+        y: 1511
+        width: 133
+        height: 242
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +130,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f981539106b42afe0800000000000000
-      internalID: -1179297276305794913
+      spriteID: ef2b1446a888edaf0800000000000000
+      internalID: -369707991428910338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1_sewer
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 1541
+        width: 182
+        height: 182
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4fa21da37392c0e0800000000000000
+      internalID: -2251074738697621684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1_tent1
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 980
+        width: 707
+        height: 743
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91501e6ea614f90c0800000000000000
+      internalID: -4566859569734548199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1_StageLayer_3
+      rect:
+        serializedVersion: 2
+        x: 1352
+        y: 1028
+        width: 290
+        height: 695
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9d2e0e2fc4417890800000000000000
+      internalID: -7462107450954601059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1_tent2
+      rect:
+        serializedVersion: 2
+        x: 1722
+        y: 864
+        width: 977
+        height: 884
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53af51bc085e6f470800000000000000
+      internalID: 8428176093996251701
       vertices: []
       indices: 
       edges: []
@@ -134,7 +228,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 2c50ea799f589364dbc38fa0f6787eb9
+    spriteID: 42aba42bc80ee9a4185ceeba33376164
     internalID: 0
     vertices: []
     indices: 
@@ -144,11 +238,13 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      UI2_0: -1179297276305794913
-      UI2_1: 8137955173826623314
-      UI2_2: 1636785368724435784
-      UI2_3: -2479488561180824256
-      UI2_4: 1377159563
+      1_1: -4566859569734548199
+      1_StageLayer_3: -7462107450954601059
+      1_StageLayer_5: 6694826132789478899
+      1_chair: -369707991428910338
+      1_sewer: -2251074738697621684
+      1_tent1: -4566859569734548199
+      1_tent2: 8428176093996251701
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

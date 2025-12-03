@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 662fad9cb4b28f84b8e743fb703a2dc8
+guid: 7e27ed31300ca9f47a1027cd6623870f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1179297276305794913
-    second: UI2_0
+      213: -2605927041026033964
+    second: Altar_HighLight_0
   - first:
-      213: 8137955173826623314
-    second: UI2_1
+      213: 4394587643694920343
+    second: Altar_HighLight_1
   - first:
-      213: 1636785368724435784
-    second: UI2_2
+      213: 5331039862065785893
+    second: Altar_HighLight_2
   - first:
-      213: -2479488561180824256
-    second: UI2_3
+      213: -6625188199118291658
+    second: Altar_HighLight_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,23 +109,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UI2_0
+      name: Altar_HighLight_4
       rect:
         serializedVersion: 2
-        x: 43
-        y: 35
-        width: 111
-        height: 114
+        x: 0
+        y: 0
+        width: 126
+        height: 172
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: f981539106b42afe0800000000000000
-      internalID: -1179297276305794913
+      spriteID: e985fc721e0f0914b87db9ba70bf2ff7
+      internalID: -1531018249
       vertices: []
       indices: 
       edges: []
@@ -134,7 +134,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 2c50ea799f589364dbc38fa0f6787eb9
+    spriteID: 0ec6e579de6896c4586d2d6259510ce1
     internalID: 0
     vertices: []
     indices: 
@@ -144,11 +144,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      UI2_0: -1179297276305794913
-      UI2_1: 8137955173826623314
-      UI2_2: 1636785368724435784
-      UI2_3: -2479488561180824256
-      UI2_4: 1377159563
+      Altar_HighLight_0: -2605927041026033964
+      Altar_HighLight_1: 4394587643694920343
+      Altar_HighLight_2: 5331039862065785893
+      Altar_HighLight_3: -6625188199118291658
+      Altar_HighLight_4: -1531018249
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
