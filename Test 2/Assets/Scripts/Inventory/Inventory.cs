@@ -108,6 +108,13 @@ public class Inventory : MonoBehaviour
     //두번째 클릭일시 실행 및 다른 슬롯 선택시 해제
     public void OnClickSlot(InvenSlot slot)
     {
+        // 제단에서 회수 선택한 상태면, 인벤 클릭은 회수 동작으로 처리
+        if (AltarUIManager.Instance != null && AltarUIManager.Instance.HasPickedInsertedSlot())
+        {
+            AltarUIManager.Instance.TryReturnPickedToInventory();
+            return;
+        }
+
         // 빈 슬롯을 클릭했다면? (선택을 풀거나 무시)
         if (slot.isEmpty)
         {

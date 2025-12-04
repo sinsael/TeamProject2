@@ -4,24 +4,31 @@ using UnityEngine.UI;
 
 public class AltarSlot : MonoBehaviour, IPointerClickHandler
 {
+    [Header("Refs")]
     [SerializeField] private Image iconImage;
     [SerializeField] private Image highlightImage;
 
-    private ItemData data;
-    public bool isEmpty { get; private set; } = true;
+    [Header("Rule")]
+    [SerializeField] private ItemData requiredItem;
 
-    public ItemData GetItemData()
-    {
-        return data;
-    }
+    [Header("Lock Visual")]
+    [Range(0f, 1f)][SerializeField] private float lockToGray = 0.75f;
+    [Range(0f, 1f)][SerializeField] private float lockBrightness = 0.55f;
+
+    private bool inserted;
+    private Color normalColor = Color.white;
 
     private void Awake()
     {
-        if (iconImage == null)
+        if (iconImage != null)
         {
-            if (transform.childCount > 0)
+            normalColor = iconImage.color;
+
+            // 제단은 아이템 이미지가 미리 보여야 하니 기본 스프라이트 세팅
+            if (requiredItem != null && iconImage.sprite == null)
             {
-                iconImage = transform.GetChild(0).GetComponent<Image>();
+                iconImage.sprite = requiredItem.itemSprite;
+                iconImage.preserveAspect = true;
             }
         }
 
@@ -30,7 +37,7 @@ public class AltarSlot : MonoBehaviour, IPointerClickHandler
             highlightImage.enabled = false;
         }
 
-        ClearSlotVisual();
+        ApplyVisual();
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -53,42 +60,53 @@ public class AltarSlot : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void SetItem(ItemData newData)
+    public ItemData GetRequiredItem()
     {
-        data = newData;
+        return requiredItem;
+    }
 
-        if (iconImage != null)
+    public bool IsInserted()
+    {
+        return inserted;
+    }
+
+    public bool CanAccept(ItemData selected)
+    {
+        if (inserted) return false;
+        if (selected == null) return false;
+        return selected == requiredItem;
+    }
+
+    public void Insert()
+    {
+        inserted = true;
+        ApplyVisual();
+    }
+
+    public void RemoveFromAltar()
+    {
+        inserted = false;
+        ApplyVisual();
+    }
+
+    private void ApplyVisual()
+    {
+        if (iconImage == null) return;
+
+        if (inserted)
         {
-            iconImage.sprite = (data != null) ? data.itemSprite : null;
-            iconImage.preserveAspect = true;
-            SetAlpha((data != null) ? 1f : 0f);
+            iconImage.color = normalColor;
+            return;
         }
 
-        isEmpty = (data == null);
-    }
+        // 잠김 상태는 채도 낮추고 어둡게
+        Color c = normalColor;
+        float gray = (c.r + c.g + c.b) / 3f;
 
-    public void ClearSlot()
-    {
-        data = null;
-        ClearSlotVisual();
-        isEmpty = true;
-        SetHighlight(false);
-    }
+        float r = Mathf.Lerp(c.r, gray, lockToGray) * lockBrightness;
+        float g = Mathf.Lerp(c.g, gray, lockToGray) * lockBrightness;
+        float b = Mathf.Lerp(c.b, gray, lockToGray) * lockBrightness;
 
-    private void ClearSlotVisual()
-    {
-        if (iconImage == null) return;
-
-        iconImage.sprite = null;
-        SetAlpha(0f);
-    }
-
-    private void SetAlpha(float alpha)
-    {
-        if (iconImage == null) return;
-
-        Color c = iconImage.color;
-        c.a = alpha;
-        iconImage.color = c;
+        iconImage.color = new Color(r, g, b, c.a);
     }
 }

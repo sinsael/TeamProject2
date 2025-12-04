@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2062720531292373624}
   - component: {fileID: 1778649132345266559}
   m_Layer: 0
-  m_Name: Altar_HighLight_4
+  m_Name: Altar_HighLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
