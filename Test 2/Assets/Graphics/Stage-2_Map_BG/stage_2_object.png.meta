@@ -374,8 +374,8 @@ TextureImporter:
       name: stage_2_object_10
       rect:
         serializedVersion: 2
-        x: 685
-        y: 973
+        x: 632
+        y: 99
         width: 482
         height: 178
       alignment: 0
@@ -577,7 +577,7 @@ TextureImporter:
         width: 133
         height: 140
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -586,6 +586,50 @@ TextureImporter:
       bones: []
       spriteID: c2b14497b04a5704187659fb7f214e4b
       internalID: -1015302475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stage_2_object_20
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 491
+        width: 224
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51e9daa659523ce428ae6aa1fd09235b
+      internalID: 1570547169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stage_2_object_21
+      rect:
+        serializedVersion: 2
+        x: 684
+        y: 491
+        width: 104
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9c7736226439eb4f9f70478a8bfd19d
+      internalID: 1068985001
       vertices: []
       indices: 
       edges: []
@@ -617,6 +661,8 @@ TextureImporter:
       stage_2_object_18: -2083206957
       stage_2_object_19: -1015302475
       stage_2_object_2: -3829135891940982177
+      stage_2_object_20: 1570547169
+      stage_2_object_21: 1068985001
       stage_2_object_3: 6484224265911826108
       stage_2_object_4: -206294930982972340
       stage_2_object_5: -1612878668720288004

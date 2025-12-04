@@ -8,7 +8,7 @@ public class Interaction_Obj : MonoBehaviour, IInteraction, IInteraction_circle
 
     public virtual void Start()
     {
-        sr = GetComponent<SpriteRenderer>();
+        sr = GetComponentInChildren<SpriteRenderer>();
         currentcol = sr.color;
     }
 

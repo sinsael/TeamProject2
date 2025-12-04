@@ -51,11 +51,8 @@ public class Interaction_Lever : Interaction_Obj
         // (필요하다면 여기에 레버 애니메이션/스프라이트 변경 코드 추가)
     }
 
-    // LeverManager에 의해 강제로 비활성화될 때 호출됨
     public void ForceDeactivate()
     {
-        // 매니저가 이미 리스트에서 제거했으므로, 
-        // 여기서는 매니저에게 다시 알릴(RegisterDeactivation) 필요가 없습니다.
         Deactivate();
     }
 }
