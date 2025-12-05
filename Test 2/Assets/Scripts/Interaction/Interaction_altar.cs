@@ -60,7 +60,6 @@ public class Interaction_altar : Interaction_Obj
             Time.timeScale = 0f;
         }
 
-        // UI yeol ttae seontaek sang tae jeong ri
         if (Inventory.Instance != null)
         {
             Inventory.Instance.DeselectCurrent();
