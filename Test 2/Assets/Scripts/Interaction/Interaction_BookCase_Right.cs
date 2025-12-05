@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Interaction_BookCase_Right : Interaction_Obj
 {
-    // ... (변수 선언부는 기존과 동일) ...
     private CinemachineVirtualCamera targetCam;
     private CinemachineConfiner2D confiner;
     public GameObject FollowTarget;
@@ -21,7 +20,7 @@ public class Interaction_BookCase_Right : Interaction_Obj
 
     public Interaction_Candle_Stage2[] candles = null;
 
-    [Header("Color Interaction Settings")]
+    [Header("오브젝트 상호작용색")]
     public SpriteRenderer[] fourObjects; // 색이 바뀔 4개의 오브젝트
     public float colorDisplayTime = 1.0f; // 색이 켜져 있는 시간 (예: 1초)
     public float intervalTime = 2.5f;     // 꺼진 후 다음 색이 켜질 때까지 대기 시간
@@ -31,6 +30,9 @@ public class Interaction_BookCase_Right : Interaction_Obj
     private List<Color> answerKey = new List<Color>(); // 정답 순서 저장
     private int playerCurrentIndex = 0; // 플레이어가 몇 번째 정답을 맞추고 있는지
 
+    [Header("드랍 아이템")]
+    [SerializeField] GameObject dropPostion;
+    [SerializeField] GameObject dropItem;
     public override void Start()
     {
         base.Start();
@@ -119,7 +121,6 @@ public class Interaction_BookCase_Right : Interaction_Obj
 
         if (inputColor == answerKey[playerCurrentIndex])
         {
-            // 정답!
             playerCurrentIndex++; // 다음 단계로 이동
 
 
@@ -130,6 +131,8 @@ public class Interaction_BookCase_Right : Interaction_Obj
                 isPuzzleSolved = true;
 
                 // 아이템 드랍
+                Instantiate(dropItem, dropPostion.transform.position, Quaternion.identity);
+
                 StopCoroutine("UniqueSequenceRoutine");
 
                 CloseBookCase();
@@ -139,7 +142,6 @@ public class Interaction_BookCase_Right : Interaction_Obj
         }
         else
         {
-            // 오답!
             Debug.Log($"틀렸습니다! 정답: {answerKey[playerCurrentIndex]}, 입력: {inputColor}");
             CloseBookCase(); // 상호작용 강제 종료 및 초기화
             return false;
