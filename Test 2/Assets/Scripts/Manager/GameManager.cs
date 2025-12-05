@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.GameOver:
-                Time.timeScale = 1f; // 게임 정지
+                Time.timeScale = 1f;
                 FadeManager.Instance.FadeOut(() =>
                 {
                     isfirsteLoad = false;
