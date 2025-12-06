@@ -21,6 +21,7 @@ public class Interaction_ArtCase : Interaction_Obj
         {
             art_Sr.sprite = art;
             isCompleted = true;
+            Inventory.Instance.HasItem(item);
         }
     }
 
