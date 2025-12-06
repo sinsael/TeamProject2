@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a7bd69556f200b4e8a187f9de291b07, type: 3}
   m_Name: FireWood
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: -2431618491186443891, guid: c59a7ad76165e6b4684b0ae46df39b5d, type: 3}
-  itemName: Art_1
+  itemSprite: {fileID: -3274595782342905008, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
+  itemName: FireWood
