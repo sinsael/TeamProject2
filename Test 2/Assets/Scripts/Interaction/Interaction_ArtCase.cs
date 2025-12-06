@@ -11,7 +11,7 @@ public class Interaction_ArtCase : Interaction_Obj
     public override void Start()
     {
         base.Start();
-        art_Sr = GetComponent<SpriteRenderer>();
+        art_Sr = GetComponentInChildren<SpriteRenderer>();
     }
 
     public override void OnInteract(PlayerInputHandler PlayerInput)
@@ -21,7 +21,7 @@ public class Interaction_ArtCase : Interaction_Obj
         {
             art_Sr.sprite = art;
             isCompleted = true;
-            Inventory.Instance.HasItem(item);
+            Inventory.Instance.RemoveItem(item);
         }
     }
 

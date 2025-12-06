@@ -12,7 +12,7 @@ public class Interaction_BookCase : Interaction_Obj
 
     public GameObject DropItem;
 
-    public Vector2 dropPosition;
+    public GameObject dropPosition;
 
 
     public void Awake()
@@ -31,8 +31,7 @@ public class Interaction_BookCase : Interaction_Obj
 
         if(count == dropcount)
         {
-            dropPosition = transform.position;
-            Instantiate(DropItem, dropPosition, Quaternion.identity);
+            Instantiate(DropItem, dropPosition.transform.position, Quaternion.identity);
             drop = true;
             return;
         }
