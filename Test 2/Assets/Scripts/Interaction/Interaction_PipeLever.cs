@@ -2,6 +2,7 @@ using UnityEngine;
 using DG.Tweening;
 public class Interaction_PipeLever : Interaction_Obj
 {
+    public Sprite sprite;
     public GameObject RotatePipe;
     public GameObject UpPlatform;
     public Vector3 rotate;
@@ -16,6 +17,8 @@ public class Interaction_PipeLever : Interaction_Obj
 
         if (On)
         {
+            sr.sprite = sprite;
+
             MySequence = DOTween.Sequence();
 
             // 2. Append: 첫 번째 동작 (회전)을 줄에 세웁니다.
