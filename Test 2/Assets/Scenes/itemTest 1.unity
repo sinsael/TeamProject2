@@ -715,6 +715,23 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 2217734146518874122, guid: 869103b9d472e8b4ca494b352b6d8c7b, type: 3}
   m_PrefabInstance: {fileID: 6277227526975500134}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1277888818 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1741934818604768797, guid: 0bef5d3eb024ecb448df5dd6df8fa2e1, type: 3}
+  m_PrefabInstance: {fileID: 2407701067643390261}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1277888820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1277888818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b8efd72a92ad3b469da5c60f9f5f717, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1455857215
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1396,6 +1413,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1094910546}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1741934818604768797, guid: 0bef5d3eb024ecb448df5dd6df8fa2e1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1277888820}
     - targetCorrespondingSourceObject: {fileID: 5571703217048500061, guid: 0bef5d3eb024ecb448df5dd6df8fa2e1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 559937992}
@@ -1420,6 +1440,10 @@ PrefabInstance:
       propertyPath: otherPlayer
       value: 
       objectReference: {fileID: 789678610}
+    - target: {fileID: 5485801662497008314, guid: 869103b9d472e8b4ca494b352b6d8c7b, type: 3}
+      propertyPath: Amountinterval
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7387884689451338962, guid: 869103b9d472e8b4ca494b352b6d8c7b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 22.33
@@ -1649,6 +1673,10 @@ PrefabInstance:
     - target: {fileID: 4183330576058276147, guid: 6198c5df7f965ab45920f2d5eaf6b9c0, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.047780514
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205268846280360269, guid: 6198c5df7f965ab45920f2d5eaf6b9c0, type: 3}
+      propertyPath: m_ScreenY
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 4807420242894124329, guid: 6198c5df7f965ab45920f2d5eaf6b9c0, type: 3}
       propertyPath: m_Enabled
