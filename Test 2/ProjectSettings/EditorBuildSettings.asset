@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Stage 1 Syetem Test.unity
+    guid: be6d44f8f62012c47baa5c63a03fa557
+  - enabled: 1
     path: Assets/Scenes/Stage_1.5_2.unity
     guid: 26b7f4acccd6f4e4eae886c5b2fee9e8
   - enabled: 1
