@@ -5,7 +5,7 @@ public class Interaction_Candle_Stage2 : Interaction_Obj
     SpriteRenderer spriteRenderer;
     [SerializeField] Sprite[] candleSprite = null;
     [SerializeField] Interaction_BookCase_Right IBR;
-    
+    [SerializeField] Collider2D col;
     public Color myCandleColor = Color.white;
 
     public override void Start()
@@ -13,9 +13,11 @@ public class Interaction_Candle_Stage2 : Interaction_Obj
         base.Start();
 
         spriteRenderer = GetComponent<SpriteRenderer>();
+        col = GetComponent<Collider2D>();
 
         if (IBR == null)
             IBR = FindFirstObjectByType<Interaction_BookCase_Right>();
+
 
         ResetCandle();
     }
@@ -46,6 +48,8 @@ public class Interaction_Candle_Stage2 : Interaction_Obj
         if (candleSprite != null && candleSprite.Length > 1)
         {
             spriteRenderer.sprite = candleSprite[1]; // 켜진 이미지
+            col.enabled = false; // 상호작용 콜라이더 비활성화
+
         }
     }
 

@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class Interaction_BookCase_Right : Interaction_Obj
 {
@@ -21,14 +22,14 @@ public class Interaction_BookCase_Right : Interaction_Obj
     public Interaction_Candle_Stage2[] candles = null;
 
     [Header("오브젝트 상호작용색")]
-    public SpriteRenderer[] fourObjects; // 색이 바뀔 4개의 오브젝트
-    public float colorDisplayTime = 1.0f; // 색이 켜져 있는 시간 (예: 1초)
-    public float intervalTime = 2.5f;     // 꺼진 후 다음 색이 켜질 때까지 대기 시간
+    public Light2D targetLight; 
+    public float colorDisplayTime = 1.0f;
+    public float intervalTime = 2.5f;   
 
-    private readonly Color[] originalPalette = { Color.green, Color.white, Color.black, Color.blue };
+    private readonly Color[] originalPalette = { Color.green, Color.white, new Color(0.2f, 0f, 0.4f), Color.blue };
 
-    private List<Color> answerKey = new List<Color>(); // 정답 순서 저장
-    private int playerCurrentIndex = 0; // 플레이어가 몇 번째 정답을 맞추고 있는지
+    private List<Color> answerKey = new List<Color>();
+    private int playerCurrentIndex = 0; 
 
     [Header("드랍 아이템")]
     [SerializeField] GameObject dropPostion;
@@ -39,6 +40,8 @@ public class Interaction_BookCase_Right : Interaction_Obj
         GameObject obj = GameObject.Find("Second");
         targetCam = obj.GetComponent<CinemachineVirtualCamera>();
         confiner = obj.GetComponent<CinemachineConfiner2D>();
+
+        targetLight.enabled = false;
 
         originalTarget = targetCam.Follow;
         originalSize = targetCam.m_Lens.OrthographicSize;
@@ -94,23 +97,15 @@ public class Interaction_BookCase_Right : Interaction_Obj
 
         if (!isPuzzleSolved)
         {
-            if (candles == null) Debug.LogWarning("연결안됨");
-            else
-            {
                 foreach (var candle in candles)
                 {
                     candle.ResetCandle();
                 }
-            }
         }
 
-        if (fourObjects == null) Debug.LogWarning("네개의 오브젝트 연결 안됨");
-        else
+        if (targetLight != null)
         {
-            foreach (var renderer in fourObjects)
-            {
-                renderer.color = Color.white;
-            }
+            targetLight.enabled = false;
         }
     }
 
@@ -121,7 +116,7 @@ public class Interaction_BookCase_Right : Interaction_Obj
 
         if (inputColor == answerKey[playerCurrentIndex])
         {
-            playerCurrentIndex++; // 다음 단계로 이동
+            playerCurrentIndex++;
 
 
             if (playerCurrentIndex >= answerKey.Count)
@@ -143,48 +138,42 @@ public class Interaction_BookCase_Right : Interaction_Obj
         else
         {
             Debug.Log($"틀렸습니다! 정답: {answerKey[playerCurrentIndex]}, 입력: {inputColor}");
-            CloseBookCase(); // 상호작용 강제 종료 및 초기화
+            CloseBookCase(); 
             return false;
         }
     }
 
     IEnumerator UniqueSequenceRoutine()
     {
-        if (fourObjects == null || fourObjects.Length == 0) yield break;
+        if (targetLight == null) yield break;
 
         answerKey.Clear();
         playerCurrentIndex = 0;
 
-        List<int> objIndices = new List<int>();
         List<int> colorIndices = new List<int>();
-
-
-        for (int i = 0; i < fourObjects.Length; i++)
+        for (int i = 0; i < originalPalette.Length; i++)
         {
-            objIndices.Add(i);
-            if (i < originalPalette.Length) colorIndices.Add(i);
+            colorIndices.Add(i);
         }
-
-        ShuffleList(objIndices);
         ShuffleList(colorIndices);
 
-        int loopCount = Mathf.Min(objIndices.Count, colorIndices.Count);
-        for (int i = 0; i < loopCount; i++)
+        foreach (int index in colorIndices)
         {
-            answerKey.Add(originalPalette[colorIndices[i]]);
+            answerKey.Add(originalPalette[index]);
         }
 
         isSequence = true;
 
-        for (int i = 0; i < loopCount; i++)
-        {
-            SpriteRenderer currentObj = fourObjects[objIndices[i]];
-            Color currentColor = originalPalette[colorIndices[i]];
+        yield return new WaitForSeconds(0.5f);
 
-            if (currentObj != null) currentObj.color = currentColor;
+        foreach (int index in colorIndices)
+        {
+            targetLight.color = originalPalette[index];
+            targetLight.enabled = true;
             yield return new WaitForSeconds(colorDisplayTime);
 
-            if (currentObj != null) currentObj.color = Color.white;
+            targetLight.enabled = false;
+
             yield return new WaitForSeconds(intervalTime);
         }
     }
