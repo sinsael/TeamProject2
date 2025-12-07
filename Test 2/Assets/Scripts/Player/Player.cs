@@ -45,6 +45,13 @@ public class Player : Entity
 
     protected override void Update()
     {
+        if (GameManager.Instance.currentGameState == GameState.GameOver)
+        {
+            SetVelocity(0, 0);
+            
+            return;
+        }
+
         if (Time.timeScale == 0)
             return;
         base.Update();

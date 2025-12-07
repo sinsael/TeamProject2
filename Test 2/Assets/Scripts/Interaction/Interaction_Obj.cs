@@ -8,22 +8,29 @@ public class Interaction_Obj : MonoBehaviour, IInteraction, IInteraction_circle
 
     public virtual void Start()
     {
-        sr = GetComponent<SpriteRenderer>();
+        sr = GetComponentInChildren<SpriteRenderer>();
+        if (sr == null) return;
         currentcol = sr.color;
     }
 
     public virtual void OnHitByRay()
     {
-            sr.color = Color.red;
+        if (sr == null) return;
+
+        sr.color = Color.red;
     }
 
     public virtual void OnLeaveRay()
     {
-            sr.color = currentcol;
+        if (sr == null) return;
+
+        sr.color = currentcol;
     }
 
     public virtual void OnSelect()
     {
+        if (sr == null) return;
+
         sr.color = Color.green;
         Debug.Log(gameObject.name + " is selected");
     }
