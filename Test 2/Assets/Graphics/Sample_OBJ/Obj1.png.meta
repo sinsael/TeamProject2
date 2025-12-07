@@ -660,7 +660,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Obj1_16
+      name: Bookpile
       rect:
         serializedVersion: 2
         x: 224
@@ -696,6 +696,7 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       BlackCandle1: 7369740438480282620
+      Bookpile: 352341365
       Crack_1: 3521392254067778311
       Crack_2: 763548821027890332
       Crack_3: 6389894454001293726
@@ -710,7 +711,6 @@ TextureImporter:
       Obj1_13: -7947519225928429374
       Obj1_14: 1395710506
       Obj1_15: -1822286159
-      Obj1_16: 352341365
       Obj1_2: -1166470445535631653
       Obj1_3: 1104392610
       Obj1_4: 1493442077006304022
