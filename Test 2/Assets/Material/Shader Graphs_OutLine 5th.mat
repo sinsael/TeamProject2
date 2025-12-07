@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: OutLine
-  m_Shader: {fileID: -6465566751694194690, guid: 4c107bce05f75f94492cc13ffd669adf, type: 3}
+  m_Name: Shader Graphs_OutLine 5th
+  m_Shader: {fileID: -6465566751694194690, guid: 44ed32ae01cdf0a4ba125a9bf78efad3, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -22,30 +22,17 @@ Material:
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+    m_TexEnvs: []
     m_Ints: []
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
     - _Thickness: 0.005
-    - _UIMaskSoftnessX: 1
-    - _UIMaskSoftnessY: 1
     m_Colors:
-    - _ClipRect: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &7273090088843325827
+--- !u!114 &9075028303154292687
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
