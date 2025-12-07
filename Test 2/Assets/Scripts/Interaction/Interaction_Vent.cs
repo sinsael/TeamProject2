@@ -2,17 +2,48 @@ using UnityEngine;
 
 public class Interaction_Vent : Interaction_Obj
 {
-    private bool used;
+    [SerializeField] private Collider2D ventCollider;
+
+    private AltarUIManager altar;
+
+    private void Awake()
+    {
+        if (ventCollider == null)
+            ventCollider = GetComponent<Collider2D>();
+    }
+
+    private void Start()
+    {
+        altar = AltarUIManager.Instance;
+        if (altar == null)
+            altar = FindObjectOfType<AltarUIManager>(true);
+
+        if (altar == null)
+        {
+            if (ventCollider != null)
+                ventCollider.enabled = false;
+            return;
+        }
+
+        altar.OnAltarCompleteChanged += HandleAltarCompleteChanged;
+        HandleAltarCompleteChanged(altar.IsAltarComplete());
+    }
+
+    private void OnDisable()
+    {
+        if (altar != null)
+            altar.OnAltarCompleteChanged -= HandleAltarCompleteChanged;
+    }
+
+    private void HandleAltarCompleteChanged(bool complete)
+    {
+        if (ventCollider != null)
+            ventCollider.enabled = complete;
+    }
 
     public override void OnInteract(PlayerInputHandler playerInput)
     {
         base.OnInteract(playerInput);
-
-        if (used)
-            return;
-
-        used = true;
-
         GameManager.Instance.ChangeGameState(GameState.GameClear);
     }
 }

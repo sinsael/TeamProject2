@@ -60,7 +60,15 @@ public class Interaction_altar : Interaction_Obj
 
         AltarUIManager altarMgr = altarUI.GetComponentInChildren<AltarUIManager>(true);
 
-        altarMgr.DeselectCurrent();
+        // altarMgr.DeselectCurrent(); // 오류 발생 부분
+
+        // 아래와 같이 대체: 선택 해제 기능이 필요하다면, AltarUIManager의 공개 메서드 중 하나를 사용해야 합니다.
+        // 예시: 슬롯 선택 해제라면 TryReturnPickedToInventory() 또는 CancelPickMode() 사용
+        if (altarMgr != null)
+        {
+            altarMgr.TryReturnPickedToInventory();
+            // 또는 altarMgr.CancelPickMode();
+        }
     }
 
     public void Close()
@@ -76,7 +84,9 @@ public class Interaction_altar : Interaction_Obj
     {
         if (locked)
         {
-            lockedInputs = FindObjectsOfType<PlayerInputHandler>(true);
+            // FindObjectsOfType<PlayerInputHandler>(true) is deprecated.
+            // Use FindObjectsByType with FindObjectsSortMode.None for better performance.
+            lockedInputs = Object.FindObjectsByType<PlayerInputHandler>(FindObjectsSortMode.None);
             lockedPrevEnabled = new bool[lockedInputs.Length];
 
             for (int i = 0; i < lockedInputs.Length; i++)

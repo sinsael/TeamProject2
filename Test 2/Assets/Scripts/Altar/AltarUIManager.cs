@@ -1,7 +1,5 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class AltarUIManager : MonoBehaviour
 {
@@ -12,69 +10,38 @@ public class AltarUIManager : MonoBehaviour
     private AltarSlot selectedSlot;
     private AltarSlot pickedInsertedSlot;
 
-    private GraphicRaycaster raycaster;
-    private EventSystem eventSystem;
+    public event Action<bool> OnAltarCompleteChanged;
 
     private void Awake()
     {
         Instance = this;
-
-        if (slots == null || slots.Length == 0)
-        {
-            slots = GetComponentsInChildren<AltarSlot>(true);
-        }
-
-        Canvas canvas = GetComponentInParent<Canvas>();
-        if (canvas != null) raycaster = canvas.GetComponent<GraphicRaycaster>();
-        eventSystem = EventSystem.current;
     }
 
-    public void DeselectCurrent()
+    private void Start()
     {
-        CancelPickMode();
+        NotifyAltarState();
     }
 
-    public bool HasPickedInsertedSlot()
+    public bool IsAltarComplete()
     {
-        return pickedInsertedSlot != null;
-    }
-
-    public bool TryReturnPickedToInventory()
-    {
-        if (pickedInsertedSlot == null) return false;
-        if (Inventory.Instance == null) return false;
-
-        ItemData data = pickedInsertedSlot.GetRequiredItem();
-        if (data == null) return false;
-
-        bool ok = Inventory.Instance.AddList(data);
-        if (!ok)
+        for (int i = 0; i < slots.Length; i++)
         {
-            return false;
+            if (!slots[i].IsInserted())
+                return false;
         }
-
-        pickedInsertedSlot.RemoveFromAltar();
-        pickedInsertedSlot.SetHighlight(false);
-        pickedInsertedSlot = null;
-
-        if (selectedSlot != null)
-        {
-            selectedSlot.SetHighlight(false);
-            selectedSlot = null;
-        }
-
         return true;
+    }
+
+    private void NotifyAltarState()
+    {
+        bool complete = IsAltarComplete();
+        if (OnAltarCompleteChanged != null)
+            OnAltarCompleteChanged(complete);
     }
 
     public void OnClickSlot(AltarSlot slot)
     {
-        if (slot == null) return;
-
-        ItemData invSelected = null;
-        if (Inventory.Instance != null)
-        {
-            invSelected = Inventory.Instance.GetSelectedItem();
-        }
+        ItemData invSelected = Inventory.Instance.GetSelectedItem();
 
         if (invSelected != null)
         {
@@ -85,6 +52,7 @@ public class AltarUIManager : MonoBehaviour
                 Inventory.Instance.RemoveItem(invSelected);
                 Inventory.Instance.DeselectCurrent();
                 slot.Insert();
+                NotifyAltarState();
             }
             return;
         }
@@ -110,6 +78,31 @@ public class AltarUIManager : MonoBehaviour
         CancelPickMode();
         selectedSlot = slot;
         selectedSlot.SetHighlight(true);
+    }
+
+    public bool TryReturnPickedToInventory()
+    {
+        if (pickedInsertedSlot == null)
+            return false;
+
+        ItemData data = pickedInsertedSlot.GetRequiredItem();
+
+        bool ok = Inventory.Instance.AddList(data);
+        if (!ok)
+            return false;
+
+        pickedInsertedSlot.RemoveFromAltar();
+        pickedInsertedSlot.SetHighlight(false);
+        pickedInsertedSlot = null;
+
+        if (selectedSlot != null)
+        {
+            selectedSlot.SetHighlight(false);
+            selectedSlot = null;
+        }
+
+        NotifyAltarState();
+        return true;
     }
 
     private void CancelPickMode()

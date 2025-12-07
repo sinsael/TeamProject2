@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class Interaction_Curtain : Interaction_Obj
 {
+    public enum CurtainState
+    {
+        Default,
+        Folded
+    }
+
     [SerializeField] private Sprite secondSprite;
 
     [SerializeField] private ItemData requiredItem;
@@ -10,8 +16,13 @@ public class Interaction_Curtain : Interaction_Obj
     private SpriteRenderer srLocal;
     private Collider2D col;
 
-    private bool changed;
     private bool unlocked;
+    private CurtainState state = CurtainState.Default;
+
+    public bool IsFolded
+    {
+        get { return state == CurtainState.Folded; }
+    }
 
     public override void Start()
     {
@@ -26,7 +37,7 @@ public class Interaction_Curtain : Interaction_Obj
 
     private void Update()
     {
-        if (changed) return;
+        if (state == CurtainState.Folded) return;
         if (unlocked) return;
         if (!lockUntilHasItem) return;
 
@@ -39,11 +50,11 @@ public class Interaction_Curtain : Interaction_Obj
 
     public override void OnInteract(PlayerInputHandler interactor)
     {
-        if (changed) return;
+        if (state == CurtainState.Folded) return;
         if (lockUntilHasItem && !unlocked) return;
 
         srLocal.sprite = secondSprite;
-        changed = true;
+        state = CurtainState.Folded;
 
         col.enabled = false;
     }
