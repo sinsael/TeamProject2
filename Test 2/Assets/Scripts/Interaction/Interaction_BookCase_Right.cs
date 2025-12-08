@@ -41,6 +41,8 @@ public class Interaction_BookCase_Right : Interaction_Obj
         targetCam = obj.GetComponent<CinemachineVirtualCamera>();
         confiner = obj.GetComponent<CinemachineConfiner2D>();
 
+        targetLight.enabled = false;
+
         originalTarget = targetCam.Follow;
         originalSize = targetCam.m_Lens.OrthographicSize;
     }
@@ -90,6 +92,7 @@ public class Interaction_BookCase_Right : Interaction_Obj
 
         isActive = false;
         isSequence = false;
+        targetLight.enabled = false;
 
         confiner.InvalidateCache();
 
