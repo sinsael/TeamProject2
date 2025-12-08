@@ -26,7 +26,7 @@ public class Interaction_BookCase_Right : Interaction_Obj
     public float colorDisplayTime = 1.0f; // 색이 켜져 있는 시간 (예: 1초)
     public float intervalTime = 2.5f;     // 꺼진 후 다음 색이 켜질 때까지 대기 시간
 
-    private readonly Color[] originalPalette = { Color.green, Color.white, Color.black, Color.blue };
+    private readonly Color[] originalPalette = { Color.green, Color.white, new Color(0.2f, 0f, 0.4f), Color.blue };
 
     private List<Color> answerKey = new List<Color>(); // 정답 순서 저장
     private int playerCurrentIndex = 0; // 플레이어가 몇 번째 정답을 맞추고 있는지

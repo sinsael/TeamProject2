@@ -15,27 +15,25 @@ public class Interaction_Obj : MonoBehaviour, IInteraction, IInteraction_circle
 
     public virtual void OnHitByRay()
     {
+        Debug.Log("¡¢√À");
         if (sr == null) return;
-        if (highlightMaterial != null)
-        {
-            sr.material = highlightMaterial;
-        }
+        
     }
 
     public virtual void OnLeaveRay()
     {
         if (sr == null) return;
 
-        if (highlightMaterial != null)
-        {
-            sr.material = originalMaterial;
-        }
+      
     }
 
     public virtual void OnSelect()
     {
         if (sr == null) return;
-
+        if (highlightMaterial != null)
+        {
+            sr.material = highlightMaterial;
+        }
         Debug.Log(gameObject.name + " is selected");
     }
 
@@ -43,6 +41,11 @@ public class Interaction_Obj : MonoBehaviour, IInteraction, IInteraction_circle
     {
         if (sr == null)
             return;
+
+        if (highlightMaterial != null)
+        {
+            sr.material = originalMaterial;
+        }
         Debug.Log(gameObject.name + " is deselected");
     }
 

@@ -390,6 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90fa51dd0f8e48d439385cb0d8536fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightMaterial: {fileID: 0}
   art_Sr: {fileID: 989900201}
   art: {fileID: 7936869121684892629, guid: c59a7ad76165e6b4684b0ae46df39b5d, type: 3}
   item: {fileID: 0}
@@ -512,6 +513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4c6570dd58ab794588cbf113fdbc94c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightMaterial: {fileID: 0}
   potal: {fileID: 1404347639}
   key: {fileID: 11400000, guid: a7962a4d4af5e75418317b5b8365553b, type: 2}
   shakeBoth: 1
@@ -1060,6 +1062,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c104a459e5ec1494db337edf38bed8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightMaterial: {fileID: 0}
   candleSprite:
   - {fileID: 1757989065, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
   - {fileID: -6507364139724699964, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
@@ -1212,6 +1215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c104a459e5ec1494db337edf38bed8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightMaterial: {fileID: 0}
   candleSprite:
   - {fileID: 1395710506, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
   - {fileID: -5715524675118982732, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
@@ -1863,6 +1867,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90fa51dd0f8e48d439385cb0d8536fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightMaterial: {fileID: 0}
   art_Sr: {fileID: 1461516294}
   art: {fileID: -2431618491186443891, guid: c59a7ad76165e6b4684b0ae46df39b5d, type: 3}
   item: {fileID: 11400000, guid: 1039bd81e2e676d419529b65263f66c2, type: 2}
@@ -2019,6 +2024,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce1c283e03c1078428c621b06398167a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightMaterial: {fileID: 0}
   FireWood: {fileID: 4793408752422148638, guid: ed83b625904d53b4c92d50e211a23f2e, type: 3}
   vector: {fileID: 958919008}
   itemData: {fileID: 11400000, guid: b198027492477104db956a9d4d98f257, type: 2}
@@ -2184,6 +2190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c104a459e5ec1494db337edf38bed8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightMaterial: {fileID: 0}
   candleSprite:
   - {fileID: 1104392610, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
   - {fileID: 7369740438480282620, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
@@ -2584,6 +2591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c104a459e5ec1494db337edf38bed8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightMaterial: {fileID: 0}
   candleSprite:
   - {fileID: -1822286159, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
   - {fileID: 1493442077006304022, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
@@ -3637,6 +3645,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52a7c5c314daeef43a672e2f17e840df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightMaterial: {fileID: 2100000, guid: f22c1d40597ac734faebdc34a1cdc160, type: 2}
   sprite:
   - {fileID: -2700510954575820601, guid: ea0e563b82c8369408e27ac25d5c7ba3, type: 3}
   - {fileID: -2795687949530967989, guid: ea0e563b82c8369408e27ac25d5c7ba3, type: 3}
@@ -3953,6 +3962,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74f1bf3265645624fb24952d166c8e93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightMaterial: {fileID: 0}
   FollowTarget: {fileID: 1978343513}
   targetZoomSize: 3
   zoomDuration: 1
@@ -3964,11 +3974,7 @@ MonoBehaviour:
   - {fileID: 435167633}
   - {fileID: 1320762153}
   - {fileID: 962808608}
-  fourObjects:
-  - {fileID: 549786325}
-  - {fileID: 371583560}
-  - {fileID: 1401221953}
-  - {fileID: 1049092534}
+  targetLight: {fileID: 0}
   colorDisplayTime: 1
   intervalTime: 2.5
   dropPostion: {fileID: 762966409}
