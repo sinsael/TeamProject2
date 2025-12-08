@@ -3,35 +3,39 @@ using UnityEngine;
 public class Interaction_Obj : MonoBehaviour, IInteraction, IInteraction_circle
 {
     protected SpriteRenderer sr;
-    protected Color currentcol;
-    protected bool material = false;
+    public Material highlightMaterial;
+    Material originalMaterial;
 
     public virtual void Start()
     {
         sr = GetComponentInChildren<SpriteRenderer>();
         if (sr == null) return;
-        currentcol = sr.color;
+        originalMaterial = sr.material;
     }
 
     public virtual void OnHitByRay()
     {
         if (sr == null) return;
-
-        sr.color = Color.red;
+        if (highlightMaterial != null)
+        {
+            sr.material = highlightMaterial;
+        }
     }
 
     public virtual void OnLeaveRay()
     {
         if (sr == null) return;
 
-        sr.color = currentcol;
+        if (highlightMaterial != null)
+        {
+            sr.material = originalMaterial;
+        }
     }
 
     public virtual void OnSelect()
     {
         if (sr == null) return;
 
-        sr.color = Color.green;
         Debug.Log(gameObject.name + " is selected");
     }
 
@@ -39,7 +43,6 @@ public class Interaction_Obj : MonoBehaviour, IInteraction, IInteraction_circle
     {
         if (sr == null)
             return;
-        sr.color = currentcol;
         Debug.Log(gameObject.name + " is deselected");
     }
 

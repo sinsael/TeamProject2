@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class Interaction_BookCase_Right : Interaction_Obj
 {
@@ -21,7 +22,7 @@ public class Interaction_BookCase_Right : Interaction_Obj
     public Interaction_Candle_Stage2[] candles = null;
 
     [Header("오브젝트 상호작용색")]
-    public SpriteRenderer[] fourObjects; // 색이 바뀔 4개의 오브젝트
+    public Light2D targetLight; // 변경: 배열이 아니라 단일 Light2D
     public float colorDisplayTime = 1.0f; // 색이 켜져 있는 시간 (예: 1초)
     public float intervalTime = 2.5f;     // 꺼진 후 다음 색이 켜질 때까지 대기 시간
 
@@ -104,13 +105,10 @@ public class Interaction_BookCase_Right : Interaction_Obj
             }
         }
 
-        if (fourObjects == null) Debug.LogWarning("네개의 오브젝트 연결 안됨");
-        else
+        // 조명 색상 초기화 (기본 흰색으로 복귀)
+        if (targetLight != null)
         {
-            foreach (var renderer in fourObjects)
-            {
-                renderer.color = Color.white;
-            }
+            targetLight.color = Color.white;
         }
     }
 
@@ -150,41 +148,40 @@ public class Interaction_BookCase_Right : Interaction_Obj
 
     IEnumerator UniqueSequenceRoutine()
     {
-        if (fourObjects == null || fourObjects.Length == 0) yield break;
+        if (targetLight == null) yield break;
 
         answerKey.Clear();
         playerCurrentIndex = 0;
 
-        List<int> objIndices = new List<int>();
+        // 1. 색상 인덱스(0,1,2,3)를 리스트에 담고 섞습니다.
         List<int> colorIndices = new List<int>();
-
-
-        for (int i = 0; i < fourObjects.Length; i++)
+        for (int i = 0; i < originalPalette.Length; i++)
         {
-            objIndices.Add(i);
-            if (i < originalPalette.Length) colorIndices.Add(i);
+            colorIndices.Add(i);
         }
-
-        ShuffleList(objIndices);
         ShuffleList(colorIndices);
 
-        int loopCount = Mathf.Min(objIndices.Count, colorIndices.Count);
-        for (int i = 0; i < loopCount; i++)
+        // 2. 섞인 순서대로 정답 키를 생성합니다.
+        foreach (int index in colorIndices)
         {
-            answerKey.Add(originalPalette[colorIndices[i]]);
+            answerKey.Add(originalPalette[index]);
         }
 
         isSequence = true;
 
-        for (int i = 0; i < loopCount; i++)
+        // 3. 하나의 조명(targetLight)에서 색을 순차적으로 보여줍니다.
+        foreach (int index in colorIndices)
         {
-            SpriteRenderer currentObj = fourObjects[objIndices[i]];
-            Color currentColor = originalPalette[colorIndices[i]];
+            // 색상 변경
+            targetLight.enabled = true;
+            targetLight.color = originalPalette[index];
 
-            if (currentObj != null) currentObj.color = currentColor;
+            // 지정된 시간만큼 보여줌
             yield return new WaitForSeconds(colorDisplayTime);
 
-            if (currentObj != null) currentObj.color = Color.white;
+            targetLight.enabled = false;
+
+            // 다음 색이 나오기 전 대기
             yield return new WaitForSeconds(intervalTime);
         }
     }
