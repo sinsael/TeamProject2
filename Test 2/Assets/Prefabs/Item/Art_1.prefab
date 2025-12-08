@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04c0775d2e82bb3478faf983f31bcc5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightMaterial: {fileID: 2100000, guid: 46a51cba4ab2bf343b607f227e3975d4, type: 2}
+  highlightMaterial: {fileID: -876546973899608171, guid: ee67126c169ccd046b63665d413db006, type: 3}
   ItemData: {fileID: 11400000, guid: 1039bd81e2e676d419529b65263f66c2, type: 2}
 --- !u!1 &6426151480331094889
 GameObject:
