@@ -44,7 +44,7 @@ public class Interaction_BookCase : Interaction_Obj
 
         count++;
 
-        if (count >= sprite.Length)
+        if (count > sprite.Length)
         {
             count = 0;
         }

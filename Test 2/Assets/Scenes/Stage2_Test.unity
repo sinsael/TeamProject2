@@ -2021,7 +2021,7 @@ MonoBehaviour:
   - {fileID: 1104392610, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
   - {fileID: 7369740438480282620, guid: 5daf19eb5a6f8d047a34a5d3b92489f0, type: 3}
   IBR: {fileID: 1739514899}
-  myCandleColor: {r: 0.2, g: 0, b: 0.39607844, a: 1}
+  myCandleColor: {r: 0.2, g: 0, b: 0.4, a: 1}
 --- !u!61 &962808609
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5044,7 +5044,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 47a26aa71dab7d241abe708d603195b2, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0

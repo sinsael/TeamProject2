@@ -1,16 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections; // 코루틴 사용을 위해 필요
+using System.Collections;
 
 public class Tutorial_UI : MonoBehaviour
 {
     public Button offButton;
-
-    // 튜토리얼을 봤는지 저장할 키 값 (이름은 자유롭게 변경 가능)
     private const string TutorialKey = "IsTutorialViewed";
 
     void Start()
     {
+        // 1. 이미 봤다면 꺼버림
         if (PlayerPrefs.GetInt(TutorialKey, 0) == 1)
         {
             gameObject.SetActive(false);
@@ -19,14 +18,18 @@ public class Tutorial_UI : MonoBehaviour
 
         offButton.onClick.AddListener(CloseTutorial);
 
+        // 2. 바로 멈추지 말고, 페이드 인이 끝날 때까지 기다렸다가 멈춤
         StartCoroutine(PauseGameRoutine());
     }
 
-    // 시간을 멈추는 코루틴
     IEnumerator PauseGameRoutine()
     {
-        yield return null;
-        Time.timeScale = 0f;
+        // [핵심 수정] 1초 정도 기다립니다 (페이드 인 애니메이션 시간만큼)
+        // WaitForSeconds는 Time.timeScale의 영향을 받으므로
+        // 시간이 멈추기 전에는 정상적으로 작동합니다.
+        yield return new WaitForSeconds(1.0f);
+
+        Time.timeScale = 0f; // 페이드가 끝난 뒤에 시간 정지
     }
 
     public void CloseTutorial()
@@ -34,8 +37,7 @@ public class Tutorial_UI : MonoBehaviour
         PlayerPrefs.SetInt(TutorialKey, 1);
         PlayerPrefs.Save();
 
-        Time.timeScale = 1f;
-
+        Time.timeScale = 1f; // 시간 다시 흐르게
         gameObject.SetActive(false);
     }
 }

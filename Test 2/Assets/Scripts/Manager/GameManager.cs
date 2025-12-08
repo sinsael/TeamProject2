@@ -31,6 +31,14 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
     }
 
+    private void Start()
+    {
+        if (isfirsteLoad)
+        {
+            StartCoroutine(WaitAndFadeIn());
+        }
+    }
+
     public void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;

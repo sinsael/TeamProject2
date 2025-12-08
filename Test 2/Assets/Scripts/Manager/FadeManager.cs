@@ -70,7 +70,7 @@ public class FadeManager : MonoBehaviour
 
         while (elapsedTime < fadeDuration)
         {
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.unscaledDeltaTime;
 
             // 알파값 계산
             float newAlpha = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / fadeDuration);
