@@ -39,7 +39,7 @@ public class DarkenOtherPlayer : MonoBehaviour
         // 이벤트 구독 해제 (메모리 누수 방지)
         RenderPipelineManager.beginCameraRendering -= OnBeginCameraRendering;
         RenderPipelineManager.endCameraRendering -= OnEndCameraRendering;
-    }
+    }   
 
     // 렌더링 시작 전 (OnPreRender 대체)
     void OnBeginCameraRendering(ScriptableRenderContext context, Camera camera)

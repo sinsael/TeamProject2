@@ -28,7 +28,6 @@ public class Interaction_MaskOBJ : Interaction_Obj
     public override void Start()
     {
         sr = GetComponent<SpriteRenderer>();
-        if (sr != null) currentcol = sr.color;
 
         if (interactCollider == null)
             interactCollider = GetComponent<Collider2D>();
@@ -112,7 +111,6 @@ public class Interaction_MaskOBJ : Interaction_Obj
     public override void OnLeaveRay()
     {
         if (sr == null) return;
-        sr.color = currentcol;
     }
 
     public override void OnSelect()
@@ -124,7 +122,6 @@ public class Interaction_MaskOBJ : Interaction_Obj
     public override void OnDeselect()
     {
         if (sr == null) return;
-        sr.color = currentcol;
     }
 
     public override void OnInteract(PlayerInputHandler interactor)
