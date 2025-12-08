@@ -69,6 +69,7 @@ public class First_Player : Player
             if (inputSystem.CrouchInput() && !isCrouching)
             {
                 StartCrouch();
+                CurrentState = PlayerStates.Crouch;
             }
             else if (!inputSystem.CrouchInput() && isCrouching)
             {

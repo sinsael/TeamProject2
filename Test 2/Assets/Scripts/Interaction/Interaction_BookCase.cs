@@ -20,6 +20,12 @@ public class Interaction_BookCase : Interaction_Obj
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    public override void Start()
+    {
+        base.Start();
+        spriteRenderer.sprite = sprite[0];
+    }
+
     public override void OnInteract(PlayerInputHandler PlayerInput)
     {
         base.OnInteract(PlayerInput);

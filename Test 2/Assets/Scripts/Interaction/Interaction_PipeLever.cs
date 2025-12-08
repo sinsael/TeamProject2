@@ -10,12 +10,14 @@ public class Interaction_PipeLever : Interaction_Obj
     public float upTime;
     public bool On = true;
     Sequence MySequence;
+    public Sprite sprite;
 
     public override void OnInteract(PlayerInputHandler PlayerInput)
     {
 
         if (On)
         {
+            sr.sprite = sprite;
             MySequence = DOTween.Sequence();
 
             // 2. Append: 첫 번째 동작 (회전)을 줄에 세웁니다.

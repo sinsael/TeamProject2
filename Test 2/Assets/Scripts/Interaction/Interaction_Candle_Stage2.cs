@@ -5,7 +5,7 @@ public class Interaction_Candle_Stage2 : Interaction_Obj
     SpriteRenderer spriteRenderer;
     [SerializeField] Sprite[] candleSprite = null;
     [SerializeField] Interaction_BookCase_Right IBR;
-
+    Collider2D col;
     public Color myCandleColor = Color.white;
 
     // [추가] 현재 불이 켜져 있는지 확인하는 변수
@@ -16,6 +16,7 @@ public class Interaction_Candle_Stage2 : Interaction_Obj
         base.Start();
 
         spriteRenderer = GetComponent<SpriteRenderer>();
+        col = GetComponent<Collider2D>();
 
         if (IBR == null)
             IBR = FindFirstObjectByType<Interaction_BookCase_Right>();
@@ -41,6 +42,7 @@ public class Interaction_Candle_Stage2 : Interaction_Obj
                 // 정답이면 불을 켬
                 base.OnInteract(PlayerInput); // 효과음 등
                 LightOn();
+                col.enabled = false; // 한 번 켜지면 다시는 못 끄게 콜라이더 비활성화
             }
             else
             {
@@ -71,6 +73,7 @@ public class Interaction_Candle_Stage2 : Interaction_Obj
         if (candleSprite != null && candleSprite.Length > 0)
         {
             spriteRenderer.sprite = candleSprite[0]; // 꺼진 이미지
+            col.enabled = true;
         }
     }
 }
