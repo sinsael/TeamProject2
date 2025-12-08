@@ -3,13 +3,17 @@ using UnityEngine.InputSystem;
 
 public class PushOBJHandler : MonoBehaviour
 {
-    [Header("Push Block")] // 밀기 기능
-    public float distance = 1f;        // 레이 길이
-    public float yOffset = 0.2f;   // 인스펙터에서 조절 가능
-    //public LayerMask PushBlockLayer;          // 블록 레이어 (태그로 변경!!!)
+    [Header("Push Block")]
+    public float distance = 1f;
+    public float yOffset = 0.2f;
 
     [Header("Push Move Slow")]
-    [SerializeField] private float pushingSpeedMultiplier = 0.4f; // 밀 때 속도 비율 올리면 낮아짐
+    [SerializeField] private float pushingSpeedMultiplier = 0.4f;
+
+    [Header("Push Requirement")]
+    [SerializeField] private bool requireItemToPush = false;
+    [SerializeField] private ItemData requiredItemToPush;
+    [SerializeField] private bool consumeItemOnBeginPush = false;
 
     private First_Player first;
 
@@ -35,11 +39,9 @@ public class PushOBJHandler : MonoBehaviour
     {
         if (first.wall.IswallDetected && !first.ground.IsgroundDetected)
         {
-
         }
         if (!first.ground.IsgroundDetected && !first.wall.IswallDetected)
         {
-
         }
         if (!first.wall.IswallDetected && first.ground.IsgroundDetected)
         {
@@ -77,6 +79,12 @@ public class PushOBJHandler : MonoBehaviour
         if (!hit.collider.CompareTag("Push_OBJ"))
             return;
 
+        if (requireItemToPush)
+        {
+            if (!Inventory.Instance.HasItem(requiredItemToPush))
+                return;
+        }
+
         pushingOBJ = hit.collider.gameObject;
 
         pushingJoint = pushingOBJ.GetComponent<FixedJoint2D>();
@@ -85,6 +93,9 @@ public class PushOBJHandler : MonoBehaviour
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
             pushingJoint.connectedBody = rb;
             pushingJoint.enabled = true;
+
+            if (requireItemToPush && consumeItemOnBeginPush)
+                Inventory.Instance.RemoveItem(requiredItemToPush);
         }
 
         PushingOBJ pull = pushingOBJ.GetComponent<PushingOBJ>();
@@ -144,10 +155,7 @@ public class PushOBJHandler : MonoBehaviour
             return;
 
         Vector2 v = first.rb.linearVelocity;
-
-        // 수평 속도만 줄이기
         v.x *= pushingSpeedMultiplier;
-
         first.rb.linearVelocity = v;
     }
 

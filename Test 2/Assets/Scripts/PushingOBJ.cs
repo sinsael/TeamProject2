@@ -1,15 +1,16 @@
 using UnityEngine;
 
-// ===========================
-// 밀고 싶은 오브젝트에 부착
-// ===========================
-
 public class PushingOBJ : MonoBehaviour
 {
     public bool beingPushed;
 
     private float xPos;
     public Vector3 lastPos;
+
+    [Header("Push Requirement")]
+    [SerializeField] private bool requireItemToPush = false;
+    [SerializeField] private ItemData requiredItemToPush;
+    [SerializeField] private bool consumeItemOnBeginPush = false;
 
     [Header("Ground Check")]
     [SerializeField] private float groundCheckDistance = 0.12f;
@@ -78,6 +79,36 @@ public class PushingOBJ : MonoBehaviour
             xPos = transform.position.x;
             lastPos = transform.position;
         }
+    }
+
+    public bool CanBeginPush(PlayerInputHandler interactor)
+    {
+        if (!requireItemToPush)
+            return true;
+
+        return Inventory.Instance.HasItem(requiredItemToPush);
+    }
+
+    public bool TryBeginPush(PlayerInputHandler interactor, Rigidbody2D interactorBody)
+    {
+        if (!CanBeginPush(interactor))
+            return false;
+
+        joint.connectedBody = interactorBody;
+        joint.enabled = true;
+        beingPushed = true;
+
+        if (consumeItemOnBeginPush)
+            Inventory.Instance.RemoveItem(requiredItemToPush);
+
+        return true;
+    }
+
+    public void EndPush()
+    {
+        joint.enabled = false;
+        joint.connectedBody = null;
+        beingPushed = false;
     }
 
     private void UpdateFreezeXByPushing()

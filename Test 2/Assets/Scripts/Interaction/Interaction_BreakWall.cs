@@ -8,6 +8,12 @@ public class Interaction_BreakWall : Interaction_Obj
         ByCandle        // 인벤토리의 
     }
 
+    public enum CurtainGateMode // 커튼 뒤 벽을 위한 모드 ( 벽 위치에 오브젝트가 너무 많음;; (의자 뒤 오브젝트, 커튼 오브젝트, 그리고 이거)
+    {
+        Default,    // 기본 모드 (커튼 영향 무시)
+        CurtainBack // 커튼 뒤 모드 (커튼 오브젝트의 상태에 따라 활성화 여부 결정)
+    }
+
     [Header("첫 발견자 모드 (2P, 촛불)")]
     [SerializeField] private ActivateMode activateMode = ActivateMode.BySecondPlayer; // 기본은 2P 상호작용 모드
 
@@ -25,6 +31,11 @@ public class Interaction_BreakWall : Interaction_Obj
     [SerializeField] private BreakVfxSpawner vfx;
     [SerializeField] private Transform vfxPoint; // 벽 파괴 파티클 위치
 
+    [Header("커튼 상태 모드")]
+    [SerializeField] private CurtainGateMode curtainGateMode = CurtainGateMode.Default;
+    [SerializeField] private Interaction_Curtain curtain;
+    [SerializeField] private Collider2D interactionCollider;
+
     private bool requireBookPile = true; // 요걸 트루로 만들어서 책 더미로 기믹 활성화 필요하게 만들기
     private static bool wallGimmickUnlocked = false;      // 책 더미로 기믹 활성화 여부
 
@@ -33,6 +44,8 @@ public class Interaction_BreakWall : Interaction_Obj
     private int currentCount = 0;           // 타격 받은 횟수    
     private bool isBreakableDiscovered = false; // 활성화 여부
     private bool isBroken = false;          // 이미 파괴됨
+
+    private bool curtainUnlocked;
 
     private BoxCollider2D col;
 
@@ -46,6 +59,8 @@ public class Interaction_BreakWall : Interaction_Obj
         if (hiddenItem != null) // 아이템 비활성화 아니면 꺼두기
             hiddenItem.SetActive(false);
 
+        curtainUnlocked = (curtainGateMode == CurtainGateMode.Default);
+
         // 시작 시에는 발견 전이므로 숨김 처리
         if (!isBreakableDiscovered)
         {
@@ -53,6 +68,24 @@ public class Interaction_BreakWall : Interaction_Obj
             if (wallRenderer != null) wallRenderer.enabled = false;
         }
 
+        // 커튼 모드 일 때, 커튼 상태에 따라 상호작용 콜라이더 활성화 결정
+        if (curtainGateMode == CurtainGateMode.CurtainBack)
+        {
+            curtainUnlocked = curtain.IsFolded;
+            interactionCollider.enabled = curtainUnlocked;
+        }
+
+    }
+    private void Update()
+    {
+        if (curtainGateMode != CurtainGateMode.CurtainBack) return;
+        if (curtainUnlocked) return;
+
+        if (curtain.IsFolded)
+        {
+            curtainUnlocked = true;
+            interactionCollider.enabled = true;
+        }
     }
 
     public override void OnInteract(PlayerInputHandler interactor) // 플레이어 정보 받아오기
