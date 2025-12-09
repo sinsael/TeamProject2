@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Interaction_Potal : Interaction_Obj
 {
@@ -24,8 +25,27 @@ public class Interaction_Potal : Interaction_Obj
             Inventory.Instance.RemoveItem(key);
 
 
-            CameraShake.ShakeAll(shakeIntensity, shakeTime);
-
+            StartCoroutine(PotalActivationSequence());
         }
+    }
+
+    private IEnumerator PotalActivationSequence()
+    {
+        // 1. 카메라 흔들림 시작
+        // 이 메서드(ShakeAll)가 코루틴을 시작하거나 직접 흔들림을 처리한다고 가정합니다.
+        CameraShake.ShakeAll(shakeIntensity, shakeTime);
+        // 2. 흔들림 시간만큼 대기
+        // shakeTime이 0이 아닐 때만 대기합니다.
+        if (shakeTime > 0)
+        {
+            yield return new WaitForSeconds(shakeTime);
+        }
+
+        // 3. (옵션) 흔들림이 완전히 끝난 후 추가 프레임 대기
+        // 카메라가 제자리로 돌아오는 등의 미세한 딜레이를 위해 추가할 수 있습니다.
+        // yield return null; 
+
+        // 4. 게임 클리어 상태로 변경 (흔들림이 끝난 후 실행)
+        GameManager.Instance.ChangeGameState(GameState.GameClear);
     }
 }
