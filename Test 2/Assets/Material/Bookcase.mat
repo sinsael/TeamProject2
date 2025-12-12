@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: OutLine_2
+  m_Name: Bookcase
   m_Shader: {fileID: -6465566751694194690, guid: 12432e3c843ec8b4e9dbe8c721e19e5e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0

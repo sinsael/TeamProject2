@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_OutLine_4
+  m_Name: Stage_2_Obj
   m_Shader: {fileID: -6465566751694194690, guid: d6daeb5a8c6ae0e4286b5686d4aa962c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
