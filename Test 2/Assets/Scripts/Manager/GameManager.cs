@@ -51,22 +51,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (currentGameState == GameState.GamePlay)
-            {
-                ChangeGameState(GameState.GamePause);
-            }
-            else if (currentGameState == GameState.GamePause)
-            {
-                ChangeGameState(GameState.GamePlay);
-            }
-        }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ChangeGameState(GameState.GameClear);
-        }
     }
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
