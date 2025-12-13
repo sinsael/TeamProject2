@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PushOBJHandler : MonoBehaviour
 {
@@ -19,9 +18,18 @@ public class PushOBJHandler : MonoBehaviour
 
     private GameObject pushingOBJ = null;
     private FixedJoint2D pushingJoint = null;
+
     private bool isPushing = false;
 
-    public bool IsPushing;
+    public bool IsPushing
+    {
+        get { return isPushing; }
+    }
+
+    private void Awake()
+    {
+        if (first == null) first = GetComponent<First_Player>();
+    }
 
     public void Init(First_Player p)
     {
@@ -30,6 +38,8 @@ public class PushOBJHandler : MonoBehaviour
 
     public void PushingSystem()
     {
+        if (first == null) return;
+
         PushingOBJ();
         PushingJumpBlock();
         PushingSlowMove();
@@ -40,15 +50,18 @@ public class PushOBJHandler : MonoBehaviour
         if (first.wall.IswallDetected && !first.ground.IsgroundDetected)
         {
         }
+
         if (!first.ground.IsgroundDetected && !first.wall.IswallDetected)
         {
         }
+
         if (!first.wall.IswallDetected && first.ground.IsgroundDetected)
         {
             if (first.rb.linearVelocityY > 0.1f || first.rb.linearVelocityY < -0.1f)
             {
                 return;
             }
+
             if (first.inputSystem.InteractableHoldInput() && !isPushing)
             {
                 StartGrabOBJ();
@@ -60,8 +73,15 @@ public class PushOBJHandler : MonoBehaviour
         }
     }
 
+    private void ApplyPushing(bool value)
+    {
+        isPushing = value;
+    }
+
     private void StartGrabOBJ()
     {
+        if (!UnlockRegistry.BookPileUnlocked) return;
+
         Physics2D.queriesStartInColliders = false;
 
         Vector2 origin = transform.position;
@@ -73,11 +93,8 @@ public class PushOBJHandler : MonoBehaviour
             distance
         );
 
-        if (hit.collider == null)
-            return;
-
-        if (!hit.collider.CompareTag("Push_OBJ"))
-            return;
+        if (hit.collider == null) return;
+        if (!hit.collider.CompareTag("Push_OBJ")) return;
 
         if (requireItemToPush)
         {
@@ -99,17 +116,16 @@ public class PushOBJHandler : MonoBehaviour
         }
 
         PushingOBJ pull = pushingOBJ.GetComponent<PushingOBJ>();
-        if (pull != null)
-            pull.beingPushed = true;
+        if (pull != null) pull.beingPushed = true;
 
-        isPushing = true;
+        ApplyPushing(true);
     }
 
     private void ExitGrabOBJ()
     {
         if (pushingOBJ == null)
         {
-            isPushing = false;
+            ApplyPushing(false);
             pushingJoint = null;
             return;
         }
@@ -124,18 +140,17 @@ public class PushOBJHandler : MonoBehaviour
         }
 
         PushingOBJ pull = pushingOBJ.GetComponent<PushingOBJ>();
-        if (pull != null)
-            pull.beingPushed = false;
+        if (pull != null) pull.beingPushed = false;
 
         pushingOBJ = null;
         pushingJoint = null;
-        isPushing = false;
+
+        ApplyPushing(false);
     }
 
     private void PushingJumpBlock()
     {
-        if (!isPushing)
-            return;
+        if (!isPushing) return;
 
         if (first.inputSystem.JumpInput())
         {
@@ -151,8 +166,7 @@ public class PushOBJHandler : MonoBehaviour
 
     private void PushingSlowMove()
     {
-        if (!isPushing)
-            return;
+        if (!isPushing) return;
 
         Vector2 v = first.rb.linearVelocity;
         v.x *= pushingSpeedMultiplier;
@@ -175,19 +189,5 @@ public class PushOBJHandler : MonoBehaviour
         }
 
         first.inputSystem.moveInput = input;
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (first == null) first = GetComponent<First_Player>();
-        if (first == null) return;
-
-        Gizmos.color = Color.yellow;
-
-        Vector3 origin = first.transform.position;
-        origin.y += yOffset;
-
-        Vector3 dir = Vector2.right * first.transform.localScale.x;
-        Gizmos.DrawLine(origin, origin + dir * distance);
     }
 }

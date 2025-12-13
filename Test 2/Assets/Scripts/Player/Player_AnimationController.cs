@@ -9,7 +9,10 @@ public enum PlayerStates
     WallHang,
     WallSlide,
     WallClimb,
-    Crouch
+    Crouch,
+    WallCrush,
+    PushIdle,
+    PushMove
 }
 
 public class Player_AnimationController : MonoBehaviour

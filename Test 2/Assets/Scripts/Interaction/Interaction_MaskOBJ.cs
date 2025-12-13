@@ -105,7 +105,6 @@ public class Interaction_MaskOBJ : Interaction_Obj
     public override void OnHitByRay()
     {
         if (sr == null) return;
-        sr.color = Color.red;
     }
 
     public override void OnLeaveRay()
@@ -116,7 +115,6 @@ public class Interaction_MaskOBJ : Interaction_Obj
     public override void OnSelect()
     {
         if (sr == null) return;
-        sr.color = Color.green;
     }
 
     public override void OnDeselect()

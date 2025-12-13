@@ -7,6 +7,7 @@ public class Interaction_altar : Interaction_Obj
     [SerializeField] private GameObject altarUI;
     [SerializeField] private Button closeButton;
     [SerializeField] private bool pauseGame = true;
+    [SerializeField] private bool requireBookPile = true;
 
     private bool isOpen;
 
@@ -38,6 +39,11 @@ public class Interaction_altar : Interaction_Obj
 
     public override void OnInteract(PlayerInputHandler playerInput)
     {
+        if (!UnlockRegistry.BookPileUnlocked)
+        {
+            return;
+        }
+
         if (altarUI == null) return;
 
         if (isOpen)

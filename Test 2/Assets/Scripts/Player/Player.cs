@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements.Experimental;
@@ -22,6 +23,13 @@ public class Player : Entity
     public LayerMask WhatisPlayer;
     public Transform playerCheck;
 
+    private PlayerWallCrushAnimEvent wallCrushEvent;
+    private bool interactHeld;
+    private float nextWallCrushTime; //추가
+    private float otherInputLock;
+
+    private PushOBJHandler pushHandler;
+
 
 
     protected override void Awake()
@@ -33,6 +41,9 @@ public class Player : Entity
         sanity = GetComponent<Sanity>();
         climbing = GetComponent<Climbing>();
         playerStat = GetComponent<Entity_Stat>();
+
+        wallCrushEvent = GetComponentInChildren<PlayerWallCrushAnimEvent>(true); // 추가
+        pushHandler = GetComponent<PushOBJHandler>();
 
     }
 
@@ -48,13 +59,20 @@ public class Player : Entity
         if (GameManager.Instance.currentGameState == GameState.GameOver)
         {
             SetVelocity(0, 0);
-            
+
             return;
         }
 
         if (Time.timeScale == 0)
             return;
         base.Update();
+
+        if (Time.time < otherInputLock)
+        {
+            SetVelocity(0f, rb.linearVelocity.y);
+            CurrentState = PlayerStates.WallCrush;
+            return;
+        }
 
         Direction = new Vector2(inputSystem.moveInput.x, 0f);
 
@@ -102,6 +120,7 @@ public class Player : Entity
                 climbing.performHang(ground.IsgroundDetected);
                 CurrentState = PlayerStates.WallHang;
             }
+
             else
             {
                 climbing.performSlide(ground.IsgroundDetected, _FacingRight, inputSystem.moveInput);
@@ -111,6 +130,7 @@ public class Player : Entity
         else
         {
             if (climbing != null) climbing.ExitState();
+
 
             if (!ground.IsgroundDetected)
             {
@@ -122,6 +142,24 @@ public class Player : Entity
             }
             else
             {
+                if (pushHandler != null && pushHandler.IsPushing)
+                {
+                    float x = inputSystem.moveInput.x;
+
+                    if (Mathf.Abs(x) > 0.01f)
+                    {
+                        SetVelocity(x * MoveSpeed, rb.linearVelocity.y);
+                        CurrentState = PlayerStates.PushMove;
+                    }
+                    else
+                    {
+                        SetVelocity(0f, rb.linearVelocity.y);
+                        CurrentState = PlayerStates.PushIdle;
+                    }
+
+                    return;
+                }
+
                 if (inputSystem.JumpInput())
                 {
                     SetVelocity(rb.linearVelocity.x, JumpForce);
@@ -203,5 +241,23 @@ public class Player : Entity
     public virtual void PlayerCrazy()
     {
         GameManager.Instance.ChangeGameState(GameState.GameOver);
+    }
+
+    public bool StartWallCrush(Interaction_BreakWall target)
+    {
+
+        otherInputLock = Time.time + 0.6f;
+        nextWallCrushTime = Time.time + 0.8f;
+
+        SetVelocity(0f, rb.linearVelocity.y);
+        CurrentState = PlayerStates.WallCrush;
+
+        if (wallCrushEvent != null) wallCrushEvent.Begin(target);
+
+        return true;
+    }
+    public void EndWallCrushFromAnim()
+    {
+        otherInputLock = 0f;
     }
 }

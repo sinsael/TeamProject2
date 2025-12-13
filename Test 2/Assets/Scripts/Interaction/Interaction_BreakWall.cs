@@ -37,7 +37,6 @@ public class Interaction_BreakWall : Interaction_Obj
     [SerializeField] private Collider2D interactionCollider;
 
     private bool requireBookPile = true; // 요걸 트루로 만들어서 책 더미로 기믹 활성화 필요하게 만들기
-    private static bool wallGimmickUnlocked = false;      // 책 더미로 기믹 활성화 여부
 
     private SpriteRenderer wallRenderer;     // 벽 렌더러
 
@@ -48,6 +47,7 @@ public class Interaction_BreakWall : Interaction_Obj
     private bool curtainUnlocked;
 
     private BoxCollider2D col;
+
 
     public override void Start()
     {
@@ -98,7 +98,7 @@ public class Interaction_BreakWall : Interaction_Obj
             return;
         }
 
-        if (requireBookPile && !wallGimmickUnlocked)
+        if (requireBookPile && !UnlockRegistry.BookPileUnlocked)
         {
             return;
         }
@@ -113,7 +113,6 @@ public class Interaction_BreakWall : Interaction_Obj
                 {
                     isBreakableDiscovered = true;
                     ShowDiscoveredVisual();
-                    if (sr != null) sr.color = Color.yellow;
                     Debug.Log("2P 상호작용");
                 }
                 else
@@ -148,9 +147,12 @@ public class Interaction_BreakWall : Interaction_Obj
             return;
         }
 
-        if (interactor is First_PlayerInputHandler) // 1P 가 상호작용 할 때만 타격
+        if (interactor is First_PlayerInputHandler)
         {
-            HitWall();
+            Player p = interactor.GetComponent<Player>();
+            if (p == null) return;
+
+            p.StartWallCrush(this);
         }
     }
 
@@ -181,9 +183,6 @@ public class Interaction_BreakWall : Interaction_Obj
         {
             wallRenderer.sprite = discoveredSprite;
         }
-
-        // 발견 연출 색(원하면 제거 가능)
-        if (sr != null) sr.color = Color.yellow;
     }
 
     // 타격 시 벽 스프라이트 진행
@@ -234,10 +233,9 @@ public class Interaction_BreakWall : Interaction_Obj
             }
         }
     }
-
-    // 책 더미로 기믹 활성화
-    public static void UnlockWallGimmickByBookPile()
+    public void HitWallFromAnimation() // 추가
     {
-        wallGimmickUnlocked = true;
+        HitWall();
     }
+
 }

@@ -30,7 +30,7 @@ public class Interaction_BookPile : Interaction_Obj
 
         isUsed = true;
 
-        Interaction_BreakWall.UnlockWallGimmickByBookPile();
+        UnlockRegistry.UnlockBookPile();
         Debug.Log("책 더미를 조사했다. 벽 기믹이 활성화되었다.");
     }
 }
