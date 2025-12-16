@@ -30,6 +30,7 @@ public class Player_AnimationController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+
     private void Update()
     {
         anim.SetFloat("Yvelocity", rb.linearVelocity.y);
@@ -40,6 +41,7 @@ public class Player_AnimationController : MonoBehaviour
         }
     }
 
+    // 플레이어 상태 변경 메서드
     public void ChangeState(PlayerStates newState)
     {
         if (currentState == newState) return;

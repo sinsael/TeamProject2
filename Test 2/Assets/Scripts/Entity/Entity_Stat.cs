@@ -20,8 +20,10 @@ public class Entity_Stat : MonoBehaviour
         jumpForce = new Stat()
     };
 
+
     public void Awake()
     {
+        // 스탯 초기화
         if (defaultStatSetup != null)
         {
             san.maxSanity.SetBaseValue(defaultStatSetup.Sanity);
@@ -32,21 +34,26 @@ public class Entity_Stat : MonoBehaviour
             move.jumpForce.SetBaseValue(defaultStatSetup.jumpForce);
         }
     }
+
+    // Sanity 관련 함수
     public float GetSanity()
     {
         return san.maxSanity.GetValue();
     }
 
+    // Move 관련 함수
     public float GetSpeed()
     {
         return move.speed.GetValue();
     }
 
+    // Jump 관련 함수
     public float GetJumpForce()
     {
         return move.jumpForce.GetValue();
     }
 
+    // StatType에 해당하는 Stat 반환
     public Stat GetStatByType(StatType type)
     {
         switch (type)

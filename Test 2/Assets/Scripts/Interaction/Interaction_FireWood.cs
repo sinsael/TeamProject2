@@ -12,8 +12,9 @@ public class Interaction_FireWood : Interaction_Obj
 
         if (Inventory.Instance.HasItem(itemData))
         {
+            // 장작나무 소환
             Instantiate(FireWood, vector.transform.position, Quaternion.identity);
-            Inventory.Instance.RemoveItem(itemData);
+            Inventory.Instance.RemoveItem(itemData); // 인벤토리에서 장작나무 아이템 제거
         }
     }
 }

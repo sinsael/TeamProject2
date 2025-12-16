@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// 상호작용 처리 클래스
 public class Interaction : MonoBehaviour
 {
     [Header("첫번쨰 원형 레이캐스트 오브젝트 감지")]
@@ -18,12 +19,12 @@ public class Interaction : MonoBehaviour
 
     [Space]
     [Header("상호작용 가능 오브젝트")]
-    public Transform interactionCheck; 
-    public float interactionRadius;    
-    public LayerMask interactableLayer; 
+    public Transform interactionCheck; // 상호작용 체크 위치 
+    public float interactionRadius;    // 상호작용 반경
+    public LayerMask interactableLayer; // 상호작용 가능 레이어
 
-    private IInteraction _currentTarge; 
-    private IInteraction _previousTarget; 
+    private IInteraction _currentTarge; // 현재 타겟 상호작용 오브젝트
+    private IInteraction _previousTarget; // 이전 타겟 상호작용 오브젝트
 
     private PlayerInputHandler PlayerInput; // 인풋 핸들러 준비
 
@@ -53,7 +54,7 @@ public class Interaction : MonoBehaviour
 
             if (collider.TryGetComponent<IInteraction_circle>(out var interactionComponent_circle))
             {
-                currentFrameInteractions.Add(interactionComponent_circle);
+                currentFrameInteractions.Add(interactionComponent_circle); // 수집
             }
         }
 
@@ -62,7 +63,7 @@ public class Interaction : MonoBehaviour
         {
             if (!currentFrameInteractions.Contains(interaction_circle))
             {
-                interaction_circle?.OnLeaveRay();
+                interaction_circle?.OnLeaveRay(); // 벗어남 처리
                 return true;
             }
             return false;

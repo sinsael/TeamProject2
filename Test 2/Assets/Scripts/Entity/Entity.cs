@@ -34,10 +34,10 @@ public class WallDetected
 [Serializable]
 public class GroundDetected
 {
-    public float GroundCheckDistance;
-    public Transform GroundCheck;
-    public bool IsgroundDetected { get; private set; }
-    public LayerMask WhatIsGround;
+    public float GroundCheckDistance; // 땅 감지 거리
+    public Transform GroundCheck; // 땅 감지 위치
+    public bool IsgroundDetected { get; private set; } // 땅 감지 여부
+    public LayerMask WhatIsGround; // 땅 레이어
 
     // + 땅 감지 업데이트 !!
     public void HandleCollisionDetection()
@@ -50,7 +50,7 @@ public class GroundDetected
 // 모든 엔티들의 기초가 되는 스크립트
 public class Entity : MonoBehaviour
 {
-
+    [Header("컴포넌트")]
     public Animator anim { get; private set; }
     public Rigidbody2D rb { get; private set; }
 
@@ -62,10 +62,10 @@ public class Entity : MonoBehaviour
 
    
 
-    public bool _FacingRight { get; private set; } = true;
+    public bool _FacingRight { get; private set; } = true; // 캐릭터가 바라보는 방향
 
 
-    public Vector2 Direction { get; set; }
+    public Vector2 Direction { get; set; } // 입력 방향 벡터
 
     protected virtual void Awake()
     {
@@ -115,10 +115,10 @@ public class Entity : MonoBehaviour
     // 캐릭터 뒤집기
     public void xFlip()
     {
-        _FacingRight = !_FacingRight;
-        Vector3 scale = transform.localScale;
-        scale.x *= -1;
-        transform.localScale = scale;
+        _FacingRight = !_FacingRight; // 방향 반전
+        Vector3 scale = transform.localScale; // 스케일 가져오기
+        scale.x *= -1; // x축 스케일 반전
+        transform.localScale = scale; // 스케일 적용
     }
 
 

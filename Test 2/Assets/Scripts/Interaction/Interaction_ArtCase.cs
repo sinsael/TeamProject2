@@ -5,8 +5,8 @@ public class Interaction_ArtCase : Interaction_Obj
     public SpriteRenderer art_Sr;
     public Sprite art;
 
-    public ItemData item;
-    public bool isCompleted = false;
+    public ItemData item; // 필요한 아이템
+    public bool isCompleted = false; // 완료 여부
 
     public override void Start()
     {

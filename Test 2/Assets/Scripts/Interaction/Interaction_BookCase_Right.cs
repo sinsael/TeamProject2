@@ -6,20 +6,20 @@ using UnityEngine.Rendering.Universal;
 
 public class Interaction_BookCase_Right : Interaction_Obj
 {
-    private CinemachineVirtualCamera targetCam;
-    private CinemachineConfiner2D confiner;
-    public GameObject FollowTarget;
-    public float targetZoomSize = 3f;
-    public float zoomDuration = 3f;
+    private CinemachineVirtualCamera targetCam; // 카메라 컴포넌트
+    private CinemachineConfiner2D confiner; // 카메라 컨피너 컴포넌트
+    public GameObject FollowTarget; // 카메라가 따라갈 타겟 오브젝트
+    public float targetZoomSize = 3f; // 목표 줌 사이즈
+    public float zoomDuration = 3f;// 줌 애니메이션 지속 시간
 
-    Transform originalTarget;
-    float originalSize;
+    Transform originalTarget; // 원래 카메라 타겟
+    float originalSize; // 원래 카메라 사이즈
 
-    public bool isActive;
-    public bool isSequence = false;
-    public bool isPuzzleSolved = false;
+    public bool isActive; // 상호작용 활성화 여부
+    public bool isSequence = false; // 시퀀스 진행 중 여부
+    public bool isPuzzleSolved = false; // 퍼즐 완료 여부
 
-    public Interaction_Candle_Stage2[] candles = null;
+    public Interaction_Candle_Stage2[] candles = null; // 연결된 촛불 오브젝트들
 
     [Header("오브젝트 상호작용색")]
     public Light2D targetLight; // 변경: 배열이 아니라 단일 Light2D
@@ -32,8 +32,8 @@ public class Interaction_BookCase_Right : Interaction_Obj
     private int playerCurrentIndex = 0; // 플레이어가 몇 번째 정답을 맞추고 있는지
 
     [Header("드랍 아이템")]
-    [SerializeField] GameObject dropPostion;
-    [SerializeField] GameObject dropItem;
+    [SerializeField] GameObject dropPostion; // 드랍 위치
+    [SerializeField] GameObject dropItem; // 드랍 아이템
     public override void Start()
     {
         base.Start();
@@ -62,6 +62,7 @@ public class Interaction_BookCase_Right : Interaction_Obj
             return;
         }
 
+        // 책장 상호작용 시작
         if (targetCam != null && isActive == false)
         {
             targetCam.Follow = FollowTarget.transform;
@@ -87,15 +88,17 @@ public class Interaction_BookCase_Right : Interaction_Obj
     void CloseBookCase()
     {
         targetCam.Follow = originalTarget;
-        StopAllCoroutines();
-        StartCoroutine(SmoothZoom(originalSize, 0));
+        StopAllCoroutines(); // 모든 코루틴 중지
+        StartCoroutine(SmoothZoom(originalSize, 0)); // 즉시 원래 크기로 복귀
 
+        // 상태 초기화
         isActive = false;
         isSequence = false;
         targetLight.enabled = false;
 
-        confiner.InvalidateCache();
+        confiner.InvalidateCache(); // 컨피너 캐시 무효화
 
+        // 촛불 초기화
         if (!isPuzzleSolved)
         {
             if (candles == null) Debug.LogWarning("연결안됨");
@@ -115,6 +118,7 @@ public class Interaction_BookCase_Right : Interaction_Obj
         }
     }
 
+    // 플레이어가 입력한 색상이 정답인지 확인
     public bool CheckPuzzleAnswer(Color inputColor)
     {
         if (answerKey.Count == 0 || playerCurrentIndex >= answerKey.Count)
@@ -134,9 +138,9 @@ public class Interaction_BookCase_Right : Interaction_Obj
                 // 아이템 드랍
                 Instantiate(dropItem, dropPostion.transform.position, Quaternion.identity);
 
-                StopCoroutine("UniqueSequenceRoutine");
+                StopCoroutine("UniqueSequenceRoutine"); // 시퀀스 코루틴 중지
 
-                CloseBookCase();
+                CloseBookCase(); // 상호작용 종료 및 초기화
             }
 
             return true;
@@ -149,25 +153,26 @@ public class Interaction_BookCase_Right : Interaction_Obj
         }
     }
 
+    // 고유한 색상 시퀀스 생성 및 표시
     IEnumerator UniqueSequenceRoutine()
     {
         if (targetLight == null) yield break;
 
-        answerKey.Clear();
+        answerKey.Clear(); // 정답 키 초기화
         playerCurrentIndex = 0;
 
         // 1. 색상 인덱스(0,1,2,3)를 리스트에 담고 섞습니다.
         List<int> colorIndices = new List<int>();
         for (int i = 0; i < originalPalette.Length; i++)
         {
-            colorIndices.Add(i);
+            colorIndices.Add(i); // 인덱스 추가
         }
         ShuffleList(colorIndices);
 
         // 2. 섞인 순서대로 정답 키를 생성합니다.
         foreach (int index in colorIndices)
         {
-            answerKey.Add(originalPalette[index]);
+            answerKey.Add(originalPalette[index]); // 정답 키에 색상 추가
         }
 
         isSequence = true;

@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// 멘토라는 양반이 짜준 인벤토리 코드 
+// 남 도와줄 시간은 있고 정작 멘티 팀은 늦게 도와줌
 public class Inventory : MonoBehaviour
 {
     public static Inventory Instance;

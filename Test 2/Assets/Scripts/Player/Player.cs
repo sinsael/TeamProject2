@@ -90,6 +90,11 @@ public class Player : Entity
         }
     }
 
+    // 플레이어 움직임 처리
+    // 멘토가 바꾸라고 해서 구조 교체 버전
+    // HFSM에서 FSM으로 바꿨는데 이게 더 복잡함
+    // 왜 바꾸라고 했는지 모름
+    // 도와준다고 했었는데 안 도와줘서 결국 내가 함
     private void HandleMovementLogic()
     {
 
