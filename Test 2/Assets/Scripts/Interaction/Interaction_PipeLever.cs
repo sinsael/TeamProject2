@@ -4,14 +4,18 @@ public class Interaction_PipeLever : Interaction_Obj
 {
     public GameObject RotatePipe;
     public GameObject UpPlatform;
+    public Animator targetAnimator;
+
     public Vector3 rotate;
     public Vector3 Up;
     public float rotateTime;
     public float upTime;
     public bool On = true;
-    Sequence MySequence;
     public Sprite sprite;
 
+    [SerializeField] string animName;
+    public float animDuration = 2.0f;
+    Sequence MySequence;
     public override void OnInteract(PlayerInputHandler PlayerInput)
     {
 
@@ -22,6 +26,13 @@ public class Interaction_PipeLever : Interaction_Obj
 
             // 2. Append: 첫 번째 동작 (회전)을 줄에 세웁니다.
             MySequence.Append(RotatePipe.transform.DORotate(rotate, rotateTime));
+
+            MySequence.AppendCallback(() =>    
+            {
+                targetAnimator.SetBool(animName, true);
+            });
+
+            MySequence.AppendInterval(animDuration);
 
             // 3. Append: 두 번째 동작 (이동)을 그 뒤에 줄 세웁니다.
             // 앞의 회전이 다 끝나야 실행됩니다.
