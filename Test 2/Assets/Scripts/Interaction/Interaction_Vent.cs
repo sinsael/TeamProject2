@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Interaction_Vent : Interaction_Obj
+public class Interaction_Vent : Interaction_Obj // 다음 스테이지로 넘어가기 위한 환풍구
 {
     [SerializeField] private Collider2D ventCollider;
 
@@ -15,8 +15,8 @@ public class Interaction_Vent : Interaction_Obj
     private void Start()
     {
         altar = AltarUIManager.Instance;
-        if (altar == null)
-            altar = FindObjectOfType<AltarUIManager>(true);
+        //if (altar == null)
+        //    altar = FindObjectOfType<AltarUIManager>(true);
 
         if (altar == null)
         {

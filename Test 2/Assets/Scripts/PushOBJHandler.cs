@@ -9,11 +9,6 @@ public class PushOBJHandler : MonoBehaviour
     [Header("Push Move Slow")]
     [SerializeField] private float pushingSpeedMultiplier = 0.4f;
 
-    [Header("Push Requirement")]
-    [SerializeField] private bool requireItemToPush = false;
-    [SerializeField] private ItemData requiredItemToPush;
-    [SerializeField] private bool consumeItemOnBeginPush = false;
-
     private First_Player first;
 
     private GameObject pushingOBJ = null;
@@ -96,11 +91,6 @@ public class PushOBJHandler : MonoBehaviour
         if (hit.collider == null) return;
         if (!hit.collider.CompareTag("Push_OBJ")) return;
 
-        if (requireItemToPush)
-        {
-            if (!Inventory.Instance.HasItem(requiredItemToPush))
-                return;
-        }
 
         pushingOBJ = hit.collider.gameObject;
 
@@ -110,9 +100,6 @@ public class PushOBJHandler : MonoBehaviour
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
             pushingJoint.connectedBody = rb;
             pushingJoint.enabled = true;
-
-            if (requireItemToPush && consumeItemOnBeginPush)
-                Inventory.Instance.RemoveItem(requiredItemToPush);
         }
 
         PushingOBJ pull = pushingOBJ.GetComponent<PushingOBJ>();

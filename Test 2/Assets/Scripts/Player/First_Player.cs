@@ -81,6 +81,8 @@ public class First_Player : Player
     {
         isCrouching = true;
 
+        rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+
         if (standCollider != null) standCollider.enabled = false;
         if (crouchCollider != null) crouchCollider.enabled = true;
     }
@@ -88,6 +90,8 @@ public class First_Player : Player
     private void StopCrouch()
     {
         isCrouching = false;
+
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
         if (standCollider != null) standCollider.enabled = true;
         if (crouchCollider != null) crouchCollider.enabled = false;

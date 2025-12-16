@@ -1288,11 +1288,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3189420103232842438, guid: 0bef5d3eb024ecb448df5dd6df8fa2e1, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].x
-      value: -21.05948
+      value: -21.324087
       objectReference: {fileID: 0}
     - target: {fileID: 3189420103232842438, guid: 0bef5d3eb024ecb448df5dd6df8fa2e1, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].y
-      value: 11.341177
+      value: 11.065065
       objectReference: {fileID: 0}
     - target: {fileID: 3189420103232842438, guid: 0bef5d3eb024ecb448df5dd6df8fa2e1, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].x
