@@ -2029,15 +2029,15 @@ PrefabInstance:
       objectReference: {fileID: 879995366}
     - target: {fileID: 5545711022225610742, guid: 0cbca3792370ed240b346932535a33d7, type: 3}
       propertyPath: ObjCheckRadius
-      value: 1.31
+      value: 1.53
       objectReference: {fileID: 0}
     - target: {fileID: 5545711022225610742, guid: 0cbca3792370ed240b346932535a33d7, type: 3}
       propertyPath: interactionRadius
-      value: 0.51
+      value: 0.54
       objectReference: {fileID: 0}
     - target: {fileID: 8358643657932270728, guid: 0cbca3792370ed240b346932535a33d7, type: 3}
       propertyPath: Amountinterval
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

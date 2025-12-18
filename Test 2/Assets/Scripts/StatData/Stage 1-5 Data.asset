@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   jumpForce: 5
-  Sanity: 1000
+  Sanity: 100
   RegenSanity: 1
   SanityAmount: 0
